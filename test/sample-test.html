@@ -47,7 +47,9 @@
 
       it('should emit forgot password event', function() {
         var eventWasCaught = false;
-        element.addEventListener('forgot-password',function() {eventWasCaught = true;});
+        element.addEventListener('forgot-password', function() {
+          eventWasCaught = true;
+        });
         element.$.forgotPasswordButton.click();
         expect(eventWasCaught).to.be.true;
       });
