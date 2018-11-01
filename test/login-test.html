@@ -58,7 +58,8 @@
         const headerElement = login.root.querySelector('.brand h1');
         expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
 
-        const i18n = Object.assign({}, login.i18n, {header: { title: 'Nome do aplicativo'}});
+        const i18n = Object.assign({}, login.i18n, {header: {title: 'Nome do aplicativo'}});
+        login.i18n = i18n;
         expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
       });
 
