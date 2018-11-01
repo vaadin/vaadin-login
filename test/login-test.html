@@ -1,0 +1,48 @@
+<!doctype html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>vaadin-login tests</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../vaadin-login.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <vaadin-login></vaadin-login>
+    </template>
+  </test-fixture>
+
+  <script>
+    describe('Login test', () => {
+      var login;
+
+      beforeEach(() => {
+        login = fixture('default');
+      });
+
+      it('should pass', () => {
+        expect(login.localName).to.be.equal('vaadin-login');
+      });
+
+      it('should not expose class name globally', () => {
+        expect(window.VaadinLogin).not.to.be.ok;
+      });
+
+      it('should have a valid version number', () => {
+        expect(login.constructor.version).to.match(/^(\d+\.)?(\d+\.)?(\d+)(-(alpha|beta)\d+)?$/);
+      });
+
+      it('should be able to internationalise via `i18n` property', () => {
+        const headerElement = login.root.querySelector('.brand h1');
+        expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
+
+        const i18n = Object.assign({}, login.i18n, {header: { title: 'Nome do aplicativo'}});
+        expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
+      });
+
+    });
+  </script>
+</body>
