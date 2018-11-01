@@ -146,7 +146,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           <vaadin-password-field label="Password"></vaadin-password-field>
 
           <vaadin-button id="submit" theme="primary contained">Log in</vaadin-button>
-          <vaadin-button id="forgot" theme="tertiary small">Forgot password</vaadin-button>
+          <vaadin-button id="forgot" theme="tertiary small" on-click="_forgotPassword" hidden$="[[hideForgotPasswordButton]]">Forgot password</vaadin-button>
 
           <div part="footer">
             <p>In case you need to provide some additional info for the user (like default login credentials), this is the place for that.</p>
@@ -180,7 +180,18 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 
         static get properties() {
           return {
+            /**
+             * Whether to hide the forgot password button. The button is visible by default.
+             */
+            hideForgotPasswordButton: {
+              type: Boolean,
+              value: false
+            }
           };
+        }
+
+        _forgotPassword() {
+          this.dispatchEvent(new CustomEvent('forgot-password'));
         }
       }
 
