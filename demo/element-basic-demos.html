@@ -6,11 +6,32 @@
       }
     </style>
 
-
     <h3>Sample example</h3>
     <vaadin-demo-snippet id="element-basic-demos-sample-example">
       <template preserve-content>
         <vaadin-login></vaadin-login>
+      </template>
+    </vaadin-demo-snippet>
+
+    <h3>Hide forgot password button</h3>
+    <vaadin-demo-snippet id="hide-forgot-password-button-example">
+      <template preserve-content>
+        <vaadin-login hide-forgot-password-button></vaadin-login>
+      </template>
+    </vaadin-demo-snippet>
+
+    <h3>Listening to the forgot password event</h3>
+    <vaadin-demo-snippet id="listening-to-forgot-password-example">
+      <template preserve-content>
+        <vaadin-login></vaadin-login>
+        <script>          
+          window.addDemoReadyListener('#listening-to-forgot-password-example', function(document) {
+            var login = document.querySelector('vaadin-login');
+            login.addEventListener('forgot-password', function() {
+              alert("Forgot password");
+            });
+          });
+        </script>
       </template>
     </vaadin-demo-snippet>
 
