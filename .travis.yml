@@ -15,8 +15,8 @@ jobs:
   include:
     - if: type = push
       env: TEST_SUITE=unit_tests POLYMER=2
-    - if: type = push
-      env: TEST_SUITE=visual_tests POLYMER=2
+    #- if: type = push
+    #  env: TEST_SUITE=visual_tests POLYMER=2
     - if: type = push
       env: TEST_SUITE=unit_tests POLYMER=3
     - if: type = pull_request
