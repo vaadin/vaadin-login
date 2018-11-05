@@ -75,59 +75,6 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         display: none;
         position: relative;
       }
-
-      /* Landscape small screen */
-      @media only screen
-      and (max-height: 600px)
-      and (min-width: 600px)
-      and (orientation: landscape) {
-        [part="card"] {
-          flex-direction: row;
-          align-items: stretch;
-          width: auto;
-        }
-
-        [part="brand"],
-        [part="form"] {
-          flex: auto;
-          flex-basis: 0;
-          box-sizing: border-box;
-        }
-
-        [part="brand"] {
-          justify-content: flex-start;
-        }
-      }
-
-      /* Landscape really small screen */
-      @media only screen
-      and (max-height: 500px)
-      and (min-width: 600px)
-      and (orientation: landscape),
-      only screen
-      and (max-width: 600px)
-      and (min-width: 600px)
-      and (orientation: landscape) {
-        :host {
-          height: 100%;
-        }
-
-        [part="card"] {
-          margin: 0;
-          width: 100%;
-          max-width: none;
-          height: 100%;
-          flex: auto;
-          border-radius: 0;
-          box-shadow: none;
-        }
-
-        [part="form"] {
-          height: 100%;
-          overflow: auto;
-          -webkit-overflow-scrolling: touch;
-        }
-      }
     </style>
       <section part="card">
         <div part="brand">
