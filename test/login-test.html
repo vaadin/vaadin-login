@@ -54,13 +54,15 @@
         expect(eventWasCaught).to.be.true;
       });
 
-      it('should be able to internationalise via `i18n` property', () => {
+      it('should be able to internationalize via `i18n` property', () => {
         const headerElement = login.root.querySelector('.brand h1');
         expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
+        expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
 
-        const i18n = Object.assign({}, login.i18n, {header: {title: 'Nome do aplicativo'}});
+        const i18n = Object.assign({}, login.i18n, {header: {title: 'Nome do aplicativo'}, form: {forgotPassword: 'Esqueci a senha'}});
         login.i18n = i18n;
         expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
+        expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
       });
 
     });
