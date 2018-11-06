@@ -55,7 +55,7 @@
       });
 
       it('should be able to internationalize via `i18n` property', () => {
-        const headerElement = login.root.querySelector('.brand h1');
+        const headerElement = login.shadowRoot.querySelector('[part="brand"] h1');
         expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
         expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
 
