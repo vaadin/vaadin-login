@@ -16,7 +16,7 @@
 [API documentation ↗](https://vaadin.com/components/vaadin-login/html-api)
 
 
-[&lt;vaadin-login&gt;](https://vaadin.com/components/vaadin-login) is a Web Component providing &lt;element-functionality&gt;, part of the [Vaadin components](https://vaadin.com/components).
+[&lt;vaadin-login&gt;](https://vaadin.com/components/vaadin-login) is a Web Component providing a painless login experience, part of the [Vaadin components](https://vaadin.com/components).
 
 <!--
 ```
@@ -35,7 +35,7 @@
 </vaadin-login>
 ```
 
-[<img src="https://raw.githubusercontent.com/vaadin/vaadin-login/master/screenshot.png" width="200" alt="Screenshot of vaadin-login">](https://vaadin.com/components/vaadin-login)
+[<img src="https://raw.githubusercontent.com/vaadin/vaadin-login/master/screenshot.png" width="700" alt="Screenshot of vaadin-login">](https://vaadin.com/components/vaadin-login)
 
 
 ## Installation
