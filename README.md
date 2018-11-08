@@ -30,9 +30,7 @@
 ```
 -->
 ```html
-<vaadin-login>
-  ...
-</vaadin-login>
+<vaadin-login></vaadin-login>
 ```
 
 [<img src="https://raw.githubusercontent.com/vaadin/vaadin-login/master/screenshot.png" width="700" alt="Screenshot of vaadin-login">](https://vaadin.com/components/vaadin-login)
