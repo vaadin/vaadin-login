@@ -109,6 +109,21 @@
 
         expect(username.hasAttribute('focused')).to.be.true;
       });
+
+      it('should trigger submit if both username and password are filled', () => {
+        const {username, password, loginForm} = login.$;
+        username.value = 'username';
+        password.value = 'password';
+
+        // Remove `allow-redirect` to create an async call from iron-form
+        loginForm.removeAttribute('allow-redirect');
+
+        const submitSpy = sinon.spy(login, 'submit');
+
+        MockInteractions.pressEnter(password);
+
+        expect(submitSpy.called).to.be.true;
+      });
     });
 
     describe('hidden button test', function() {
