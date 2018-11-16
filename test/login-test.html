@@ -24,10 +24,12 @@
 
   <script>
     describe('Login test', () => {
-      var login;
+      var login,
+        content;
 
       beforeEach(() => {
         login = fixture('default');
+        content = login.$.overlay.$.content.shadowRoot;
       });
 
       it('should pass', () => {
@@ -43,7 +45,7 @@
       });
 
       it('should show forgot password button', function() {
-        expect(login.$.forgotPasswordButton.hidden).to.be.false;
+        expect(content.querySelector('#forgotPasswordButton').hidden).to.be.false;
       });
 
       it('should emit forgot password event', function() {
@@ -51,67 +53,77 @@
         login.addEventListener('forgot-password', function() {
           eventWasCaught = true;
         });
-        login.$.forgotPasswordButton.click();
+        content.querySelector('#forgotPasswordButton').click();
         expect(eventWasCaught).to.be.true;
       });
 
       it('should be able to internationalize via `i18n` property', () => {
-        const headerElement = login.shadowRoot.querySelector('[part="brand"] h1');
+        const headerElement = content.querySelector('[part="brand"] h1');
+        const forgotPasswordButton = content.querySelector('#forgotPasswordButton');
+
         expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
-        expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
+        expect(forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
 
         const i18n = Object.assign({}, login.i18n, {header: {title: 'Nome do aplicativo'}, form: {forgotPassword: 'Esqueci a senha'}});
         login.i18n = i18n;
         expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
-        expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
+        expect(forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
       });
 
       it('should mark only username as invalid if user hits ENTER when field is empty', () => {
-        const {username, password} = login.$;
+        const [username, password] = login.$.overlay.querySelectorAll('input[name]');
 
-        expect(username.invalid).to.be.false;
-        expect(password.invalid).to.be.false;
+        expect(username.checkValidity()).to.be.false;
+        expect(password.checkValidity()).to.be.false;
 
         MockInteractions.pressEnter(username);
 
-        expect(username.invalid).to.be.true;
-        expect(password.invalid).to.be.false;
+        expect(username.validity.valueMissing).to.be.true;
+        expect(password.checkValidity()).to.be.false;
       });
 
       it('should change focus to password if username is filled and user hits ENTER (password is empty)', () => {
-        const {username, password} = login.$;
+        const [username, password] = login.$.overlay.querySelectorAll('input[name]');
+        const focusEvent = sinon.spy();
+
+        password.addEventListener('focus', focusEvent);
 
         username.value = 'username';
 
         MockInteractions.pressEnter(username);
 
-        expect(password.hasAttribute('focused')).to.be.true;
+        expect(focusEvent.called).to.be.true;
       });
 
       it('should mark password as invalid if user hits ENTER when field is empty', () => {
-        const {username, password} = login.$;
+        const [username, password] = login.$.overlay.querySelectorAll('input[name]');
 
-        expect(username.invalid).to.be.false;
-        expect(password.invalid).to.be.false;
+        expect(username.checkValidity()).to.be.false;
+        expect(password.checkValidity()).to.be.false;
 
         MockInteractions.pressEnter(password);
 
-        expect(username.invalid).to.be.false;
-        expect(password.invalid).to.be.true;
+        expect(username.checkValidity()).to.be.false;
+        expect(password.validity.valueMissing).to.be.true;
       });
 
       it('should change focus to username if password is filled and user hits ENTER (username is empty)', () => {
-        const {username, password} = login.$;
+        const [username, password] = login.$.overlay.querySelectorAll('input[name]');
+        const focusEvent = sinon.spy();
+
+        username.addEventListener('focus', focusEvent);
 
         MockInteractions.focus(password);
         password.value = 'password';
         MockInteractions.pressEnter(password);
 
-        expect(username.hasAttribute('focused')).to.be.true;
+        expect(focusEvent.called).to.be.true;
       });
 
       it('should trigger submit if both username and password are filled', () => {
-        const {username, password, loginForm} = login.$;
+        const {loginForm} = login.$;
+        const [username, password] = login.$.overlay.querySelectorAll('input[name]');
+
         username.value = 'username';
         password.value = 'password';
 
@@ -120,7 +132,7 @@
 
         // FIXME: Workaround for IE11 issue that breaks if it tries to send a request using an empty string
         // Can be removed once we introduce the `login` event
-        const formElement = login.shadowRoot.querySelector('form');
+        const formElement = content.querySelector('form');
         formElement.setAttribute('action', '/');
 
         const submitSpy = sinon.spy(login, 'submit');
@@ -132,14 +144,16 @@
     });
 
     describe('hidden button test', function() {
-      var login;
+      var login,
+        content;
 
       beforeEach(function() {
         login = fixture('hidden-button');
+        content = login.$.overlay.$.content.shadowRoot;
       });
 
       it('should hide forgot password button', function() {
-        expect(login.$.forgotPasswordButton.hidden).to.be.true;
+        expect(content.querySelector('#forgotPasswordButton').hidden).to.be.true;
       });
     });
   </script>
