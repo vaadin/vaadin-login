@@ -203,10 +203,12 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         }
 
         submit() {
-          if (!this.disabled) {
-            this.$.loginForm.submit();
-            this.disabled = true;
+          if (this.disabled || !(this.$.username.validate() && this.$.password.validate())) {
+            return;
           }
+
+          this.$.loginForm.submit();
+          this.disabled = true;
         }
 
         _forgotPassword() {
