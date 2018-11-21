@@ -10,20 +10,20 @@
     <vaadin-demo-snippet id="element-basic-demos-sample-example">
       <template preserve-content>
         <vaadin-login></vaadin-login>
-        <vaadin-dialog id="login">
+        <vaadin-dialog id="feedbackDialog">
           <template>Login is being processed...</template>
         </vaadin-dialog>
         <script>
           window.addDemoReadyListener('#element-basic-demos-sample-example', function(document) {
             var login = document.querySelector('vaadin-login');
-            var loginDialog = document.querySelector('#login');
+            var feedbackDialog = document.querySelector('#feedbackDialog');
 
             login.addEventListener('login', function() {
-              loginDialog.opened = true;
+              feedbackDialog.opened = true;
 
               setTimeout(function() {
                 login.disabled = false;
-                loginDialog.opened = false;
+                feedbackDialog.opened = false;
               }, 2000);
             });
           });
