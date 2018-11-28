@@ -26,7 +26,13 @@
     <template>
       <vaadin-login error></vaadin-login>
     </template>
-  </test-fixture>  
+  </test-fixture>
+
+  <test-fixture id="set-title">
+    <template>
+      <vaadin-login title="New title" description="New description"></vaadin-login>
+    </template>
+  </test-fixture>
 
   <script>
     describe('Login test', () => {
@@ -74,12 +80,13 @@
 
       it('should be able to internationalize via `i18n` property', () => {
         const headerElement = login.shadowRoot.querySelector('[part="brand"] h1');
-        expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
+        expect(headerElement.textContent).to.be.equal(login.title);
         expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
 
         const i18n = Object.assign({}, login.i18n, {header: {title: 'Nome do aplicativo'}, form: {forgotPassword: 'Esqueci a senha'}});
         login.i18n = i18n;
         expect(headerElement.textContent).to.be.equal(login.i18n.header.title);
+        expect(login.title).to.be.equal(login.i18n.header.title);
         expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
       });
 
@@ -257,6 +264,43 @@
         expect(errorPart.hidden).to.be.true;
         expect(errorPart.offsetWidth).to.equal(0);
         expect(errorPart.offsetHeight).to.equal(0);
+      });
+    });
+
+    describe('Title and description test', function() {
+      var login, headerElement, descriptionElement;
+
+      beforeEach(function() {
+        login = fixture('set-title');
+        headerElement = login.shadowRoot.querySelector('[part="brand"] h1');
+        descriptionElement = login.shadowRoot.querySelector('[part="brand"] p');
+      });
+
+      it('should display title and description set via attributes or properties', function() {
+        expect(login.title).to.be.equal('New title');
+        expect(login.description).to.be.equal('New description');
+
+        expect(headerElement.textContent).to.be.equal(login.title);
+        expect(descriptionElement.textContent).to.be.equal(login.description);
+      });
+
+      it('should update title and description when property updated', function() {
+        login.title = 'The newest title';
+        login.description = 'The newest description';
+
+        expect(headerElement.textContent).to.be.equal(login.title);
+        expect(descriptionElement.textContent).to.be.equal(login.description);
+      });
+
+      it('should update title and description when i18n.header updated', function() {
+        const i18n = Object.assign({}, login.i18n, {header: {title: 'The newest title', description: 'The newest description'}});
+        login.i18n = i18n;
+
+        expect(headerElement.textContent).to.be.equal('The newest title');
+        expect(descriptionElement.textContent).to.be.equal('The newest description');
+
+        expect(login.title).to.be.equal(login.i18n.header.title);
+        expect(login.description).to.be.equal(login.i18n.header.description);
       });
     });
   </script>
