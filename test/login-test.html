@@ -65,6 +65,36 @@
         expect(login.constructor.version).to.match(/^(\d+\.)?(\d+\.)?(\d+)(-(alpha|beta)\d+)?$/);
       });
 
+      it('should display default strings', () => {
+        const titleElement = login.shadowRoot.querySelector('[part="brand"] h1');
+        const descriptionElement = login.shadowRoot.querySelector('[part="brand"] p');
+
+        const formTitleElement = login.shadowRoot.querySelector('[part="form"] h2');
+        const errorTitleElement = login.shadowRoot.querySelector('[part="error-message"] h5');
+        const errorMessageElement = login.shadowRoot.querySelector('[part="error-message"] p');
+
+        const usernameElement = login.shadowRoot.querySelector('#username');
+        const passwordElement = login.shadowRoot.querySelector('#password');
+        const submitElement = login.shadowRoot.querySelector('#submit');
+        const forgotElement = login.shadowRoot.querySelector('#forgotPasswordButton');
+
+        const footerElement = login.shadowRoot.querySelector('[part="footer"] p');
+        
+        expect(titleElement.textContent).to.be.equal(login.title);
+        expect(descriptionElement.textContent).to.be.equal(login.description);
+
+        expect(formTitleElement.textContent).to.be.equal(login.i18n.form.title);
+        expect(errorTitleElement.textContent).to.be.equal(login.i18n.errorMessage.title);
+        expect(errorMessageElement.textContent).to.be.equal(login.i18n.errorMessage.message);
+
+        expect(usernameElement.label).to.be.equal(login.i18n.form.username);
+        expect(passwordElement.label).to.be.equal(login.i18n.form.password);
+        expect(submitElement.textContent).to.be.equal(login.i18n.form.submit);
+        expect(forgotElement.textContent).to.be.equal(login.i18n.form.forgotPassword);
+
+        expect(footerElement.textContent).to.be.equal(login.i18n.additionalInformation);
+      });
+
       it('should show forgot password button', function() {
         expect(login.$.forgotPasswordButton.hidden).to.be.false;
       });
