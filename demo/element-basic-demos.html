@@ -62,17 +62,30 @@
       <template preserve-content>
         <vaadin-login-overlay></vaadin-login-overlay>
         <button>Log in</button>
-      </template>
-      <script>
-        window.addDemoReadyListener('#login-overlay', function(document) {
-          const button = document.querySelector('button');
-          const vaadinLoginOvelay = document.querySelector('vaadin-login-overlay');
+        <vaadin-dialog id="feedbackDialog">
+            <template>Login is being processed...</template>
+        </vaadin-dialog>
+        <script>
+          window.addDemoReadyListener('#login-overlay', function(document) {
+            const button = document.querySelector('button');
+            const vaadinLoginOvelay = document.querySelector('vaadin-login-overlay');
+            const feedbackDialog = document.querySelector('#feedbackDialog');
 
-          button.addEventListener('click', function() {
-            vaadinLoginOvelay.opened = true;
+            button.addEventListener('click', function() {
+              vaadinLoginOvelay.opened = true;
+            });
+
+            vaadinLoginOvelay.addEventListener('login', (e) => {
+              feedbackDialog.opened = true;
+
+              setTimeout(function() {
+                feedbackDialog.opened = false;
+                vaadinLoginOvelay.opened = false;
+              }, 5000);
+            });
           });
-        });
-      </script>
+        </script>
+      </template>
     </vaadin-demo-snippet>
 
   </template>
