@@ -83,9 +83,8 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             margin: 0;
           }
 
-          vaadin-text-field,
-          vaadin-password-field,
-          ::slotted(.login-input),
+          ::slotted(vaadin-password-field),
+          ::slotted(vaadin-text-field),
           #submit {
             width: 100%;
           }
@@ -112,7 +111,14 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
                 <!--Ideally we can add named slots so we can add the each input inside each `vaadin-text-field` with slots-->
                 <!-- <slot name="username"></slot> -->
                 <!-- <slot name="password"></slot> -->
+
                 <slot>
+                    <vaadin-text-field id="username" required label="Username" on-keydown="_handleInputKeydown">
+                        <input type="text" name="username" slot="input">
+                     </vaadin-text-field>
+                     <vaadin-password-field id="password" required label="Password" on-keydown="_handleInputKeydown">
+                        <input type="password" name="password" slot="input">
+                     </vaadin-password-field>
                 </slot>
                 <vaadin-button id="submit" theme="primary contained" on-click="submit">[[i18n.form.submit]]</vaadin-button>
               </form>
@@ -230,26 +236,26 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           this.$.overlay.addEventListener('vaadin-overlay-outside-click', this.preventClosingLogin);
           this.$.overlay.addEventListener('vaadin-overlay-escape-press', this.preventClosingLogin);
 
-          const username = document.createElement('input');
-          username.setAttribute('type', 'text');
-          username.setAttribute('name', 'username');
-          username.setAttribute('required', 'required');
-          username.setAttribute('autofocus', 'autofocus');
-          username.classList.add('login-input');
-          // username.setAttribute('slot','username');
-          username.addEventListener('keydown', this._handleInputKeydown.bind(this));
-          this.$.overlay.appendChild(username);
-          this.$.username = username;
+          const template = document.createElement('template');
+          template.innerHTML = `
+            <vaadin-text-field id="username" required label="Username">
+               <input type="text" name="username" slot="input">
+            </vaadin-text-field>
+            <vaadin-password-field id="password" required label="Password">
+               <input type="password" name="password" slot="input">
+            </vaadin-password-field>
+          `;
 
-          const password = document.createElement('input');
-          password.setAttribute('type', 'password');
-          password.setAttribute('name', 'password');
-          password.setAttribute('required', 'required');
-          password.classList.add('login-input');
-          // password.setAttribute('slot','password');
-          password.addEventListener('keydown', this._handleInputKeydown.bind(this));
-          this.$.overlay.appendChild(password);
-          this.$.password = password;
+          Array.from(template.content.children).map(el => {
+            this.$.overlay.appendChild(el);
+            el.addEventListener('keydown', this._handleInputKeydown.bind(this));
+            this.$[el.id] = el;
+          });
+
+          // Overlay sets pointerEvents on body to `none`, which breaks LastPass popup
+          // Reverting it back to the previous state
+          // https://github.com/vaadin/vaadin-overlay/blob/041cde4481b6262eac68d3a699f700216d897373/src/vaadin-overlay.html#L660
+          document.body.style.pointerEvents = this.$.overlay._previousDocumentPointerEvents;
 
           this.$.loginForm = this.$.overlay.$.content.shadowRoot.querySelector('iron-form');
         }
@@ -270,9 +276,9 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 
         _handleInputKeydown(e) {
           if (this._isEnterKey(e)) {
-            const {target: inputActive} = e;
-            const nextInput = inputActive.name === 'username' ? this.$.password : this.$.username;
-            if (inputActive.checkValidity()) {
+            const {currentTarget: inputActive} = e;
+            const nextInput = this.$.overlay.querySelector(inputActive.id === 'username' ? '#password' : '#username');
+            if (inputActive.validate()) {
               if (nextInput.checkValidity()) {
                 this.submit();
               } else {
