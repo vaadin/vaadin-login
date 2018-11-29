@@ -1,0 +1,89 @@
+<!--
+@license
+Copyright (c) 2018 Vaadin Ltd.
+This program is available under Commercial Vaadin Add-On License 3.0 (CVALv3).
+See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete license.
+-->
+
+<link rel="import" href="../../polymer/polymer-element.html">
+<link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
+<link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
+
+<link rel="import" href="vaadin-login.html">
+<link rel="import" href="vaadin-login-mixin.html">
+
+<dom-module id="vaadin-login-overlay-styles" theme-for="vaadin-login-overlay-element">
+  <template>
+    <style>
+      [part="overlay"] {
+        outline: none;
+      }
+    </style>
+  </template>
+</dom-module>
+
+<dom-module id="vaadin-login-overlay">
+  <template>
+    <vaadin-login-overlay-element opened="{{opened}}" focus-trap with-backdrop>
+      <template>
+        <vaadin-login action="{{action}}" disabled="{{disabled}}" error="{{error}}" hideForgotPasswordButton="{{hideForgotPasswordButton}}"
+          i18n="{{i18n}}"></vaadin-login>
+      </template>
+    </vaadin-login-overlay-element>
+  </template>
+  <script>
+    (function() {
+
+      /**
+       * The ovelay element
+       *
+       * @memberof Vaadin
+       * @private
+      */
+      class LoginOverlayElement extends Vaadin.OverlayElement {
+        static get is() {
+          return 'vaadin-login-overlay-element';
+        }
+      }
+
+      customElements.define(LoginOverlayElement.is, LoginOverlayElement);
+
+
+      /**
+       * `<vaadin-login-overlay>` is a Web Component.
+        *
+        * ```
+        * <vaadin-login-overlay></vaadin-login-overlay>
+        * ```
+        *
+        * @memberof Vaadin
+        * @mixes Vaadin.ElementMixin
+        * @mixes Vaadin.ThemableMixin
+        * @mixes Vaadin.TextFieldMixin
+        * @demo demo/index.html
+        */
+      class VaadinLoginOverlay extends Vaadin.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
+        static get is() {
+          return 'vaadin-login-overlay';
+        }
+
+        static get properties() {
+          return {
+            opened: {
+              type: Boolean,
+              value: false,
+              reflectToAttribute: true
+            }
+          };
+        }
+      }
+
+      customElements.define(VaadinLoginOverlay.is, VaadinLoginOverlay);
+
+      /**
+       * @namespace Vaadin
+       */
+      window.Vaadin.VaadinLoginOverlay = VaadinLoginOverlay;
+    })();
+  </script>
+</dom-module>

@@ -57,6 +57,24 @@
       </template>
     </vaadin-demo-snippet>
 
+    <h3>Login opened as a dialog</h3>
+    <vaadin-demo-snippet id="login-overlay">
+      <template preserve-content>
+        <vaadin-login-overlay></vaadin-login-overlay>
+        <button>Log in</button>
+      </template>
+      <script>
+        window.addDemoReadyListener('#login-overlay', function(document) {
+          const button = document.querySelector('button');
+          const vaadinLoginOvelay = document.querySelector('vaadin-login-overlay');
+
+          button.addEventListener('click', function() {
+            vaadinLoginOvelay.opened = true;
+          });
+        });
+      </script>
+    </vaadin-demo-snippet>
+
   </template>
   <script>
     class ElementBasicDemos extends DemoReadyEventEmitter(ElementDemo(Polymer.Element)) {
