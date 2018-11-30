@@ -79,7 +79,8 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             opened: {
               type: Boolean,
               value: false,
-              observer: '_onOpenedChange'
+              observer: '_onOpenedChange',
+              notify: true
             }
           };
         }
@@ -88,8 +89,21 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           super.ready();
 
           this._preventClosingLogin = this._preventClosingLogin.bind(this);
+        }
+
+        connectedCallback() {
+          super.connectedCallback();
+
           this.$.overlay.addEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
           this.$.overlay.addEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
+        }
+
+        disconnectedCallback() {
+          super.disconnectedCallback();
+
+          this.$.overlay.removeEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
+          this.$.overlay.removeEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
+          this.$.overlay.remove();
         }
 
         _preventClosingLogin(e) {

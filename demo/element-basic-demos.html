@@ -60,16 +60,24 @@
     <h3>Login opened as a dialog</h3>
     <vaadin-demo-snippet id="login-overlay">
       <template preserve-content>
-        <vaadin-login-overlay></vaadin-login-overlay>
-        <button>Log in</button>
+      <vaadin-login-overlay></vaadin-login-overlay>
+        <vaadin-button>Log in</vaadin-button>
         <vaadin-dialog id="feedbackDialog">
             <template>Login is being processed...</template>
         </vaadin-dialog>
         <script>
           window.addDemoReadyListener('#login-overlay', function(document) {
-            const button = document.querySelector('button');
+            const button = document.querySelector('vaadin-button');
             const vaadinLoginOvelay = document.querySelector('vaadin-login-overlay');
             const feedbackDialog = document.querySelector('#feedbackDialog');
+
+            const i18n = Object.assign(
+              {},
+              vaadinLoginOvelay.i18n,
+              {additionalInformation: 'For this demo, use username/password to a successful login.'}
+            );
+
+            vaadinLoginOvelay.i18n = i18n;
 
             button.addEventListener('click', function() {
               vaadinLoginOvelay.opened = true;
@@ -77,11 +85,17 @@
 
             vaadinLoginOvelay.addEventListener('login', (e) => {
               feedbackDialog.opened = true;
+              const {username, password} = e.detail;
 
               setTimeout(function() {
                 feedbackDialog.opened = false;
-                vaadinLoginOvelay.opened = false;
-              }, 5000);
+                if (username === 'username' && password === 'password') {
+                  vaadinLoginOvelay.opened = false;
+                } else {
+                  vaadinLoginOvelay.error = true;
+                  vaadinLoginOvelay.disabled = false;
+                }
+              }, 1000);
             });
           });
         </script>
