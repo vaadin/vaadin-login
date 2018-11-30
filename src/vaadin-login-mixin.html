@@ -25,7 +25,8 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         */
         action: {
           type: String,
-          value: null
+          value: null,
+          notify: true
         },
         /**
          * If set, disable the "Log in" button and prevent user from submitting login form
@@ -33,7 +34,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         disabled: {
           type: Boolean,
           value: false,
-          reflectToAttribute: true
+          notify: true
         },
         /**
          * If set, the error message is shown. The message is hidden by default.
@@ -41,14 +42,16 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         error: {
           type: Boolean,
           value: false,
-          reflectToAttribute: true
+          reflectToAttribute: true,
+          notify: true
         },
         /**
          * Whether to hide the forgot password button. The button is visible by default.
          */
         hideForgotPasswordButton: {
           type: Boolean,
-          value: false
+          value: false,
+          notify: true
         },
 
         /**
@@ -100,7 +103,8 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
               },
               additionalInformation: 'In case you need to provide some additional info for the user.'
             };
-          }
+          },
+          notify: true
         }
       };
     }

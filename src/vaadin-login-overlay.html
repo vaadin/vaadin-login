@@ -25,18 +25,17 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 
 <dom-module id="vaadin-login-overlay">
   <template>
-    <vaadin-login-overlay-element opened="{{opened}}" focus-trap with-backdrop>
-
-        <vaadin-login
-          action="{{action}}"
-          disabled="{{disabled}}"
-          error="{{error}}"
-          hideForgotPasswordButton$="{{hideForgotPasswordButton}}"
-          i18n="{{i18n}}"
-          on-login="_handleLogin"
-          on-forgot-password="_handleForgotPassword">
-        </vaadin-login>
-
+    <vaadin-login-overlay-element id="overlay" opened="{{opened}}" focus-trap with-backdrop>
+      <vaadin-login
+        id="login"
+        action="{{action}}"
+        disabled="{{disabled}}"
+        error="{{error}}"
+        hideForgotPasswordButton="{{hideForgotPasswordButton}}"
+        i18n="{{i18n}}"
+        on-login="_handleEvent"
+        on-forgot-password="_handleEvent">
+      </vaadin-login>
     </vaadin-login-overlay-element>
   </template>
   <script>
@@ -80,17 +79,41 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
             opened: {
               type: Boolean,
               value: false,
-              reflectToAttribute: true
+              observer: '_onOpenedChange'
             }
           };
         }
 
-        _handleLogin(e) {
+        ready() {
+          super.ready();
 
+          this._preventClosingLogin = this._preventClosingLogin.bind(this);
+          this.$.overlay.addEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
+          this.$.overlay.addEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
         }
 
-        _handleForgotPassword(e) {
+        _preventClosingLogin(e) {
+          e.preventDefault();
+        }
 
+        _handleEvent(e) {
+          e.stopPropagation();
+          const {
+            detail,
+            composed,
+            cancelable,
+            bubbles
+          } = e;
+
+          this.dispatchEvent(new CustomEvent(e.type, {bubbles, cancelable, composed, detail}));
+        }
+
+        _onOpenedChange() {
+          if(!this.opened) {
+            this.$.login.$.username.value = '';
+            this.$.login.$.password.value = '';
+            this.disabled = false;
+          }
         }
       }
 
