@@ -54,9 +54,11 @@
 
       it('should be able to declared opened', () => {
         const loginOverlayOpened = fixture('opened');
+        expect(loginOverlayOpened.opened).to.be.true;
 
         const login = document.querySelectorAll('vaadin-login');
         expect(login.length).to.be.equal(1);
+
       });
 
       it('should be able to be closed', () => {
@@ -97,7 +99,7 @@
 
         const {type} = loginEventSpy.args[0][0];
         expect(type).to.be.equal('login');
-      })
+      });
     });
   </script>
 </body>
