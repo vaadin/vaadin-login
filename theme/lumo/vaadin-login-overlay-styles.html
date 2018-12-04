@@ -1,14 +1,32 @@
 <link rel="import" href="../../../vaadin-lumo-styles/color.html">
 <link rel="import" href="../../../vaadin-lumo-styles/spacing.html">
 <link rel="import" href="../../../vaadin-lumo-styles/typography.html">
+<link rel="import" href="../../../vaadin-overlay/vaadin-overlay.html">
 <link rel="import" href="vaadin-login-styles.html">
 
 
 <dom-module id="vaadin-login-overlay-element-lumo-styles" theme-for="vaadin-login-overlay-element">
   <template>
     <style>
+      :host {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+
       [part="backdrop"] {
         background: var(--lumo-base-color) linear-gradient(var(--lumo-shade-5pct), var(--lumo-shade-5pct));
+      }
+
+      [part="content"] {
+        padding: 0;
+      }
+
+      [part="overlay"] {
+        background: none;
+        border-radius: 0;
+        box-shadow: none;
       }
 
       @media only screen
