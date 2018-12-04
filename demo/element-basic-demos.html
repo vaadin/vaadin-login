@@ -74,7 +74,7 @@
             const i18n = Object.assign(
               {},
               vaadinLoginOvelay.i18n,
-              {additionalInformation: 'For this demo, use username/password to a successful login.'}
+              {additionalInformation: 'For this demo, use admin/admin to a successful login.'}
             );
 
             vaadinLoginOvelay.i18n = i18n;
@@ -89,7 +89,7 @@
 
               setTimeout(function() {
                 feedbackDialog.opened = false;
-                if (username === 'username' && password === 'password') {
+                if (username === 'admin' && password === 'admin') {
                   vaadinLoginOvelay.opened = false;
                 } else {
                   vaadinLoginOvelay.error = true;
