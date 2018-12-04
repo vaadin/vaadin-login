@@ -100,6 +100,21 @@
         const {type} = loginEventSpy.args[0][0];
         expect(type).to.be.equal('login');
       });
+
+      it('should be able to listen to `login` event', () => {
+        const loginOverlayOpened = fixture('opened');
+        const loginEventSpy = sinon.spy();
+
+        loginOverlayOpened.addEventListener('login', loginEventSpy);
+
+        const {username} = fillUsernameAndPassword(loginOverlayOpened.$.login);
+
+        MockInteractions.pressEnter(username);
+        expect(loginEventSpy.called).to.be.true;
+
+        const {type} = loginEventSpy.args[0][0];
+        expect(type).to.be.equal('login');
+      });
     });
   </script>
 </body>
