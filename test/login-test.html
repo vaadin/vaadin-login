@@ -26,7 +26,7 @@
     <template>
       <vaadin-login error></vaadin-login>
     </template>
-  </test-fixture>  
+  </test-fixture>
 
   <script>
     describe('Login test', () => {
@@ -207,6 +207,24 @@
         MockInteractions.pressEnter(password);
 
         expect(submitSpy.called).to.be.true;
+      });
+
+      it('should not submit form if action is defined and event was default prevented', () => {
+        const {password} = fillUsernameAndPassword();
+        const {loginForm} = login.$;
+
+        // Remove `allow-redirect` to create an async call from iron-form
+        loginForm.removeAttribute('allow-redirect');
+
+        login.action = '/login';
+
+        login.addEventListener('login', e => e.preventDefault());
+
+        const submitSpy = sinon.spy(loginForm, 'submit');
+
+        MockInteractions.pressEnter(password);
+
+        expect(submitSpy.called).to.be.false;
       });
 
       it('error should be hidden by default', () => {
