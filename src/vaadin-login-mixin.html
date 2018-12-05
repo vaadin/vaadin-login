@@ -16,6 +16,21 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
    * @memberof Vaadin
   */
   Vaadin.LoginMixin = subclass => class VaadinLoginMixin extends subclass {
+
+    /**
+     * Fired when user clicks on the "Forgot password" button
+     *
+     * @event forgot-password
+    */
+
+    /**
+     * Fired when an user submits the login.
+     * This event is fired **only** if `action` is `null`
+     *
+     * @event login
+     *
+    */
+
     static get properties() {
       return {
         /**
