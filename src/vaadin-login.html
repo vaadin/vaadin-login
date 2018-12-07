@@ -129,12 +129,12 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 
         static get observers() {
           return [
-            '__i18nChanged(i18n.*)'
+            '__i18nChanged(i18n.header.*)'
           ];
         }
 
         __i18nChanged(i18n) {
-          const header = i18n.base.header;
+          const header = i18n.base;
           if (!header) {
             return;
           }
