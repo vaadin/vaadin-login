@@ -28,6 +28,7 @@
         border-radius: 0;
         box-shadow: none;
         width: 100%;
+        height: 100%;
       }
 
       @media only screen
@@ -100,9 +101,9 @@
         }
 
         [part="brand"],
-        [part="content"] ::slotted(vaadin-login) {
+        [part="form"] {
           flex: auto;
-          flex-basis: 0.001px;
+          flex-basis: 0;
           box-sizing: border-box;
         }
 
@@ -110,8 +111,9 @@
           justify-content: flex-start;
         }
 
-        [part="content"] ::slotted(vaadin-login) {
+        [part="form"] {
           padding: var(--lumo-space-l);
+          overflow: auto;
         }
       }
 
@@ -138,7 +140,7 @@
           box-shadow: none;
         }
 
-        [part="content"] ::slotted(vaadin-login) {
+        [part="form"] {
           height: 100%;
           overflow: auto;
           -webkit-overflow-scrolling: touch;
