@@ -66,6 +66,17 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
           return 'vaadin-login-overlay-element';
         }
 
+        static get properties() {
+          return {
+            title: {
+              type: String
+            },
+            description: {
+              type: String
+            }
+          };
+        }
+
         static get template() {
           if (!memoizedTemplate) {
             // Clone the superclass template
@@ -94,7 +105,7 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
 <dom-module id="vaadin-login-overlay">
   <template>
     <vaadin-login-overlay-element id="overlay" opened="{{opened}}" focus-trap with-backdrop title="[[title]]" description="[[description]]">
-      <vaadin-login
+    <vaadin-login
         theme="with-overlay"
         id="login"
         action="{{action}}"
@@ -102,8 +113,6 @@ See <a href="https://vaadin.com/license/cval-3">the website</a> for the complete
         error="{{error}}"
         no-forgot-password="{{noForgotPassword}}"
         i18n="{{i18n}}"
-        title="{{title}}"
-        description="{{description}}"
         on-login="_handleEvent"
         on-forgot-password="_handleEvent">
       </vaadin-login>
