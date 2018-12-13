@@ -5,6 +5,11 @@
 <dom-module id="lumo-login" theme-for="vaadin-login">
   <template>
     <style include="lumo-color lumo-typography">
+      :host {
+        max-width: calc(var(--lumo-size-m) * 10);
+        background: var(--lumo-base-color) linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
+      }
+
       [part="form"] {
         padding: var(--lumo-space-l);
       }
