@@ -105,7 +105,6 @@
         const i18n = Object.assign({}, login.i18n, {additionalInformation: 'Mais informações', form: {forgotPassword: 'Esqueci a senha'}});
         login.i18n = i18n;
         expect(additionalInformation.textContent).to.be.equal(login.i18n.additionalInformation);
-        // expect(login.title).to.be.equal(login.i18n.additionalInformation);
         expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
       });
 
