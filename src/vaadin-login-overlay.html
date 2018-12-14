@@ -81,6 +81,11 @@ This program is available under Apache License Version 2.0, available at https:/
           ];
         }
 
+        constructor() {
+          super();
+          this._teleporter = this._createTeleporter();
+        }
+
         ready() {
           super.ready();
 
@@ -102,6 +107,24 @@ This program is available under Apache License Version 2.0, available at https:/
           this.$.overlay.opened = false;
         }
 
+        _createTeleporter() {
+          var teleported = [];
+          var loginOverlay = this;
+          return {
+            teleport: function() {
+              var elements = loginOverlay.querySelectorAll('[slot=title]');
+              for (var e of elements) {
+                loginOverlay.$.overlay.appendChild(e);
+                teleported.push(e);
+              }
+            },
+            unteleport: function() {
+              while (teleported.length > 0) {
+                loginOverlay.appendChild(teleported.shift());
+              }
+            }
+          };
+        }
 
         __i18nChanged(i18n) {
           const header = i18n.base;
@@ -133,6 +156,9 @@ This program is available under Apache License Version 2.0, available at https:/
             this.$.login.$.username.value = '';
             this.$.login.$.password.value = '';
             this.disabled = false;
+            this._teleporter.unteleport();
+          } else {
+            this._teleporter.teleport();
           }
         }
       }
