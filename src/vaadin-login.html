@@ -107,34 +107,33 @@ This program is available under Apache License Version 2.0, available at https:/
           super.connectedCallback();
           this._handleInputKeydown = this._handleInputKeydown.bind(this);
 
-          this._usernameSlotObserver = new Polymer.FlattenedNodesObserver(this.$.usernameSlot, (info) => {
-            const addedNodes = info.addedNodes.filter(this._filterNodes);
-            const removedNodes = info.removedNodes.filter(this._filterNodes);
-            if (addedNodes[0]) {
-              this.shadowRoot.querySelector('[name=username]').disabled = true; // Disables fallback content, so it won't be part of form
-              this.$.username = addedNodes[0];
-              this.$.username.addEventListener('keydown', this._handleInputKeydown);
-            }
-            if (removedNodes[0]) {
-              this.$.username = this.shadowRoot.querySelector('[name=username]');
-              this.$.username.disabled = false;
-            }
-          });
+          this._usernameSlotObserver = this._createSlotObserver(this.$.usernameSlot, 'username');
+          this._passwordSlotObserver = this._createSlotObserver(this.$.passwordSlot, 'password');
+        }
 
-          this._passwordSlotObserver = new Polymer.FlattenedNodesObserver(this.$.passwordSlot, (info) => {
-            const addedNodes = info.addedNodes.filter(this._filterNodes);
+        _createSlotObserver(slot, field) {
+          return new Polymer.FlattenedNodesObserver(slot, (info) => {
             const removedNodes = info.removedNodes.filter(this._filterNodes);
 
-            if (addedNodes[0]) {
-              this.shadowRoot.querySelector('[name=password]').disabled = true;
-              this.$.password = addedNodes[0];
-              this.$.password.addEventListener('keydown', this._handleInputKeydown);
+            // look for slot=${field}
+            const element = this.querySelector(`[name=${field}]`);
+            const fallbackElement = this.shadowRoot.querySelector(`[name=${field}]`);
+            if (element) {
+              fallbackElement.disabled = true;
+              this.$[field] = element;
+              this.$[field].addEventListener('keydown', this._handleInputKeydown);
             }
-            if (removedNodes[0]) {
-              this.$.password = this.shadowRoot.querySelector('[name=password]');
-              this.$.password.disabled = false;
+            if (removedNodes[0] === this.$[field]) {
+              this.$[field] = fallbackElement;
+              this.$[field].disabled = false;
             }
           });
+        }
+
+        disconnectedCallback() {
+          super.disconnectedCallback();
+          this._passwordSlotObserver.disconnect();
+          this._usernameSlotObserver.disconnect();
         }
 
         _filterNodes(node) {
