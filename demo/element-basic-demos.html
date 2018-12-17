@@ -28,8 +28,8 @@
           <template>Login is being processed...</template>
         </vaadin-dialog>
         <vaadin-dialog id="supportDialog">
-            <template>Please contact support.</template>
-          </vaadin-dialog>
+          <template>Please contact support.</template>
+        </vaadin-dialog>
         <script>
           window.addDemoReadyListener('#element-basic-demos-sample-example', function(document) {
             var login = document.querySelector('vaadin-login');
@@ -56,7 +56,7 @@
     <h3>Login opened in full screen</h3>
     <vaadin-demo-snippet id="login-overlay">
       <template preserve-content>
-        <vaadin-login-overlay><h1 slot="title">My App</h1></vaadin-login-overlay>
+        <vaadin-login-overlay></vaadin-login-overlay>
         <vaadin-button>Log in</vaadin-button>
         <vaadin-dialog id="feedbackDialog">
             <template>Login is being processed...</template>
