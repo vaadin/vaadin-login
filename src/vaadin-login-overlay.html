@@ -16,8 +16,15 @@ This program is available under Apache License Version 2.0, available at https:/
 
 <dom-module id="vaadin-login-overlay">
   <template>
-    <vaadin-login-overlay-element id="overlay" opened="{{opened}}" focus-trap with-backdrop title="[[title]]" description="[[description]]">
-    <vaadin-login
+    <vaadin-login-overlay-element 
+      id="overlay"
+      opened="{{opened}}"
+      focus-trap
+      with-backdrop
+      title="[[title]]"
+      description="[[description]]">
+      
+      <vaadin-login
         theme="with-overlay"
         id="login"
         action="{{action}}"
@@ -28,6 +35,7 @@ This program is available under Apache License Version 2.0, available at https:/
         on-login="_handleEvent"
         on-forgot-password="_handleEvent">
       </vaadin-login>
+
     </vaadin-login-overlay-element>
   </template>
   <script>
