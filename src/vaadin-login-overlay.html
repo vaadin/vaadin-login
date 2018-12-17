@@ -89,11 +89,6 @@ This program is available under Apache License Version 2.0, available at https:/
           ];
         }
 
-        constructor() {
-          super();
-          this._teleporter = this._createTeleporter();
-        }
-
         ready() {
           super.ready();
 
@@ -113,25 +108,6 @@ This program is available under Apache License Version 2.0, available at https:/
           this.$.overlay.removeEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
           this.$.overlay.removeEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
           this.$.overlay.opened = false;
-        }
-
-        _createTeleporter() {
-          var teleported = [];
-          var loginOverlay = this;
-          return {
-            teleport: function() {
-              var elements = loginOverlay.querySelectorAll('[slot=title]');
-              for (var e of elements) {
-                loginOverlay.$.overlay.appendChild(e);
-                teleported.push(e);
-              }
-            },
-            unteleport: function() {
-              while (teleported.length > 0) {
-                loginOverlay.appendChild(teleported.shift());
-              }
-            }
-          };
         }
 
         __i18nChanged(i18n) {
@@ -164,10 +140,33 @@ This program is available under Apache License Version 2.0, available at https:/
             this.$.login.$.username.value = '';
             this.$.login.$.password.value = '';
             this.disabled = false;
-            this._teleporter.unteleport();
+            if (this._undoTeleport) {
+              this._undoTeleport();
+            }
           } else {
-            this._teleporter.teleport();
+            this._undoTeleport = this._teleport(this._getElementsToTeleport());
           }
+        }
+
+        _teleport(elements) {
+          const teleported = [];
+          for (const e of elements) {
+            this.$.overlay.appendChild(e);
+            teleported.push(e);
+          }
+          // Function to undo the teleport
+          return () => {
+            while (teleported.length > 0) {
+              this.appendChild(teleported.shift());
+            }
+          };
+        }
+
+        _getElementsToTeleport() {
+          if (!this._elementsToTeleport) {
+            this._elementsToTeleport = this.querySelectorAll('[slot=title]');
+          }
+          return this._elementsToTeleport;
         }
       }
 
