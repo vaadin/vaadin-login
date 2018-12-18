@@ -53,6 +53,38 @@
       </template>
     </vaadin-demo-snippet>
 
+    <h3>Login with custom input fields</h3>
+    <vaadin-demo-snippet id="custom-input-example">
+      <template preserve-content>
+        <main>
+          <vaadin-login no-forgot-password>
+            <input slot="username" required>
+            <input slot="password" type="password" required>
+            <div slot="footer" style="color: var(--lumo-primary-color, blue)">Custom footer</div>
+          </vaadin-login>
+        </main>
+        <vaadin-dialog id="feedbackDialog">
+          <template>Login is being processed...</template>
+        </vaadin-dialog>
+        <script>
+          window.addDemoReadyListener('#custom-input-example', function(document) {
+            var login = document.querySelector('vaadin-login');
+            login.set('i18n.additionalInformation', '');
+            var feedbackDialog = document.querySelector('#feedbackDialog');
+
+            login.addEventListener('login', function() {
+              feedbackDialog.opened = true;
+
+              setTimeout(function() {
+                login.disabled = false;
+                feedbackDialog.opened = false;
+              }, 2000);
+            });
+          });
+        </script>
+      </template>
+    </vaadin-demo-snippet>
+
   </template>
   <script>
     class AdvancedDemos extends DemoReadyEventEmitter(ElementDemo(Polymer.Element)) {
