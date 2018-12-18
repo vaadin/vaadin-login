@@ -168,7 +168,7 @@ This program is available under Apache License Version 2.0, available at https:/
           if (this._isEnterKey(e)) {
             const {currentTarget: inputActive} = e;
             const nextInput = inputActive.slot === 'username' || inputActive.name === 'username'
-                ? this.$.password : this.$.username;
+              ? this.$.password : this.$.username;
             if (this.__isValid(inputActive)) {
               if (this.__isValid(nextInput)) {
                 this.submit();
