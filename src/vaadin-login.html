@@ -41,7 +41,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
       vaadin-text-field,
       vaadin-password-field,
-      [part="form"] ::slotted(*),
+      [part="form"] form ::slotted(*),
       #submit {
         width: 100%;
       }
@@ -132,8 +132,8 @@ This program is available under Apache License Version 2.0, available at https:/
 
         disconnectedCallback() {
           super.disconnectedCallback();
-          this._passwordSlotObserver.disconnect();
-          this._usernameSlotObserver.disconnect();
+          this._passwordSlotObserver && this._passwordSlotObserver.disconnect();
+          this._usernameSlotObserver && this._usernameSlotObserver.disconnect();
         }
 
         _filterNodes(node) {
