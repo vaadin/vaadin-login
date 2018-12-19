@@ -70,7 +70,7 @@
         const submitElement = login.shadowRoot.querySelector('#submit');
         const forgotElement = login.shadowRoot.querySelector('#forgotPasswordButton');
 
-        const footerElement = login.shadowRoot.querySelector('[part="footer"] p');
+        const footerElement = login.shadowRoot.querySelector('span');
 
         expect(formTitleElement.textContent).to.be.equal(login.i18n.form.title);
         expect(errorTitleElement.textContent).to.be.equal(login.i18n.errorMessage.title);
@@ -98,7 +98,7 @@
       });
 
       it('should be able to internationalize via `i18n` property', () => {
-        const additionalInformation = login.shadowRoot.querySelector('[part="footer"] p');
+        const additionalInformation = login.shadowRoot.querySelector('span');
         expect(additionalInformation.textContent).to.be.equal(login.i18n.additionalInformation);
         expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
 
