@@ -96,6 +96,12 @@ This program is available under Apache License Version 2.0, available at https:/
           return '1.0.0-alpha4';
         }
 
+        static get observers() {
+          return [
+            "_errorChanged(error)"
+          ];
+        }
+
         submit() {
           if (this.disabled || !(this.$.username.validate() && this.$.password.validate())) {
             return;
@@ -140,6 +146,12 @@ This program is available under Apache License Version 2.0, available at https:/
 
         _isEnterKey(e) {
           return e.key === 'Enter' || e.keyCode === 13;
+        }
+
+        _errorChanged() {
+          if(this.error) {
+            this.disabled = false;
+          }
         }
       }
 
