@@ -10,12 +10,13 @@ This program is available under Apache License Version 2.0, available at https:/
    * @namespace Vaadin
    */
   window.Vaadin = window.Vaadin || {};
+  Vaadin.Login = Vaadin.Login || {};
 
   /**
    * @polymerMixin
    * @memberof Vaadin
   */
-  Vaadin.LoginMixin = subclass => class VaadinLoginMixin extends subclass {
+  Vaadin.Login.Mixin = superClass => class Mixin extends superClass {
 
     /**
      * Fired when user clicks on the "Forgot password" button.
