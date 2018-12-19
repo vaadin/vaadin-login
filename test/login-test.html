@@ -32,8 +32,8 @@
   <test-fixture id="custom-input-fields">
     <template>
       <vaadin-login>
-        <input slot="username" required>
-        <input slot="password" type="password" required>
+        <input slot="username" name="username" required>
+        <input slot="password" name="password" required type="password">
       </vaadin-login>
     </template>
   </test-fixture>
@@ -321,14 +321,14 @@
       });
 
       it('should utilize custom input fields', done => {
-        const customFields = login.querySelectorAll('input');
-        const [usernameInput, passwordInput] = customFields;
+        // Query input fields just like password managers would do
+        // and verify that the login component has taken them into use.
+        expect(login.$.username).to.equal(document.querySelector('[name="username"]'));
+        expect(login.$.password).to.equal(document.querySelector('[name="password"]'));
 
-        expect(login.$.username).to.equal(usernameInput);
-        expect(login.$.password).to.equal(passwordInput);
-
-        // IE11 does not support remove()
-        customFields.forEach(e => e.parentNode.removeChild(e));
+        // Verify that removing the custom input fields makes the
+        // login component revert to it's built-in input fields.
+        [login.$.username, login.$.password].forEach(e => e.parentNode.removeChild(e));
 
         Polymer.RenderStatus.afterNextRender(login, () => {
           // Due to an issue in ShadyDOM the input field node observers are not called

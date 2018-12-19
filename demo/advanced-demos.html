@@ -58,9 +58,8 @@
       <template preserve-content>
         <main>
           <vaadin-login no-forgot-password>
-            <input slot="username" required>
-            <input slot="password" type="password" required>
-            <div slot="footer" style="color: var(--lumo-primary-color, blue)">Custom footer</div>
+            <input slot="username" name="username" required>
+            <input slot="password" name="password" required type="password">
           </vaadin-login>
         </main>
         <vaadin-dialog id="feedbackDialog">
