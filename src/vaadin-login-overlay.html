@@ -17,7 +17,7 @@ This program is available under Apache License Version 2.0, available at https:/
 <dom-module id="vaadin-login-overlay">
   <template>
     <vaadin-login-overlay-wrapper
-      id="overlay"
+      id="wrapper"
       opened="{{opened}}"
       focus-trap
       with-backdrop
@@ -99,16 +99,16 @@ This program is available under Apache License Version 2.0, available at https:/
         connectedCallback() {
           super.connectedCallback();
 
-          this.$.overlay.addEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
-          this.$.overlay.addEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
+          this.$.wrapper.addEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
+          this.$.wrapper.addEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
         }
 
         disconnectedCallback() {
           super.disconnectedCallback();
 
-          this.$.overlay.removeEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
-          this.$.overlay.removeEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
-          this.$.overlay.opened = false;
+          this.$.wrapper.removeEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
+          this.$.wrapper.removeEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
+          this.$.wrapper.opened = false;
         }
 
         __i18nChanged(i18n) {
@@ -152,7 +152,7 @@ This program is available under Apache License Version 2.0, available at https:/
         _teleport(elements) {
           const teleported = [];
           for (const e of elements) {
-            this.$.overlay.appendChild(e);
+            this.$.wrapper.appendChild(e);
             teleported.push(e);
           }
           // Function to undo the teleport
