@@ -38,6 +38,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
     </vaadin-login-overlay-wrapper>
   </template>
+
   <script>
     (function() {
       /**
@@ -50,10 +51,10 @@ This program is available under Apache License Version 2.0, available at https:/
         * @memberof Vaadin
         * @mixes Vaadin.ElementMixin
         * @mixes Vaadin.ThemableMixin
-        * @mixes Vaadin.Login.Mixin
+        * @mixes Vaadin.Login.LoginMixin
         * @demo demo/index.html
         */
-      class LoginOverlayElement extends Vaadin.Login.Mixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
+      class LoginOverlayElement extends Vaadin.Login.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
         static get is() {
           return 'vaadin-login-overlay';
         }

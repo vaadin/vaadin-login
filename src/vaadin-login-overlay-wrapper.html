@@ -50,53 +50,54 @@ This program is available under Apache License Version 2.0, available at https:/
       </div>
     </section>
   </template>
-    <script>
-      (function() {
-        let memoizedTemplate;
 
-        /**
-         * The overlay wrapper
-         *
-         * @memberof Vaadin
-         * @private
-        */
-        class LoginOverlayWrapperElement extends Vaadin.OverlayElement {
-          static get is() {
-            return 'vaadin-login-overlay-wrapper';
-          }
+  <script>
+    (function() {
+      let memoizedTemplate;
 
-          static get properties() {
-            return {
-              title: {
-                type: String
-              },
-              description: {
-                type: String
-              }
-            };
-          }
-
-          static get template() {
-            if (!memoizedTemplate) {
-              // Clone the superclass template
-              memoizedTemplate = super.template.cloneNode(true);
-
-              // Retrieve the elements from component's template
-              const thisTemplate = Polymer.DomModule.import(this.is + '-template', 'template');
-              const card = thisTemplate.content.querySelector('[part=card]');
-              const styles = thisTemplate.content.querySelector('style');
-
-              // Append elements to cloned template
-              const content = memoizedTemplate.content.querySelector('#content');
-              content.replaceChild(card, content.children[0]);
-              content.appendChild(styles);
-            }
-
-            return memoizedTemplate;
-          }
+      /**
+       * The overlay wrapper
+       *
+       * @memberof Vaadin
+       * @private
+      */
+      class LoginOverlayWrapperElement extends Vaadin.OverlayElement {
+        static get is() {
+          return 'vaadin-login-overlay-wrapper';
         }
 
-        customElements.define(LoginOverlayWrapperElement.is, LoginOverlayWrapperElement);
-      })();
-    </script>
-  </dom-module>
+        static get properties() {
+          return {
+            title: {
+              type: String
+            },
+            description: {
+              type: String
+            }
+          };
+        }
+
+        static get template() {
+          if (!memoizedTemplate) {
+            // Clone the superclass template
+            memoizedTemplate = super.template.cloneNode(true);
+
+            // Retrieve the elements from component's template
+            const thisTemplate = Polymer.DomModule.import(this.is + '-template', 'template');
+            const card = thisTemplate.content.querySelector('[part=card]');
+            const styles = thisTemplate.content.querySelector('style');
+
+            // Append elements to cloned template
+            const content = memoizedTemplate.content.querySelector('#content');
+            content.replaceChild(card, content.children[0]);
+            content.appendChild(styles);
+          }
+
+          return memoizedTemplate;
+        }
+      }
+
+      customElements.define(LoginOverlayWrapperElement.is, LoginOverlayWrapperElement);
+    })();
+  </script>
+</dom-module>
