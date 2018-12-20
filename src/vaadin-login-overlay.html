@@ -163,10 +163,8 @@ This program is available under Apache License Version 2.0, available at https:/
         }
 
         _teleport(elements) {
-          const teleported = [];
-          Array.from(elements).forEach(e => {
-            this.$.wrapper.appendChild(e);
-            teleported.push(e);
+          const teleported = Array.from(elements).map(e => {
+            return this.$.wrapper.appendChild(e);
           });
           // Function to undo the teleport
           return () => {
