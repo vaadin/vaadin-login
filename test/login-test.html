@@ -38,6 +38,14 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="custom-footer">
+    <template>
+      <vaadin-login>
+        <div slot="footer">Custom footer</div>
+      </vaadin-login>
+    </template>
+  </test-fixture>
+
   <script>
     describe('Login test', () => {
       var login;
@@ -340,6 +348,16 @@
           }
           done();
         });
+      });
+    });
+
+    describe('custom footer', () => {
+      it('should allow custom footers', () => {
+        let login = fixture('custom-footer');
+        const footerElements = login.shadowRoot.querySelector('[name="footer"]').assignedNodes();
+        expect(footerElements).to.have.lengthOf(1);
+        expect(footerElements[0].tagName.toLowerCase()).to.equal('div');
+        expect(footerElements[0].textContent).to.equal('Custom footer');
       });
     });
   </script>
