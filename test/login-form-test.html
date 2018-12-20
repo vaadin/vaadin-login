@@ -1,0 +1,64 @@
+<!doctype html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>vaadin-login tests</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../vaadin-login-overlay.html">
+  <link rel="import" href="../vaadin-login.html">
+</head>
+
+<body>
+  <test-fixture id="default">
+    <template>
+      <vaadin-login action="login-action"></vaadin-login>
+      <iframe name="loginFrame"></iframe>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="overlay">
+    <template>
+      <vaadin-login-overlay action="login-action" opened></vaadin-login-overlay>
+      <iframe name="overlayFrame"></iframe>
+    </template>
+  </test-fixture>
+
+  <script>
+    describe('Login Form request test', () => {
+
+      function fillUsernameAndPassword(login) {
+        const {username, password} = login.$;
+        const usernameValue = 'myusername';
+        const passwordValue = 'mypassword';
+
+        username.value = usernameValue;
+        password.value = passwordValue;
+
+        return {username, password};
+      }
+
+      function testFormSubmitValues(login, loginForm, iframe, done) {
+        const {password} = fillUsernameAndPassword(login);
+        loginForm.setAttribute('method', 'GET');
+        loginForm.setAttribute('target', iframe.getAttribute('name'));
+        login.$.submit.click();
+        iframe.onload = () => {
+          expect(iframe.contentWindow.location.href).to.include('login-action?username=myusername&password=mypassword');
+          done();
+        };
+      }
+
+      it('should submit form values from login element', done => {
+        const [login, iframe] = fixture('default');
+        testFormSubmitValues(login, login.$.loginForm, iframe, done);
+      });
+
+      it('should submit form values from overlay element', done => {
+        const [login, iframe] = fixture('overlay');
+        testFormSubmitValues(login, login.$.loginForm, iframe, done);
+      });
+
+    });
+  </script>
+</body>
