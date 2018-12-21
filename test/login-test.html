@@ -353,7 +353,7 @@
 
     describe('custom footer', () => {
       it('should allow custom footers', () => {
-        let login = fixture('custom-footer');
+        const login = fixture('custom-footer');
         const footerElements = login.shadowRoot.querySelector('[name="footer"]').assignedNodes();
         expect(footerElements).to.have.lengthOf(1);
         expect(footerElements[0].tagName.toLowerCase()).to.equal('div');
