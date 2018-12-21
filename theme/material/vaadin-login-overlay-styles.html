@@ -13,10 +13,16 @@
         right: 0;
         bottom: 0;
         left: 0;
+/*
+        --lumo-space-xs: 0.25rem;
+        --lumo-space-s: 0.5rem;
+        --lumo-space-m: 1rem;
+        --lumo-space-l: 1.5rem;
+        --lumo-space-xl: 2.5rem;*/
       }
 
       [part="backdrop"] {
-        background: var(--material-primary-background-color)
+        background: var(--material-background-color)
         /*background: var(--lumo-base-color) linear-gradient(var(--lumo-shade-5pct), var(--lumo-shade-5pct));*/
       }
 
@@ -25,7 +31,7 @@
       }
 
       [part="overlay"] {
-        background: none;
+        background: var(--material-secondary-background-color);
         border-radius: 0;
         box-shadow: none;
         width: 100%;
@@ -39,23 +45,35 @@
           height: 100%;
         }
       }
-/*
+
       [part="card"] {
-        width: calc(var(--lumo-size-m) * 10);
+        /*width: calc(var(--lumo-size-m) * 10);
         background: var(--lumo-base-color) linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
+        */
+        background: var(--material-background-color)
       }
 
+
       [part="brand"] {
+        /*
         padding: var(--lumo-space-l) var(--lumo-space-xl) var(--lumo-space-l) var(--lumo-space-l);
         background-color: var(--lumo-primary-color);
         color: var(--lumo-primary-contrast-color);
         min-height: calc(var(--lumo-size-m) * 5);
+        */
+        padding: 1.5rem 2.5rem 1.5rem 1.5rem;        
+        background-color: var(--material-primary-color);
+        color: var(--material-primary-contrast-color);
+        min-height: calc(2.25rem * 5)
       }
-*/
+
       [part="brand"] p {
 /*        line-height: var(--lumo-line-height-s);
         color: var(--lumo-tint-70pct);
 */
+        line-height: 1.375;
+        color: var(--material-primary-contrast-color);
+        
         margin-bottom: 0;
       }
 
@@ -65,19 +83,25 @@
         align-items: center;
         justify-content: center;
       }
-/*
+
       [part="card"] {
+        /*
         border-radius: var(--lumo-border-radius);
         box-shadow: var(--lumo-box-shadow-s);
         margin: var(--lumo-space-s);
+        */
+        border-radius: 4px;
+        box-shadow: 0 1px 2px 0 hsla(214, 53%, 23%, 0.16), 0 2px 8px -2px hsla(214, 47%, 21%, 0.38);
+        margin: 0.5em;
       }
-*/
+
       /* Small screen */
       @media only screen
       and (max-width: 500px) {
         [part="content"] {
           min-height: 100%;
 /*          background: var(--lumo-base-color);*/
+          background: var(--material-background-color);
           align-items: flex-start;
         }
 
@@ -99,6 +123,7 @@
           flex-direction: row;
           align-items: stretch;
 /*          max-width: calc(var(--lumo-size-m) * 16);*/
+          max-width: calc(2.25rem * 16);
           width: 100%;
         }
 
@@ -115,6 +140,7 @@
 
         [part="form"] {
 /*          padding: var(--lumo-space-l);*/
+          padding: 0.5rem;
           overflow: auto;
         }
       }
@@ -162,6 +188,7 @@
         [part="brand"] {
           margin-left: calc(constant(safe-area-inset-bottom) * -1);
           margin-left: calc(env(safe-area-inset-bottom) * -1);
+          padding-left: calc(1.5rem + constant(safe-area-inset-bottom));
 /*          padding-left: calc(var(--lumo-space-l) + constant(safe-area-inset-bottom));
           padding-left: calc(var(--lumo-space-l) + env(safe-area-inset-bottom));*/
         }
@@ -173,7 +200,7 @@
 <dom-module id="material-login-overlay" theme-for="vaadin-login">
   <template>
     <!--<style include="lumo-color lumo-typography">-->
-    <style>
+    <style include="material-color-light material-typography">
       :host([theme~="with-overlay"]) {
         min-height: 100%;
         display: flex;
