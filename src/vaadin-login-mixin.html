@@ -142,10 +142,9 @@ This program is available under Apache License Version 2.0, available at https:/
           password: this.$.password.value
         }
       };
-      const loginEvent = new CustomEvent('login', loginEventDetails);
-      this.dispatchEvent(loginEvent);
 
-      if (this.action && !loginEvent.defaultPrevented) {
+      const firedEvent = this.dispatchEvent(new CustomEvent('login', loginEventDetails));
+      if (this.action && firedEvent) {
         this.$.loginForm.submit();
       }
     }
