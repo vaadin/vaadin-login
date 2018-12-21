@@ -26,8 +26,9 @@
 
   <script>
     describe('Login Form request test', () => {
+      let login, iframe;
 
-      function fillUsernameAndPassword(login) {
+      function fillUsernameAndPassword() {
         const {username, password} = login.$;
         const usernameValue = 'myusername';
         const passwordValue = 'mypassword';
@@ -38,45 +39,46 @@
         return {username, password};
       }
 
-      function testFormSubmitValues(login, loginForm, iframe, done) {
-        fillUsernameAndPassword(login);
-        loginForm.setAttribute('method', 'GET');
-        loginForm.setAttribute('target', iframe.getAttribute('name'));
-        iframe.onload = () => {
-          expect(iframe.contentWindow.location.href).to.include('login-action?username=myusername&password=mypassword');
+      function testFormSubmitValues(preventDefault, expectation, done) {
+        fillUsernameAndPassword();
+
+        login.$.loginForm.setAttribute('method', 'GET');
+        login.$.loginForm.setAttribute('target', iframe.getAttribute('name'));
+
+        const submitSpy = sinon.spy(login.$.loginForm, 'submit');
+        preventDefault && login.addEventListener('login', e => e.preventDefault());
+
+        // Skip form submission in IE11 due to permission restrictions
+        const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+        if (!isIE11) {
+          iframe.onload = () => {
+            expect(iframe.contentWindow.location.href).to.include('login-action?username=myusername&password=mypassword');
+            done();
+          };
+
+          login.$.submit.click();
+          expect(submitSpy.called).to.equal(expectation);
+        }
+
+        if (isIE11 || preventDefault) {
           done();
-        };
-        const submitSpy = sinon.spy(loginForm, 'submit');
-        login.$.submit.click();
-        expect(submitSpy.called).to.be.true;
+        }
       }
 
       it('should submit form values from login element', done => {
-        const [login, iframe] = fixture('default');
-        testFormSubmitValues(login, login.$.loginForm, iframe, done);
+        [login, iframe] = fixture('default');
+        testFormSubmitValues(false, true, done);
       });
 
       it('should submit form values from overlay element', done => {
-        const [login, iframe] = fixture('overlay');
-        testFormSubmitValues(login, login.$.loginForm, iframe, done);
+        [login, iframe] = fixture('overlay');
+        testFormSubmitValues(false, true, done);
       });
 
-      it('should not submit form if action is defined and event was default prevented', () => {
-        const [login, iframe] = fixture('default');
-        fillUsernameAndPassword(login);
-        const {loginForm} = login.$;
-
-        loginForm.setAttribute('target', iframe.getAttribute('name'));
-
-        login.addEventListener('login', e => e.preventDefault());
-
-        const submitSpy = sinon.spy(loginForm, 'submit');
-
-        login.$.submit.click();
-
-        expect(submitSpy.called).to.be.false;
+      it('should not submit form if action is defined and event was default prevented', done => {
+        [login, iframe] = fixture('default');
+        testFormSubmitValues(true, false, done);
       });
-
     });
   </script>
 </body>
