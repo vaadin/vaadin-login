@@ -15,11 +15,6 @@
         left: 0;
       }
 
-      vaadin-login #submit {
-        margin-top: var(--lumo-space-l);
-        margin-bottom: var(--lumo-space-s);
-      }
-
       [part="backdrop"] {
         background: var(--lumo-base-color) linear-gradient(var(--lumo-shade-5pct), var(--lumo-shade-5pct));
       }
@@ -183,11 +178,6 @@
         max-width: 100%;
       }
 
-      vaadin-login #submit {
-        margin-top: var(--lumo-space-l);
-        margin-bottom: var(--lumo-space-s);
-      }
-
       /* Landscape small screen */
       @media only screen
       and (max-height: 600px)
@@ -209,6 +199,10 @@
     vaadin-login-overlay-wrapper vaadin-login #submit {
       margin-top: var(--lumo-space-l);
       margin-bottom: var(--lumo-space-s);
+    }
+
+    vaadin-login-overlay-wrapper vaadin-login #loginForm * {
+      width: 100%;
     }
   </style>
 </custom-style>
