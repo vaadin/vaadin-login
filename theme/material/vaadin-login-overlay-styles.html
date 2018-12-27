@@ -31,6 +31,18 @@
         height: 100%;
       }
 
+      [part="form"] {
+        width: 90%;
+        position:relative;
+        bottom:80px;
+        margin: auto;
+      }
+
+      [part="form"] h2 {
+        text-align: center;
+        font-weight: 500;
+      }
+
       @media only screen
       and (max-width: 500px) {
         [part="overlay"],
@@ -40,7 +52,7 @@
       }
 
       [part="card"] {
-        background: var(--material-background-color)
+        background: var(--material-secondary-background-color)
       }
 
 
@@ -48,7 +60,8 @@
         padding: 1.5rem 2.5rem 1.5rem 1.5rem;        
         background-color: var(--material-primary-color);
         color: var(--material-primary-contrast-color);
-        min-height: calc(2.25rem * 5)
+        min-height: calc(2.25rem * 7);
+        justify-content: center;
       }
 
       [part="brand"] p {
@@ -56,6 +69,10 @@
         color: var(--material-secondary-background-color);
         
         margin-bottom: 0;
+      }
+
+      [part="brand"] h1 {
+        font-weight: 500;
       }
 
       [part="content"] {
@@ -176,6 +193,11 @@
         display: flex;
         justify-content: center;
         max-width: 100%;
+      }
+
+      :host([theme~="with-overlay"]) [part="form"] h2 {
+        text-align: center;
+        font-weight: 500;
       }
 
       /* Landscape small screen */
