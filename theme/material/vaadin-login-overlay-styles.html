@@ -71,19 +71,12 @@
       [part="form"] ::slotted(*) {
         position: relative;
         bottom: 60px;
+        margin: auto;
       }
 
       [part="form"] h2 {
         text-align: center;
         font-weight: 500;
-      }
-
-      @media only screen
-      and (max-width: 500px) {
-        [part="overlay"],
-        [part="content"] {
-          height: 100%;
-        }
       }
 
       [part="card"] {
@@ -124,6 +117,12 @@
       /* Small screen */
       @media only screen
       and (max-width: 500px) {
+        [part="overlay"],
+        [part="content"],
+        [part="card"] {
+          height: 100%;
+        }
+
         [part="content"] {
           min-height: 100%;
           background: var(--material-background-color);
