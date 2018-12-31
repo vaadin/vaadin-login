@@ -53,14 +53,27 @@
       </template>
     </vaadin-demo-snippet>
 
-    <h3>Login opened in full screen</h3>
+    <h3>Login opened in full screen with custom image in a brand area</h3>
     <vaadin-demo-snippet id="login-overlay">
       <template preserve-content>
-        <vaadin-login-overlay></vaadin-login-overlay>
-        <vaadin-button>Log in</vaadin-button>
-        <vaadin-dialog id="feedbackDialog">
-            <template>Login is being processed...</template>
-        </vaadin-dialog>
+        <dom-module id="custom-overlay-styles" theme-for="vaadin-login-overlay-wrapper">
+          <template>
+            <style>
+              :host [part="brand"] {
+                background-image: url(./custom-brand.jpg);
+              }
+            </style>
+          </template>
+        </dom-module>
+        <dom-bind id="custom-overlay-example">
+          <template>
+            <vaadin-login-overlay></vaadin-login-overlay>
+            <vaadin-button>Log in</vaadin-button>
+            <vaadin-dialog id="feedbackDialog">
+                <template>Login is being processed...</template>
+            </vaadin-dialog>
+          </template>
+        </dom-bind>
         <script>
           window.addDemoReadyListener('#login-overlay', function(document) {
             var button = document.querySelector('vaadin-button');
