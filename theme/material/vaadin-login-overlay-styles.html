@@ -21,10 +21,6 @@
         flex-direction: column;
       }
 
-      [part="card"] ::after {
-        content: "";
-      }
-
       [part="brand"] {
         box-sizing: border-box;
         overflow: hidden;
@@ -153,6 +149,7 @@
           align-items: stretch;
           max-width: calc(2.25rem * 18);
           width: 100%;
+          min-height: 500px;
         }
 
         [part="brand"],
@@ -171,6 +168,7 @@
         [part="form"] ::slotted(*) {
           bottom: 0;
           right: 60px;
+          padding: 20px;
         }
       }
 
@@ -184,7 +182,9 @@
       and (min-width: 600px)
       and (orientation: landscape) {
         [part="content"] {
-          height: 100vh;
+          /*height: 100vh;*/
+          max-width: 1024px;
+          margin: auto;
         }
 
         [part="card"] {
