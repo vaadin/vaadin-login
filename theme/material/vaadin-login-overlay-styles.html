@@ -61,6 +61,7 @@
         width: 90%;
         margin: auto;
         margin-bottom: -40px;
+        background-color: #f2f4f6;
       }
 
       [part="form"] ::slotted(*) {
@@ -236,6 +237,11 @@
         font-weight: 500;
       }
 
+      :host([theme~="with-overlay"]) [part="form"] ::slotted(form) {
+        display: flex;
+        flex-direction: column;
+      }
+  
       /* Landscape small screen */
       @media only screen
       and (max-height: 600px)
@@ -253,13 +259,8 @@
 </dom-module>
 <custom-style>
   <style>
-    vaadin-login-overlay-wrapper vaadin-login #loginForm * {
+    /*vaadin-login-overlay-wrapper vaadin-login #loginForm * {
       width: 100%;
-    }
-
-    vaadin-login-overlay-wrapper #submit {
-      margin-top: 3rem;
-    }
-
+    }*/
   </style>
 </custom-style>
