@@ -142,15 +142,19 @@
 
       /* Landscape small screen */
       @media only screen
-      and (max-height: 600px)
-      and (min-width: 600px)
-      and (orientation: landscape) {
+      and (min-width: 1024px) {
         [part="card"] {
           flex-direction: row;
           align-items: stretch;
-          max-width: calc(2.25rem * 18);
           width: 100%;
-          min-height: 500px;
+          min-height: 600px;
+          background-color: #f2f4f6;
+          max-width: 850px;
+        }
+
+        [part="content"] {
+          max-width: 950px;
+          margin: auto;
         }
 
         [part="brand"],
@@ -162,8 +166,9 @@
 
         [part="form"] {
           padding: 0.5rem;
-          margin: auto;
+          margin-bottom: 30px;
           overflow-x: visible;
+          margin-right: -30px;
         }
 
         [part="form"] ::slotted(*) {
@@ -175,31 +180,28 @@
 
       /* Landscape really small screen */
       @media only screen
-      and (max-height: 500px)
-      and (min-width: 600px)
-      and (orientation: landscape),
-      only screen
-      and (max-width: 600px)
-      and (min-width: 600px)
-      and (orientation: landscape) {
+      and (min-width: 1440px) {
         [part="content"] {
-          max-width: 1024px;
+          max-width: none;
           margin: auto;
         }
 
         [part="card"] {
           margin: 0;
           width: 100%;
-          max-width: none;
           height: 100%;
           flex: auto;
-          border-radius: 0;
-          box-shadow: none;
+          max-width: 1100px;
+          margin-right: -60px;
         }
 
         [part="form"] {
           height: 100%;
           -webkit-overflow-scrolling: touch;
+        }
+
+        [part="form"] ::slotted(*) {
+          right: 120px;
         }
       }
 
@@ -257,10 +259,3 @@
     </style>
   </template>
 </dom-module>
-<custom-style>
-  <style>
-    /*vaadin-login-overlay-wrapper vaadin-login #loginForm * {
-      width: 100%;
-    }*/
-  </style>
-</custom-style>
