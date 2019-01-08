@@ -4,10 +4,16 @@
       :host {
         max-width: calc(2.25rem * 10);
         background: var(--material-background-color) linear-gradient(hsla(0, 0%, 100%, 0.3), hsla(0, 0%, 100%, 0.3));
+        min-height: 250px;
       }
 
       [part="form"] {
         padding: 1.5rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        justify-content: center;
       }
 
       [part="form"] h2 {
@@ -22,6 +28,7 @@
 
       #forgotPasswordButton {
         margin: 0.5rem auto;
+        padding-bottom: 1rem;
       }
 
       [part="error-message"] {
@@ -76,6 +83,7 @@
         :host([theme~="vaadin-login-submit"]) {
             margin-top: 3em;
             margin-bottom: 2em;
+            flex-grow: 0;
         }
     </style>
   </template>
