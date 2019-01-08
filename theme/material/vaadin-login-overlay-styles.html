@@ -140,7 +140,7 @@
         }
       }
 
-      /* Landscape small screen */
+      /* Landscape big screen */
       @media only screen
       and (min-width: 1024px) {
         [part="card"] {
@@ -178,7 +178,7 @@
         }
       }
 
-      /* Landscape really small screen */
+      /* Landscape really big screen */
       @media only screen
       and (min-width: 1440px) {
         [part="content"] {
@@ -229,7 +229,6 @@
   <template>
     <style include="material-color-light material-typography">
       :host([theme~="with-overlay"]) {
-        min-height: 100%;
         display: flex;
         justify-content: center;
       }
@@ -244,6 +243,13 @@
         flex-direction: column;
       }
 
+      /* Landscape big screen */
+      @media only screen
+      and (min-width: 1024px) {
+        :host([theme~="with-overlay"]) {
+          min-height: 450px;
+        }
+      }
     </style>
   </template>
 </dom-module>
