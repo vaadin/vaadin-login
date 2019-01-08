@@ -9,6 +9,13 @@
     <h3>Title with custom HTML</h3>
     <vaadin-demo-snippet id="login-overlay">
       <template preserve-content>
+        <style>
+          iron-icon {
+            top: -2px;
+            height: 29px;
+            width: 29px;
+          }
+        </style>
         <vaadin-login-overlay><h1 slot="title"><iron-icon icon="vaadin:vaadin-h"></iron-icon> My App</h1></vaadin-login-overlay>
         <vaadin-button>Log in</vaadin-button>
         <vaadin-dialog id="feedbackDialog">
