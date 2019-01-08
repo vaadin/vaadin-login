@@ -53,6 +53,36 @@
       </template>
     </vaadin-demo-snippet>
 
+    <h3>Custom Overlay Theme</h3>
+    <vaadin-demo-snippet id="login-overlay-themed">
+      <template preserve-content>
+        <dom-module id="custom-brand-backround" theme-for="vaadin-login-overlay-wrapper">
+          <template>
+            <style>
+              :host([theme="custom-background"]) [part="brand"] {
+                background-image: url(./custom-brand.jpg);
+              }
+            </style>
+          </template>
+        </dom-module>
+        <vaadin-login-overlay theme="custom-background"></vaadin-login-overlay>
+        <vaadin-button>Log in</vaadin-button>
+        <script>
+          window.addDemoReadyListener('#login-overlay-themed', function(document) {
+            var button = document.querySelector('vaadin-button');
+            var vaadinLoginOverlay = document.querySelector('vaadin-login-overlay');
+            button.addEventListener('click', function() {
+              vaadinLoginOverlay.opened = true;
+            });
+
+            vaadinLoginOverlay.addEventListener('login', function(e) {
+              vaadinLoginOverlay.opened = false;
+            });
+          });
+        </script>
+      </template>
+    </vaadin-demo-snippet>
+
     <h3>Login with custom input fields and footer</h3>
     <vaadin-demo-snippet id="custom-input-example">
       <template preserve-content>
