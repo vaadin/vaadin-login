@@ -125,7 +125,7 @@
           font-size: 1.8rem;
           text-indent: 1rem;
         }
-        
+
         [part="form"] {
           margin-bottom: -65px;
         }
@@ -175,12 +175,10 @@
 
         [part="brand"] {
           justify-content: flex-start;
-          padding: 2.5rem 2.5rem 1.5rem 2.5rem;
+          padding: 2.5rem 2.5rem 1.5rem;
           min-height: 225px;
         }
-
       }
-
 
       /* Landscape big screen */
       @media only screen
@@ -199,7 +197,6 @@
         }
 
         [part="brand"] {
-          padding-left: 2.5rem;
           justify-content: center;
           padding: 1.5rem 2.5rem 1.5rem 1.5rem;
         }
@@ -210,7 +207,7 @@
           flex-basis: 0;
           box-sizing: border-box;
         }
-       
+
         [part="brand"] h1 {
           font-size: 2.5rem;
         }
@@ -231,7 +228,6 @@
       /* Landscape really big screen */
       @media only screen
       and (min-width: 1440px) {
-
         [part="card"] {
           max-width: 960px;
         }
@@ -310,7 +306,7 @@
         display: flex;
         flex-direction: column;
       }
-      
+
       /* Small screen */
       @media only screen
       and (max-width: 767px) {
@@ -318,14 +314,13 @@
           max-width: calc(2.25rem * 10);
         }
       }
-  
+
       /* Small screen */
       @media only screen
       and (max-width: 413px) {
         :host([theme~="with-overlay"]) [part="form"] {
           padding-top: 0.75rem;
         }
-
       }
 
       /* Landscape big screen */
