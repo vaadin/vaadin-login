@@ -88,7 +88,7 @@
         padding: 1.5rem 2.5rem 1.5rem 1.5rem;
         background-color: var(--material-primary-color);
         color: var(--material-primary-contrast-color);
-        min-height: calc(2.25rem * 7);
+        min-height: 330px;
         justify-content: center;
       }
 
@@ -118,6 +118,29 @@
       }
 
       /* Small screen */
+      @media only screen
+      and (max-width: 767px) {
+        [part="brand"] h1 {
+          font-weight: 500;
+          font-size: 1.8rem;
+          text-indent: 1rem;
+        }
+        
+        [part="form"] {
+          margin-bottom: -65px;
+        }
+
+        [part="brand"] {
+          padding: 0 2.5rem 2.8rem 2rem;
+        }
+
+        [part="form"] ::slotted(*) {
+          max-width: 375px;
+          bottom: 85px;
+        }
+      }
+
+      /* Very small screen */
       @media only screen
       and (max-width: 413px) {
         [part="overlay"],
@@ -152,16 +175,11 @@
 
         [part="brand"] {
           justify-content: flex-start;
-          min-height: 330px;
           padding: 2.5rem 2.5rem 1.5rem 2.5rem;
         }
 
-        [part="brand"] h1 {
-          font-weight: 500;
-          font-size: 1.8rem;
-        }
-
       }
+
 
       /* Landscape big screen */
       @media only screen
@@ -283,20 +301,12 @@
       :host([theme~="with-overlay"]) [part="form"] ::slotted(form) {
         display: flex;
         flex-direction: column;
-        min-height: 250px;
-        justify-content: space-around;
-        margin-top: 20px;
       }
       /* Small screen */
       @media only screen
       and (max-width: 413px) {
         :host([theme~="with-overlay"]) [part="form"] {
           padding-top: 0.75rem;
-        }
-
-        :host([theme~="with-overlay"]) [part="form"] ::slotted(form) {
-          min-height:initial;
-          margin-top: 0;
         }
 
       }
@@ -311,6 +321,12 @@
 
         :host([theme~="with-overlay"]) [part="form"] {
           padding: 0 2.5rem 0 1.8rem;
+        }
+
+        :host([theme~="with-overlay"]) [part="form"] ::slotted(form) {
+          justify-content: space-around;
+          margin-top: 20px;
+          min-height: 250px;
         }
       }
     </style>
