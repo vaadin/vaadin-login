@@ -85,6 +85,14 @@
             margin-bottom: 2em;
             flex-grow: 0;
         }
+       /* Small screen */
+      @media only screen
+        and (max-width: 413px) {
+          :host([theme~="vaadin-login-submit"]) {
+          margin-top: 2.5em;
+          margin-bottom: 1em;
+        }
+      }
     </style>
   </template>
 </dom-module>
