@@ -28,7 +28,8 @@
 
       #forgotPasswordButton {
         margin: 0.5rem auto;
-        padding-bottom: 1rem;
+        padding-bottom: 12px;
+        padding-top: 12px;
       }
 
       [part="error-message"] {
@@ -76,16 +77,17 @@
 <dom-module id="vaadin-login-forgot-password-button" theme-for="vaadin-button">
   <template>
     <style>
-        :host([theme~="forgot-password"]) {
-          text-transform: none;
-        }
+      :host([theme~="forgot-password"]) {
+        text-transform: none;
+      }
 
-        :host([theme~="vaadin-login-submit"]) {
-            margin-top: 3em;
-            margin-bottom: 2em;
-            flex-grow: 0;
-        }
-       /* Small screen */
+      :host([theme~="vaadin-login-submit"]) {
+        margin-top: 3em;
+        margin-bottom: 2em;
+        flex-grow: 0;
+      }
+
+      /* Small screen */
       @media only screen
         and (max-width: 1023px) {
           :host([theme~="vaadin-login-submit"]) {
