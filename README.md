@@ -18,10 +18,11 @@
 
 [&lt;vaadin-login&gt;](https://vaadin.com/components/vaadin-login) is a Web Component providing a painless login experience, part of the [Vaadin components](https://vaadin.com/components).
 
-`<vaadin-login-overlay>` is a `<vaadin-login>` wrapper which opens the login form in an overlay and guarantees the form being accessible for password managers.
 ```html
 <vaadin-login></vaadin-login>
 ```
+
+`<vaadin-login-overlay>` is a `<vaadin-login>` wrapper which opens the login form in an overlay and allows the form being accessible for password managers.
 
 ```html
 <vaadin-login-overlay></vaadin-login-overlay>
@@ -78,14 +79,17 @@ To use the Material theme, import the correspondent file from the `theme/materia
 - The component with the Lumo theme:
 
   `theme/lumo/vaadin-login.html`
+  `theme/lumo/vaadin-login-overlay.html`
 
 - The component with the Material theme:
 
   `theme/material/vaadin-login.html`
+  `theme/material/vaadin-login-overlay.html`
 
-- Alias for `theme/lumo/vaadin-login.html`:
+- Aliases for lumo themed components:
 
   `vaadin-login.html`
+  `vaadin-login-overlay.html`
 
 
 ## Running demos and tests in browser

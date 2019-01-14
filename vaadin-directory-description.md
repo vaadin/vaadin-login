@@ -12,7 +12,7 @@
 
 [&lt;vaadin-login&gt;](https://vaadin.com/components/vaadin-login) is a Web Component providing a painless login experience, part of the [Vaadin components](https://vaadin.com/components).
 
-`<vaadin-login-overlay>` is a `<vaadin-login>` wrapper which opens the login form in an overlay and guarantees the form being accessible for password managers.
+`<vaadin-login-overlay>` is a `<vaadin-login>` wrapper which opens the login form in an overlay and allows the form being accessible for password managers.
 
 [<img src="https://raw.githubusercontent.com/vaadin/vaadin-login/master/screenshot.png" width="700" alt="Screenshot of vaadin-login-overlay">](https://vaadin.com/components/vaadin-login)
 
