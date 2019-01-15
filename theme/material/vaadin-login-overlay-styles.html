@@ -171,6 +171,25 @@
         }
       }
 
+      /* Landscape small screen */
+      @media only screen
+      and (max-width: 1023px)
+      and (orientation: landscape) {
+        [part="card"] {
+          flex-direction: row;
+        }
+
+        [part="form"] {
+          margin-bottom: 0;
+        }
+
+        [part="form"] ::slotted(*) {
+          bottom: 0;
+          min-height: 0;
+          max-height: none;
+        }
+      }
+
       /* Landscape big screen */
       @media only screen
       and (min-width: 1024px) {
@@ -178,7 +197,7 @@
           flex-direction: row;
           align-items: stretch;
           width: 100%;
-          min-height: none;
+          min-height: 0;
           max-height: 600px;
           height: 100%;
           max-width: 760px;
