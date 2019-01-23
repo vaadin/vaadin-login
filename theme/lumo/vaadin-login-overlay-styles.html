@@ -5,7 +5,7 @@
 <link rel="import" href="vaadin-login-styles.html">
 
 
-<dom-module id="vaadin-login-overlay-element-lumo-styles" theme-for="vaadin-login-overlay-element">
+<dom-module id="vaadin-login-overlay-wrapper-lumo-styles" theme-for="vaadin-login-overlay-wrapper">
   <template>
     <style include="lumo-color lumo-typography">
       :host {
@@ -51,14 +51,14 @@
         min-height: calc(var(--lumo-size-m) * 5);
       }
 
-      [part="brand"] p {
+      [part="description"] {
         line-height: var(--lumo-line-height-s);
         color: var(--lumo-tint-70pct);
         margin-bottom: 0;
       }
 
       [part="content"] {
-        min-height: 100%;
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -68,6 +68,7 @@
         border-radius: var(--lumo-border-radius);
         box-shadow: var(--lumo-box-shadow-s);
         margin: var(--lumo-space-s);
+        height: auto;
       }
 
       /* Small screen */
@@ -193,3 +194,16 @@
     </style>
   </template>
 </dom-module>
+
+<custom-style>
+  <style>
+    vaadin-login-overlay-wrapper vaadin-login #submit {
+      margin-top: var(--lumo-space-l);
+      margin-bottom: var(--lumo-space-s);
+    }
+
+    vaadin-login-overlay-wrapper vaadin-login #loginForm * {
+      width: 100%;
+    }
+  </style>
+</custom-style>

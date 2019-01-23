@@ -6,16 +6,17 @@ This program is available under Apache License Version 2.0, available at https:/
 -->
 
 <script>
-  /**
-   * @namespace Vaadin
-   */
   window.Vaadin = window.Vaadin || {};
+  /**
+   * @namespace Vaadin.Login
+   */
+  window.Vaadin.Login = window.Vaadin.Login || {};
 
   /**
    * @polymerMixin
-   * @memberof Vaadin
+   * @memberof Vaadin.Login
   */
-  Vaadin.LoginMixin = subclass => class VaadinLoginMixin extends subclass {
+  Vaadin.Login.LoginMixin = superClass => class LoginMixin extends superClass {
 
     /**
      * Fired when user clicks on the "Forgot password" button.
@@ -76,8 +77,9 @@ This program is available under Apache License Version 2.0, available at https:/
          * For changing the default localization, change the entire
          * _i18n_ object or just the property you want to modify.
          *
-         * The object has the following JSON structure (by default it doesn't include
-         * `header` section, which can be added to override `title` and `description` properties):
+         * The object has the following JSON structure (by default it doesn't include `additionalInformation`
+         * and `header` sections, `header` can be added to override `title` and `description` properties
+         * in `vaadin-login-overlay`):
 
           {
             header: {
@@ -114,8 +116,7 @@ This program is available under Apache License Version 2.0, available at https:/
               errorMessage: {
                 title: 'Incorrect username or password',
                 message: 'Check that you have entered the correct username and password and try again.'
-              },
-              additionalInformation: 'In case you need to provide some additional info for the user.'
+              }
             };
           },
           notify: true
@@ -123,5 +124,55 @@ This program is available under Apache License Version 2.0, available at https:/
       };
     }
 
+    connectedCallback() {
+      super.connectedCallback();
+      this._handleInputKeydown = this._handleInputKeydown.bind(this);
+    }
+
+    submit() {
+      if (this.disabled || !(LoginMixin.__isValid(this.$.username) && LoginMixin.__isValid(this.$.password))) {
+        return;
+      }
+
+      this.error = false;
+      this.disabled = true;
+
+      const loginEventDetails = {
+        bubbles: true,
+        cancelable: true,
+        detail: {
+          username: this.$.username.value,
+          password: this.$.password.value
+        }
+      };
+
+      const firedEvent = this.dispatchEvent(new CustomEvent('login', loginEventDetails));
+      if (this.action && firedEvent) {
+        this.$.loginForm.submit();
+      }
+    }
+
+    static __isValid(input) {
+      return (input.validate && input.validate()) || (input.checkValidity && input.checkValidity());
+    }
+
+    static _isEnterKey(e) {
+      return e.key === 'Enter' || e.keyCode === 13;
+    }
+
+    _handleInputKeydown(e) {
+      if (LoginMixin._isEnterKey(e)) {
+        const {currentTarget: inputActive} = e;
+        const nextInput = inputActive.id === 'username'
+          ? this.$.password : this.$.username;
+        if (LoginMixin.__isValid(inputActive)) {
+          if (LoginMixin.__isValid(nextInput)) {
+            this.submit();
+          } else {
+            nextInput.focus();
+          }
+        }
+      }
+    }
   };
 </script>

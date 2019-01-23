@@ -18,7 +18,7 @@
 
   <test-fixture id="opened">
     <template>
-      <vaadin-login-overlay opened></vaadin-login-overlay>
+      <vaadin-login-overlay opened theme="some-theme"></vaadin-login-overlay>
     </template>
   </test-fixture>
 
@@ -76,7 +76,6 @@
 
         const login = document.querySelectorAll('vaadin-login');
         expect(login.length).to.be.equal(1);
-
       });
 
       it('should be able to be closed', () => {
@@ -90,6 +89,14 @@
         expect(login.length).to.be.equal(0);
       });
 
+      it('should propagate theme to a wrapper', () => {
+        const loginOverlayOpened = fixture('opened');
+        expect(loginOverlayOpened.opened).to.be.true;
+
+        const wrapper = document.querySelector('vaadin-login-overlay-wrapper');
+        expect(wrapper.getAttribute('theme')).to.be.equal('some-theme');
+      });
+
       it('should not close on ESC', () => {
         const loginOverlayOpened = fixture('opened');
 
@@ -101,7 +108,7 @@
       it('should not close on click outside', () => {
         const loginOverlayOpened = fixture('opened');
 
-        MockInteractions.tap(loginOverlay.$.overlay.$.backdrop);
+        MockInteractions.tap(loginOverlay.$.wrapper.$.backdrop);
 
         expect(loginOverlayOpened.opened).to.be.true;
       });
@@ -133,6 +140,19 @@
         const {type} = loginEventSpy.args[0][0];
         expect(type).to.be.equal('login');
       });
+
+      it('should be accessible username and password from document level', () => {
+        const loginOverlayOpened = fixture('opened');
+
+        const loginEventSpy = sinon.spy(loginOverlayOpened, '_handleEvent');
+        const {username} = fillUsernameAndPassword(loginOverlayOpened.$.login);
+
+        MockInteractions.pressEnter(username);
+        expect(loginEventSpy.called).to.be.true;
+
+        const {type} = loginEventSpy.args[0][0];
+        expect(type).to.be.equal('login');
+      });
     });
 
     describe('Title and description test', function() {
@@ -140,8 +160,8 @@
 
       beforeEach(function() {
         login = fixture('set-title');
-        headerElement = login.$.overlay.shadowRoot.querySelector('[part="brand"] h1');
-        descriptionElement = login.$.overlay.shadowRoot.querySelector('[part="brand"] p');
+        headerElement = login.$.wrapper.shadowRoot.querySelector('[part="brand"] h1');
+        descriptionElement = login.$.wrapper.shadowRoot.querySelector('[part="brand"] p');
       });
 
       it('should display title and description set via attributes or properties', function() {
@@ -175,17 +195,17 @@
 
         it('should teleport title', function() {
           const overlay = fixture('title-as-component');
-          const overlayElement = overlay.$.overlay;
-          let titleElements = overlayElement.querySelectorAll('[slot=title]');
+          const overlayWrapper = overlay.$.wrapper;
+          let titleElements = overlayWrapper.querySelectorAll('[slot=title]');
           expect(titleElements.length).to.be.equal(1);
           expect(titleElements[0].textContent).to.be.equal('Teleported title');
 
           overlay.opened = false;
-          titleElements = overlayElement.querySelectorAll('[slot=title]');
+          titleElements = overlayWrapper.querySelectorAll('[slot=title]');
           expect(titleElements.length).to.be.equal(0);
 
           overlay.opened = true;
-          titleElements = overlayElement.querySelectorAll('[slot=title]');
+          titleElements = overlayWrapper.querySelectorAll('[slot=title]');
           expect(titleElements.length).to.be.equal(1);
           expect(titleElements[0].textContent).to.be.equal('Teleported title');
         });

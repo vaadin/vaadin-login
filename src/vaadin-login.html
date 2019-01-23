@@ -11,7 +11,6 @@ This program is available under Apache License Version 2.0, available at https:/
 
 <link rel="import" href="vaadin-login-mixin.html">
 
-<link rel="import" href="../../iron-form/iron-form.html">
 <link rel="import" href="../../vaadin-text-field/src/vaadin-text-field.html">
 <link rel="import" href="../../vaadin-text-field/src/vaadin-password-field.html">
 <link rel="import" href="../../vaadin-button/src/vaadin-button.html">
@@ -35,13 +34,11 @@ This program is available under Apache License Version 2.0, available at https:/
         box-sizing: border-box;
       }
 
-      [part="form"] h2 {
+      [part="form-title"] {
         margin: 0;
       }
 
-      vaadin-text-field,
-      vaadin-password-field,
-      #submit {
+      #loginForm * {
         width: 100%;
       }
 
@@ -50,21 +47,30 @@ This program is available under Apache License Version 2.0, available at https:/
       }
     </style>
       <section part="form">
-        <h2>[[i18n.form.title]]</h2>
+        <h2 part="form-title">[[i18n.form.title]]</h2>
         <div part="error-message" hidden$="[[!error]]">
-          <h5>[[i18n.errorMessage.title]]</h5>
-          <p>[[i18n.errorMessage.message]]</p>
+          <h5 part="error-message-title">[[i18n.errorMessage.title]]</h5>
+          <p part="error-message-description">[[i18n.errorMessage.message]]</p>
         </div>
-        <iron-form id="loginForm" allow-redirect>
-          <form method="POST" action$="[[action]]">
-            <vaadin-text-field label="[[i18n.form.username]]" name="username" id="username" required on-keydown="_handleInputKeydown"></vaadin-text-field>
-            <vaadin-password-field label="[[i18n.form.password]]" name="password" id="password" required on-keydown="_handleInputKeydown"></vaadin-password-field>
 
-            <vaadin-button id="submit" theme="primary contained" on-click="submit" disabled$="[[disabled]]">[[i18n.form.submit]]</vaadin-button>
+        <slot name="form">
+          <form id="loginForm" method="POST" action$="[[action]]">
+            <vaadin-text-field name="username" label="[[i18n.form.username]]"
+                id="username" required on-keydown="_handleInputKeydown"
+                autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false">
+              <input type="text" slot="input">
+            </vaadin-text-field>
+
+            <vaadin-password-field name="password" label="[[i18n.form.password]]" id="password" required on-keydown="_handleInputKeydown"
+                spellcheck="false">
+              <input type="password" slot="input">
+            </vaadin-password-field>
+
+            <vaadin-button id="submit" theme="primary contained vaadin-login-submit" on-click="submit" disabled$="[[disabled]]">[[i18n.form.submit]]</vaadin-button>
           </form>
-        </iron-form>
+        </slot>
 
-        <vaadin-button id="forgotPasswordButton" theme="tertiary small" on-click="_forgotPassword" hidden$="[[noForgotPassword]]">[[i18n.form.forgotPassword]]</vaadin-button>
+        <vaadin-button id="forgotPasswordButton" theme="tertiary small forgot-password" on-click="_forgotPassword" hidden$="[[noForgotPassword]]">[[i18n.form.forgotPassword]]</vaadin-button>
 
         <div part="footer">
           <p>[[i18n.additionalInformation]]</p>
@@ -76,91 +82,77 @@ This program is available under Apache License Version 2.0, available at https:/
     (function() {
 
       /**
-       * `<vaadin-login>` is a Web Component.
+       * `<vaadin-login>` is a Web Component providing an easy way to require users
+       * to log in into an application.
        *
        * ```
        * <vaadin-login></vaadin-login>
        * ```
        *
+       * Use `<vaadin-login-overlay>` Web Component which allows the form to work with password managers.
+       *
+       * ### Styling
+       *
+       * The following Shadow DOM parts of the `<vaadin-login>` are available for styling:
+       *
+       * Part name      | Description
+       * ---------------|---------------------------------------------------------|
+       * `form`         | Container for the entire component's content
+       * `form-title`   | Title of the login form
+       * `error-message`| Container for error message, contains error-message-title and error-message-description parts. Hidden by default.
+       * `error-message-title`       | Container for error message title
+       * `error-message-description` | Container for error message description
+       * `error-message-description` | Container for error message description
+       * `footer`  | Container additional information text from `i18n` object
+       *
+       * See [ThemableMixin – how to apply styles for shadow parts](https://github.com/vaadin/vaadin-themable-mixin/wiki)
+       *
+       * ### Component's slots
+       *
+       * The following slots are available for being set
+       *
+       * Slot name | Description
+       * ----------|---------------------------------------------------|
+       * `form`    | Html form placeholder. See the usage in `<vaadin-login-overlay>`.
+       *
+       * See examples of setting the content into slots in the live demos.
        * @memberof Vaadin
        * @mixes Vaadin.ElementMixin
        * @mixes Vaadin.ThemableMixin
-       * @mixes Vaadin.LoginMixin
+       * @mixes Vaadin.Login.LoginMixin
        * @demo demo/index.html
        */
-      class VaadinLogin extends Vaadin.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
+      class LoginElement extends Vaadin.Login.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
         static get is() {
           return 'vaadin-login';
         }
         static get version() {
-          return '1.0.0-alpha4';
-        }
-
-        static get observers() {
-          return [
-            "_errorChanged(error)"
-          ];
-        }
-
-        submit() {
-          if (this.disabled || !(this.$.username.validate() && this.$.password.validate())) {
-            return;
-          }
-
-          this.error = false;
-          this.disabled = true;
-
-          const loginEventDetails = {
-            bubbles: true,
-            cancelable: true,
-            detail: {
-              username: this.$.username.value,
-              password: this.$.password.value
-            }
-          };
-          const loginEvent = new CustomEvent('login', loginEventDetails);
-          this.dispatchEvent(loginEvent);
-
-          if (this.action && !loginEvent.defaultPrevented) {
-            this.$.loginForm.submit();
-          }
+          return '1.0.0-alpha7';
         }
 
         _forgotPassword() {
           this.dispatchEvent(new CustomEvent('forgot-password'));
         }
 
-        _handleInputKeydown(e) {
-          if (this._isEnterKey(e)) {
-            const {target: inputActive} = e;
-            const nextInput = inputActive.name === 'username' ? this.$.password : this.$.username;
-            if (inputActive.validate()) {
-              if (nextInput.checkValidity()) {
-                this.submit();
-              } else {
-                nextInput.focus();
-              }
-            }
-          }
-        }
-
-        _isEnterKey(e) {
-          return e.key === 'Enter' || e.keyCode === 13;
+        static get observers() {
+          return [
+            '_errorChanged(error)'
+          ];
         }
 
         _errorChanged() {
-          if(this.error) {
+          if (this.error) {
             this.disabled = false;
           }
         }
       }
 
-      customElements.define(VaadinLogin.is, VaadinLogin);
+      customElements.define(LoginElement.is, LoginElement);
 
       /**
        * @namespace Vaadin
        */
-      window.Vaadin.VaadinLogin = VaadinLogin;
+      window.Vaadin.LoginElement = LoginElement;
     })();
   </script>
 </dom-module>
