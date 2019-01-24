@@ -1,4 +1,4 @@
-gemini.suite('vaadin-login', function(rootSuite) {
+gemini.suite('vaadin-login-overlay', function(rootSuite) {
   function wait(actions, find) {
     actions.wait(5000);
   }
