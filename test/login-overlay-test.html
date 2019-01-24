@@ -65,7 +65,7 @@
 
       it('should be able to be opened', () => {
         loginOverlay.opened = true;
-        const login = document.querySelectorAll('vaadin-login');
+        const login = document.querySelectorAll('vaadin-login-form-wrapper');
 
         expect(login.length).to.be.equal(1);
       });
@@ -74,18 +74,18 @@
         const loginOverlayOpened = fixture('opened');
         expect(loginOverlayOpened.opened).to.be.true;
 
-        const login = document.querySelectorAll('vaadin-login');
+        const login = document.querySelectorAll('vaadin-login-form-wrapper');
         expect(login.length).to.be.equal(1);
       });
 
       it('should be able to be closed', () => {
         const loginOverlayOpened = fixture('opened');
 
-        let login = document.querySelectorAll('vaadin-login');
+        let login = document.querySelectorAll('vaadin-login-form-wrapper');
         expect(login.length).to.be.equal(1);
 
         loginOverlayOpened.opened = false;
-        login = document.querySelectorAll('vaadin-login');
+        login = document.querySelectorAll('vaadin-login-form-wrapper');
         expect(login.length).to.be.equal(0);
       });
 

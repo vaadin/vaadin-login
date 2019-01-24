@@ -6,13 +6,13 @@
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
   <link rel="import" href="../vaadin-login-overlay.html">
-  <link rel="import" href="../vaadin-login.html">
+  <link rel="import" href="../src/vaadin-login-form-wrapper.html">
 </head>
 
 <body>
   <test-fixture id="default">
     <template>
-      <vaadin-login action="login-action"></vaadin-login>
+      <vaadin-login-form-wrapper action="login-action"></vaadin-login-form-wrapper>
       <iframe name="loginFrame"></iframe>
     </template>
   </test-fixture>

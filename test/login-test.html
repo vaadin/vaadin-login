@@ -5,11 +5,11 @@
   <title>vaadin-login tests</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
-  <link rel="import" href="../vaadin-login.html">
+  <link rel="import" href="../src/vaadin-login-form-wrapper.html">
   <link rel="import" href="../vaadin-login-overlay.html">
   <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
   
-  <dom-module id="parts-styles" theme-for="vaadin-login">
+  <dom-module id="parts-styles" theme-for="vaadin-login-form-wrapper">
     <template>
       <style>
         :host([theme="green"]) [part="form-title"],
@@ -25,37 +25,37 @@
 <body>
   <test-fixture id="default">
     <template>
-      <vaadin-login></vaadin-login>
+      <vaadin-login-form-wrapper></vaadin-login-form-wrapper>
     </template>
   </test-fixture>
 
   <test-fixture id="hidden-button">
       <template>
-        <vaadin-login no-forgot-password></vaadin-login>
+        <vaadin-login-form-wrapper no-forgot-password></vaadin-login-form-wrapper>
       </template>
   </test-fixture>
 
   <test-fixture id="displayed-error">
     <template>
-      <vaadin-login error></vaadin-login>
+      <vaadin-login-form-wrapper error></vaadin-login-form-wrapper>
     </template>
   </test-fixture>
 
   <test-fixture id="custom-form">
     <template>
-      <vaadin-login>
+      <vaadin-login-form-wrapper>
         <form id="loginForm" method="POST" slot="form">
           <input id="username" name="username" type="text">
           <input id="password" name="password" type="password">
           <button id="submit">submit</button>
         </form>
-      </vaadin-login>
+      </vaadin-login-form-wrapper>
     </template>
   </test-fixture>
 
   <test-fixture id="themed">
     <template>
-      <vaadin-login theme="green"></vaadin-login>
+      <vaadin-login-form-wrapper theme="green"></vaadin-login-form-wrapper>
     </template>
   </test-fixture>
 
@@ -79,7 +79,7 @@
       }
 
       it('should pass', () => {
-        expect(login.localName).to.be.equal('vaadin-login');
+        expect(login.localName).to.be.equal('vaadin-login-form-wrapper');
       });
 
       it('should not expose class name globally', () => {
