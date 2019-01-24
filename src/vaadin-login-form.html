@@ -1,0 +1,68 @@
+<link rel="import" href="vaadin-login-form-wrapper.html">
+<link rel="import" href="../../vaadin-text-field/src/vaadin-text-field.html">
+<link rel="import" href="../../vaadin-text-field/src/vaadin-password-field.html">
+
+<dom-module id="vaadin-login-form">
+  <template>
+      <style>
+        #submit {
+          margin-top: var(--lumo-space-l);
+          margin-bottom: var(--lumo-space-s);
+        }
+    
+        #loginForm * {
+          width: 100%;
+        }
+      </style>
+      <vaadin-login-form-wrapper
+        theme="with-overlay"
+        id="login"
+        action="{{action}}"
+        disabled="{{disabled}}"
+        error="{{error}}"
+        no-forgot-password="{{noForgotPassword}}"
+        i18n="{{i18n}}"
+        on-login="_handleEvent"
+        on-forgot-password="_handleEvent">
+
+        <form id="loginForm" method="POST" action$="[[action]]" slot="form">
+          <vaadin-text-field name="username" label="[[i18n.form.username]]"
+              id="username" required on-keydown="_handleInputKeydown"
+              autocapitalize="none" autocorrect="off" spellcheck="false">
+            <input type="text" slot="input">
+          </vaadin-text-field>
+
+          <vaadin-password-field name="password" label="[[i18n.form.password]]" id="password" required on-keydown="_handleInputKeydown"
+              spellcheck="false">
+            <input type="password" slot="input">
+          </vaadin-password-field>
+
+          <vaadin-button id="submit" theme="primary contained vaadin-login-submit" on-click="submit" disabled$="[[disabled]]">[[i18n.form.submit]]</vaadin-button>
+        </form>
+      </vaadin-login-form>
+  </template>
+
+  <script>
+    (function () {
+      class LoginFormElement extends Vaadin.Login.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
+        static get is() {
+          return 'vaadin-login-form';
+        }
+        static get version() {
+          return '1.0.0-alpha8';
+        }
+        _attachDom(dom) {
+          this.appendChild(dom);
+        }
+
+      }
+
+      customElements.define(LoginFormElement.is, LoginFormElement);
+
+      /**
+       * @namespace Vaadin
+       */
+      window.Vaadin.LoginFormElement = LoginFormElement;
+    })();
+  </script>
+</dom-module>

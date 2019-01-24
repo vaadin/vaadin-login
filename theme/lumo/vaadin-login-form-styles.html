@@ -2,7 +2,7 @@
 <link rel="import" href="../../../vaadin-lumo-styles/spacing.html">
 <link rel="import" href="../../../vaadin-lumo-styles/typography.html">
 
-<dom-module id="lumo-login-form-wrapper" theme-for="vaadin-login-form-wrapper">
+<dom-module id="lumo-login-form" theme-for="vaadin-login-form">
   <template>
     <style include="lumo-color lumo-typography">
       :host {
@@ -70,16 +70,3 @@
     </style>
   </template>
 </dom-module>
-
-<custom-style>
-    <style>
-      vaadin-login-overlay-wrapper vaadin-login-form-wrapper #submit {
-        margin-top: var(--lumo-space-l);
-        margin-bottom: var(--lumo-space-s);
-      }
-  
-      vaadin-login-overlay-wrapper vaadin-login-form-wrapper #loginForm * {
-        width: 100%;
-      }
-    </style>
-  </custom-style>
