@@ -101,7 +101,7 @@
           }
         </style>
         <main>
-          <vaadin-login></vaadin-login>
+          <vaadin-login-form-wrapper></vaadin-login-form-wrapper>
         </main>
         <vaadin-dialog id="feedbackDialog">
           <template>Login is being processed...</template>
@@ -111,7 +111,7 @@
         </vaadin-dialog>
         <script>
           window.addDemoReadyListener('#element-basic-demos-sample-example', function(document) {
-            var login = document.querySelector('vaadin-login');
+            var login = document.querySelector('vaadin-login-form-wrapper');
             var feedbackDialog = document.querySelector('#feedbackDialog');
             var supportDialog = document.querySelector('#supportDialog');
 

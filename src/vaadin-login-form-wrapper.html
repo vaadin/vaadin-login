@@ -15,7 +15,7 @@ This program is available under Apache License Version 2.0, available at https:/
 <link rel="import" href="../../vaadin-text-field/src/vaadin-password-field.html">
 <link rel="import" href="../../vaadin-button/src/vaadin-button.html">
 
-<dom-module id="vaadin-login">
+<dom-module id="vaadin-login-form-wrapper">
   <template>
     <style>
       :host {
@@ -82,18 +82,18 @@ This program is available under Apache License Version 2.0, available at https:/
     (function() {
 
       /**
-       * `<vaadin-login>` is a Web Component providing an easy way to require users
+       * `<vaadin-login-form-wrapper>` is a Web Component providing an easy way to require users
        * to log in into an application.
        *
        * ```
-       * <vaadin-login></vaadin-login>
+       * <vaadin-login-form-wrapper></vaadin-login-form-wrapper>
        * ```
        *
        * Use `<vaadin-login-overlay>` Web Component which allows the form to work with password managers.
        *
        * ### Styling
        *
-       * The following Shadow DOM parts of the `<vaadin-login>` are available for styling:
+       * The following Shadow DOM parts of the `<vaadin-login-form-wrapper>` are available for styling:
        *
        * Part name      | Description
        * ---------------|---------------------------------------------------------|
@@ -122,9 +122,9 @@ This program is available under Apache License Version 2.0, available at https:/
        * @mixes Vaadin.Login.LoginMixin
        * @demo demo/index.html
        */
-      class LoginElement extends Vaadin.Login.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
+      class LoginFormWrapperElement extends Vaadin.Login.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
         static get is() {
-          return 'vaadin-login';
+          return 'vaadin-login-form-wrapper';
         }
         static get version() {
           return '1.0.0-alpha8';
@@ -147,12 +147,12 @@ This program is available under Apache License Version 2.0, available at https:/
         }
       }
 
-      customElements.define(LoginElement.is, LoginElement);
+      customElements.define(LoginFormWrapperElement.is, LoginFormWrapperElement);
 
       /**
        * @namespace Vaadin
        */
-      window.Vaadin.LoginElement = LoginElement;
+      window.Vaadin.LoginFormWrapperElement = LoginFormWrapperElement;
     })();
   </script>
 </dom-module>

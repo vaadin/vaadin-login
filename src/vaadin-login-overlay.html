@@ -9,7 +9,7 @@ This program is available under Apache License Version 2.0, available at https:/
 <link rel="import" href="../../vaadin-themable-mixin/vaadin-themable-mixin.html">
 <link rel="import" href="../../vaadin-element-mixin/vaadin-element-mixin.html">
 
-<link rel="import" href="vaadin-login.html">
+<link rel="import" href="vaadin-login-form-wrapper.html">
 <link rel="import" href="vaadin-login-mixin.html">
 <link rel="import" href="vaadin-login-overlay-wrapper.html">
 
@@ -31,7 +31,7 @@ This program is available under Apache License Version 2.0, available at https:/
       description="[[description]]"
       theme$="[[theme]]">
 
-      <vaadin-login
+      <vaadin-login-form-wrapper
         theme="with-overlay"
         id="login"
         action="{{action}}"
@@ -56,7 +56,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
           <vaadin-button id="submit" theme="primary contained vaadin-login-submit" on-click="submit" disabled$="[[disabled]]">[[i18n.form.submit]]</vaadin-button>
         </form>
-      </vaadin-login>
+      </vaadin-login-form-wrapper>
 
     </vaadin-login-overlay-wrapper>
   </template>
@@ -64,7 +64,7 @@ This program is available under Apache License Version 2.0, available at https:/
   <script>
     (function() {
       /**
-       * `<vaadin-login-overlay>` is a wrapper of the `<vaadin-login>` which opens a login form in an overlay and
+       * `<vaadin-login-overlay>` is a wrapper of the `<vaadin-login-form-wrapper>` which opens a login form in an overlay and
        * additional `brand` part for application title and description. Using `<vaadin-login-overlay>` allows
        * password managers to work with login form.
        *
@@ -74,7 +74,7 @@ This program is available under Apache License Version 2.0, available at https:/
        *
        * ### Styling
        *
-       * To style the element check: `<vaadin-login-overlay-wrapper>`, `<vaadin-login>` and `<vaadin-overlay>` elements
+       * To style the element check: `<vaadin-login-overlay-wrapper>`, `<vaadin-login-form-wrapper>` and `<vaadin-overlay>` elements
        *
        * @memberof Vaadin
        * @mixes Vaadin.ElementMixin
