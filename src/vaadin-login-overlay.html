@@ -44,17 +44,18 @@ This program is available under Apache License Version 2.0, available at https:/
   <script>
     (function() {
       /**
-       * `<vaadin-login-overlay>` is a wrapper of the `<vaadin-login-form-wrapper>` which opens a login form in an overlay and
-       * additional `brand` part for application title and description. Using `<vaadin-login-overlay>` allows
+       * `<vaadin-login-overlay>` is a wrapper of the `<vaadin-login-form>` which opens a login form in an overlay and
+       * having an additional `brand` part for application title and description. Using `<vaadin-login-overlay>` allows
        * password managers to work with login form.
        *
        * ```
-       * <vaadin-login-overlay></vaadin-login-overlay>
+       * <vaadin-login-overlay opened></vaadin-login-overlay>
        * ```
        *
        * ### Styling
        *
-       * To style the element check: `<vaadin-login-overlay-wrapper>`, `<vaadin-login-form-wrapper>` and `<vaadin-overlay>` elements
+       * To style the element check: `<vaadin-login-overlay-wrapper>`, `<vaadin-login-form-wrapper>`, `<vaadin-login-form>`
+       * and `<vaadin-overlay>` elements
        *
        * @memberof Vaadin
        * @mixes Vaadin.ElementMixin

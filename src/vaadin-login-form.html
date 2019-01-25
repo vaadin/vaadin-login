@@ -44,6 +44,29 @@
 
   <script>
     (function () {
+      /**
+       * `<vaadin-login-form>` is a Web Component providing an easy way to require users
+       * to log in into an application. Note that component has no shadowRoot.
+       *
+       * ```
+       * <vaadin-login-form></vaadin-login-form>
+       * ```
+       *
+       * Component has to be accessible from the `document` layer in order to allow password managers to work properly with form values.
+       * Using `<vaadin-login-overlay>` allows to always attach the component to the document root.
+       *
+       * ### Styling
+       *
+       * The component doesn't have a shadowRoot, so the html form and can be styled in an upper layer. To style
+       * `vaadin-login-form-wrapper` check its documentation.
+       *
+       * See examples of setting the content into slots in the live demos.
+       * @memberof Vaadin
+       * @mixes Vaadin.ElementMixin
+       * @mixes Vaadin.ThemableMixin
+       * @mixes Vaadin.Login.LoginMixin
+       * @demo demo/index.html
+       */
       class LoginFormElement extends Vaadin.Login.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
         static get is() {
           return 'vaadin-login-form';

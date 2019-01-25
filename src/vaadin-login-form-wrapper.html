@@ -66,14 +66,9 @@ This program is available under Apache License Version 2.0, available at https:/
     (function() {
 
       /**
-       * `<vaadin-login-form-wrapper>` is a Web Component providing an easy way to require users
-       * to log in into an application.
+       * `<vaadin-login-form-wrapper>` is a helper component providing a wrapper for the login form.
        *
-       * ```
-       * <vaadin-login-form-wrapper></vaadin-login-form-wrapper>
-       * ```
-       *
-       * Use `<vaadin-login-overlay>` Web Component which allows the form to work with password managers.
+       * See the usage in `<vaadin-login-form>`.
        *
        * ### Styling
        *
@@ -97,7 +92,7 @@ This program is available under Apache License Version 2.0, available at https:/
        *
        * Slot name | Description
        * ----------|---------------------------------------------------|
-       * `form`    | Html form placeholder. See the usage in `<vaadin-login-overlay>`.
+       * `form`    | Html form placeholder. See the usage in `<vaadin-login-form>`.
        *
        * See examples of setting the content into slots in the live demos.
        * @memberof Vaadin
@@ -109,9 +104,6 @@ This program is available under Apache License Version 2.0, available at https:/
       class LoginFormWrapperElement extends Vaadin.Login.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
         static get is() {
           return 'vaadin-login-form-wrapper';
-        }
-        static get version() {
-          return '1.0.0-alpha8';
         }
 
         _forgotPassword() {
