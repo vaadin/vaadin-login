@@ -196,7 +196,7 @@
       });
 
       it('should disable button after submiting form', () => {
-        const {submit} = login.$;
+        const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
         const {password} = fillUsernameAndPassword();
 
         MockInteractions.pressEnter(password);
@@ -205,7 +205,8 @@
       });
 
       it('should prevent submit call when login is disabled', () => {
-        const {loginForm, submit} = login.$;
+        const {loginForm} = login.$;
+        const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
         const {password} = fillUsernameAndPassword();
 
         const submitSpy = sinon.spy(loginForm, 'submit');
@@ -220,7 +221,7 @@
       });
 
       it('should not disable button on button click if form is invalid', () => {
-        const {submit} = login.$;
+        const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
 
         expect(submit.disabled).to.not.be.true;
         MockInteractions.tap(submit);
@@ -228,7 +229,7 @@
       });
 
       it('should disable button on button click if form is valid', () => {
-        const {submit} = login.$;
+        const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
 
         fillUsernameAndPassword();
 

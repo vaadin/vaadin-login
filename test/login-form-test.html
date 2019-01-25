@@ -56,7 +56,7 @@
             done();
           };
 
-          login.$.submit.click();
+          login.querySelector('vaadin-button[part="vaadin-login-submit"]').click();
           expect(submitSpy.called).to.equal(expectation);
         }
 
