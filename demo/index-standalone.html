@@ -29,7 +29,6 @@
       grid-area: footer;
     }
 
-
     .wrapper {
       display: grid;
       grid-gap: 10px;
@@ -41,7 +40,6 @@
       background-color: #fff;
       color: #444;
     }
-
 
     .box {
       background-color: #444;
@@ -75,18 +73,18 @@
     <template>Try with admin/admin.</template>
   </vaadin-dialog>
   <script>
-    window.addEventListener('WebComponentsReady', function (e) {
+    window.addEventListener('WebComponentsReady', function(e) {
       var login = document.querySelector('vaadin-login-form');
       var feedbackDialog = document.querySelector('#feedbackDialog');
       var supportDialog = document.querySelector('#supportDialog');
 
-      login.addEventListener('login', function (e) {
+      login.addEventListener('login', function(e) {
         feedbackDialog.opened = true;
         var detail = e.detail,
           username = detail.username,
           password = detail.password;
 
-        setTimeout(function () {
+        setTimeout(function() {
           feedbackDialog.opened = false;
           if (username === 'admin' && password === 'admin') {
             login.remove();
@@ -96,7 +94,7 @@
         }, 1000);
       });
 
-      login.addEventListener('forgot-password', function () {
+      login.addEventListener('forgot-password', function() {
         supportDialog.opened = true;
       });
     });
