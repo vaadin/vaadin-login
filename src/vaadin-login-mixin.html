@@ -182,5 +182,17 @@ This program is available under Apache License Version 2.0, available at https:/
         }
       }
     }
+
+    _handleEvent(e) {
+      e.stopPropagation();
+      const {
+        detail,
+        composed,
+        cancelable,
+        bubbles
+      } = e;
+
+      this.dispatchEvent(new CustomEvent(e.type, {bubbles, cancelable, composed, detail}));
+    }
   };
 </script>

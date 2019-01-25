@@ -5,7 +5,7 @@
   <title>vaadin-login tests</title>
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
-  <link rel="import" href="../src/vaadin-login-form-wrapper.html">
+  <link rel="import" href="../src/vaadin-login-form.html">
   <link rel="import" href="../vaadin-login-overlay.html">
   <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
   
@@ -25,46 +25,47 @@
 <body>
   <test-fixture id="default">
     <template>
-      <vaadin-login-form-wrapper></vaadin-login-form-wrapper>
+      <vaadin-login-form></vaadin-login-form>
     </template>
   </test-fixture>
 
   <test-fixture id="hidden-button">
       <template>
-        <vaadin-login-form-wrapper no-forgot-password></vaadin-login-form-wrapper>
+        <vaadin-login-form no-forgot-password></vaadin-login-form>
       </template>
   </test-fixture>
 
   <test-fixture id="displayed-error">
     <template>
-      <vaadin-login-form-wrapper error></vaadin-login-form-wrapper>
+      <vaadin-login-form error></vaadin-login-form>
     </template>
   </test-fixture>
 
   <test-fixture id="custom-form">
     <template>
-      <vaadin-login-form-wrapper>
+      <vaadin-login-form>
         <form id="loginForm" method="POST" slot="form">
           <input id="username" name="username" type="text">
           <input id="password" name="password" type="password">
           <button id="submit">submit</button>
         </form>
-      </vaadin-login-form-wrapper>
+      </vaadin-login-form>
     </template>
   </test-fixture>
 
   <test-fixture id="themed">
     <template>
-      <vaadin-login-form-wrapper theme="green"></vaadin-login-form-wrapper>
+      <vaadin-login-form theme="green"></vaadin-login-form>
     </template>
   </test-fixture>
 
   <script>
     describe('Login test', () => {
-      var login;
+      var login, formWrapper;
 
       beforeEach(() => {
         login = fixture('default');
+        formWrapper = login.$.loginFormWrapper;
       });
 
       function fillUsernameAndPassword() {
@@ -79,7 +80,7 @@
       }
 
       it('should pass', () => {
-        expect(login.localName).to.be.equal('vaadin-login-form-wrapper');
+        expect(login.localName).to.be.equal('vaadin-login-form');
       });
 
       it('should not expose class name globally', () => {
@@ -91,16 +92,16 @@
       });
 
       it('should display default strings', () => {
-        const formTitleElement = login.shadowRoot.querySelector('[part="form"] h2');
-        const errorTitleElement = login.shadowRoot.querySelector('[part="error-message"] h5');
-        const errorMessageElement = login.shadowRoot.querySelector('[part="error-message"] p');
+        const formTitleElement = formWrapper.shadowRoot.querySelector('[part="form"] h2');
+        const errorTitleElement = formWrapper.shadowRoot.querySelector('[part="error-message"] h5');
+        const errorMessageElement = formWrapper.shadowRoot.querySelector('[part="error-message"] p');
 
-        const usernameElement = login.shadowRoot.querySelector('#username');
-        const passwordElement = login.shadowRoot.querySelector('#password');
-        const submitElement = login.shadowRoot.querySelector('#submit');
-        const forgotElement = login.shadowRoot.querySelector('#forgotPasswordButton');
+        const usernameElement = login.querySelector('#username');
+        const passwordElement = login.querySelector('#password');
+        const submitElement = login.querySelector('#submit');
+        const forgotElement = formWrapper.shadowRoot.querySelector('#forgotPasswordButton');
 
-        const footerElement = login.shadowRoot.querySelector('[part="footer"] p');
+        const footerElement = formWrapper.shadowRoot.querySelector('[part="footer"] p');
 
         expect(formTitleElement.textContent).to.be.equal(login.i18n.form.title);
         expect(errorTitleElement.textContent).to.be.equal(login.i18n.errorMessage.title);
@@ -116,7 +117,7 @@
       });
 
       it('should show forgot password button', function() {
-        expect(login.$.forgotPasswordButton.hidden).to.be.false;
+        expect(formWrapper.$.forgotPasswordButton.hidden).to.be.false;
       });
 
       it('should emit forgot password event', function() {
@@ -124,19 +125,20 @@
         login.addEventListener('forgot-password', function() {
           eventWasCaught = true;
         });
-        login.$.forgotPasswordButton.click();
+
+        formWrapper.$.forgotPasswordButton.click();
         expect(eventWasCaught).to.be.true;
       });
 
       it('should be able to internationalize via `i18n` property', () => {
-        const additionalInformation = login.shadowRoot.querySelector('[part="footer"] p');
+        const additionalInformation = formWrapper.shadowRoot.querySelector('[part="footer"] p');
         expect(additionalInformation.textContent).to.be.equal('');
-        expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
+        expect(formWrapper.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
 
         const i18n = Object.assign({}, login.i18n, {additionalInformation: 'Mais informações', form: {forgotPassword: 'Esqueci a senha'}});
         login.i18n = i18n;
         expect(additionalInformation.textContent).to.be.equal(login.i18n.additionalInformation);
-        expect(login.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
+        expect(formWrapper.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
       });
 
       it('should mark only username as invalid if user hits ENTER when field is empty', () => {
@@ -250,7 +252,7 @@
       });
 
       it('error should be hidden by default', () => {
-        const errorPart = login.root.querySelectorAll('div[part="error-message"]')[0];
+        const errorPart = formWrapper.shadowRoot.querySelectorAll('div[part="error-message"]')[0];
         expect(errorPart.offsetWidth).to.equal(0);
         expect(errorPart.offsetHeight).to.equal(0);
       });
@@ -258,7 +260,7 @@
       it('should be possible to set error attribute', () => {
         expect(login.error).to.be.false;
         login.error = true;
-        const errorPart = login.root.querySelectorAll('div[part="error-message"]')[0];
+        const errorPart = formWrapper.shadowRoot.querySelectorAll('div[part="error-message"]')[0];
         expect(errorPart.offsetWidth).not.to.equal(0);
         expect(errorPart.offsetHeight).not.to.equal(0);
       });
@@ -291,26 +293,28 @@
     });
 
     describe('hidden button test', function() {
-      var login;
+      var login, formWrapper;
 
       beforeEach(function() {
         login = fixture('hidden-button');
+        formWrapper = login.$.loginFormWrapper;
       });
 
       it('should hide forgot password button', function() {
-        expect(login.$.forgotPasswordButton.hidden).to.be.true;
+        expect(formWrapper.$.forgotPasswordButton.hidden).to.be.true;
       });
     });
 
     describe('error message test', function() {
-      var login;
+      var login, formWrapper;
 
       beforeEach(function() {
         login = fixture('displayed-error');
+        formWrapper = login.$.loginFormWrapper;
       });
 
       it('should show error message if the error attribute is set', function() {
-        const errorPart = login.root.querySelectorAll('div[part="error-message"]')[0];
+        const errorPart = formWrapper.shadowRoot.querySelectorAll('div[part="error-message"]')[0];
         expect(errorPart.hidden).to.be.false;
         expect(errorPart.offsetWidth).not.to.equal(0);
         expect(errorPart.offsetHeight).not.to.equal(0);
@@ -319,7 +323,7 @@
       it('should be possible to unset the error', function() {
         expect(login.error).to.be.true;
         login.error = false;
-        const errorPart = login.root.querySelectorAll('div[part="error-message"]')[0];
+        const errorPart = formWrapper.shadowRoot.querySelectorAll('div[part="error-message"]')[0];
         expect(errorPart.hidden).to.be.true;
         expect(errorPart.offsetWidth).to.equal(0);
         expect(errorPart.offsetHeight).to.equal(0);
@@ -327,11 +331,12 @@
     });
 
     describe('custom input fields', function() {
-      let login;
+      let login, formWrapper;
 
       beforeEach(done => {
         login = fixture('custom-form');
         Polymer.RenderStatus.afterNextRender(login, () => done());
+        formWrapper = login.$.loginFormWrapper;
       });
 
       it('should utilize custom form', done => {
@@ -350,8 +355,8 @@
           // on remove so test the revert only in browsers with native shadow DOM.
           // https://github.com/webcomponents/shadydom/issues/261
           if (window.ShadyCSS.nativeShadow) {
-            expect(login.$.username).to.equal(login.shadowRoot.querySelector('vaadin-text-field'));
-            expect(login.$.password).to.equal(login.shadowRoot.querySelector('vaadin-password-field'));
+            expect(login.$.username).to.equal(login.querySelector('vaadin-text-field'));
+            expect(login.$.password).to.equal(login.querySelector('vaadin-password-field'));
           }
           done();
         });
@@ -362,11 +367,12 @@
       it('should be possible to style parts', () => {
         const expectedColor = 'rgb(0, 128, 0)';
         const login = fixture('themed');
-        const formTitle = login.shadowRoot.querySelector('[part="form-title"]');
+        const formWrapper = login.$.loginFormWrapper;
+        const formTitle = formWrapper.shadowRoot.querySelector('[part="form-title"]');
         expect(getComputedStyle(formTitle).color).to.equal(expectedColor);
-        const errorTitle = login.shadowRoot.querySelector('[part="error-message-title"]');
+        const errorTitle = formWrapper.shadowRoot.querySelector('[part="error-message-title"]');
         expect(getComputedStyle(errorTitle).color).to.equal(expectedColor);
-        const errorMessage = login.shadowRoot.querySelector('[part="error-message-description"]');
+        const errorMessage = formWrapper.shadowRoot.querySelector('[part="error-message-description"]');
         expect(getComputedStyle(errorMessage).color).to.equal(expectedColor);
       });
     });

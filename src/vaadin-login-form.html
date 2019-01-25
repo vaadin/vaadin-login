@@ -15,8 +15,8 @@
         }
       </style>
       <vaadin-login-form-wrapper
-        theme="with-overlay"
-        id="login"
+        theme$="[[theme]]"
+        id="loginFormWrapper"
         action="{{action}}"
         disabled="{{disabled}}"
         error="{{error}}"
@@ -51,10 +51,22 @@
         static get version() {
           return '1.0.0-alpha8';
         }
+
         _attachDom(dom) {
           this.appendChild(dom);
         }
 
+        static get observers() {
+          return [
+            '_errorChanged(error)'
+          ];
+        }
+
+        _errorChanged() {
+          if (this.error && !this._preventAutoEnable) {
+            this.disabled = false;
+          }
+        }
       }
 
       customElements.define(LoginFormElement.is, LoginFormElement);
