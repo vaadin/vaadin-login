@@ -5,11 +5,6 @@
 <dom-module id="vaadin-login-form">
   <template>
       <style>
-        #submit {
-          margin-top: var(--lumo-space-l);
-          margin-bottom: var(--lumo-space-s);
-        }
-
         #loginForm * {
           width: 100%;
         }
@@ -37,7 +32,7 @@
             <input type="password" slot="input">
           </vaadin-password-field>
 
-          <vaadin-button id="submit" theme="primary contained vaadin-login-submit" on-click="submit" disabled$="[[disabled]]">[[i18n.form.submit]]</vaadin-button>
+          <vaadin-button part="vaadin-login-submit" theme="primary contained" on-click="submit" disabled$="[[disabled]]">[[i18n.form.submit]]</vaadin-button>
         </form>
       </vaadin-login-form>
   </template>

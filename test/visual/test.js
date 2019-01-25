@@ -19,7 +19,7 @@ gemini.suite('vaadin-login-overlay', function(rootSuite) {
       suite
         .setUrl(`/default.html?theme=${theme}`)
         .setCaptureElements('body')
-        .capture(`vaadin-login`);
+        .capture(`vaadin-login-overlay`);
     });
   });
 
