@@ -331,12 +331,11 @@
     });
 
     describe('custom input fields', function() {
-      let login, formWrapper;
+      let login;
 
       beforeEach(done => {
         login = fixture('custom-form');
         Polymer.RenderStatus.afterNextRender(login, () => done());
-        formWrapper = login.$.loginFormWrapper;
       });
 
       it('should utilize custom form', done => {

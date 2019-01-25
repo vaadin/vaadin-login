@@ -9,7 +9,7 @@
           margin-top: var(--lumo-space-l);
           margin-bottom: var(--lumo-space-s);
         }
-    
+
         #loginForm * {
           width: 100%;
         }
@@ -43,7 +43,7 @@
   </template>
 
   <script>
-    (function () {
+    (function() {
       /**
        * `<vaadin-login-form>` is a Web Component providing an easy way to require users
        * to log in into an application. Note that component has no shadowRoot.
@@ -73,6 +73,18 @@
         }
         static get version() {
           return '1.0.0-alpha8';
+        }
+
+        static get properties() {
+          return {
+            /**
+             * Defines the theme of the element.
+             * The value is propagated to vaadin-login-form-wrapper element.
+             */
+            theme: {
+              type: String
+            }
+          };
         }
 
         _attachDom(dom) {
