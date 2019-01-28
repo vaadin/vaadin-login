@@ -70,6 +70,18 @@
           return '1.0.0-alpha8';
         }
 
+        static get properties() {
+          return {
+            /**
+             * Defines the theme of the element.
+             * The value is propagated to vaadin-login-form-wrapper element.
+             */
+            theme: {
+              type: String
+            }
+          };
+        }
+
         _attachDom(dom) {
           this.appendChild(dom);
         }
