@@ -53,7 +53,7 @@
 
       beforeEach(() => {
         login = fixture('default');
-        formWrapper = login.$.loginFormWrapper;
+        formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
       });
 
       function fillUsernameAndPassword() {
@@ -286,7 +286,7 @@
 
       beforeEach(function() {
         login = fixture('hidden-button');
-        formWrapper = login.$.loginFormWrapper;
+        formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
       });
 
       it('should hide forgot password button', function() {
@@ -299,7 +299,7 @@
 
       beforeEach(function() {
         login = fixture('displayed-error');
-        formWrapper = login.$.loginFormWrapper;
+        formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
       });
 
       it('should show error message if the error attribute is set', function() {
@@ -323,7 +323,7 @@
       it('should be possible to style parts', () => {
         const expectedColor = 'rgb(0, 128, 0)';
         const login = fixture('themed');
-        const formWrapper = login.$.loginFormWrapper;
+        const formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
         const formTitle = formWrapper.shadowRoot.querySelector('[part="form-title"]');
         expect(getComputedStyle(formTitle).color).to.equal(expectedColor);
         const errorTitle = formWrapper.shadowRoot.querySelector('[part="error-message-title"]');
