@@ -41,18 +41,6 @@
     </template>
   </test-fixture>
 
-  <test-fixture id="custom-form">
-    <template>
-      <vaadin-login-form>
-        <form id="loginForm" method="POST" slot="form">
-          <input id="username" name="username" type="text">
-          <input id="password" name="password" type="password">
-          <button id="submit">submit</button>
-        </form>
-      </vaadin-login-form>
-    </template>
-  </test-fixture>
-
   <test-fixture id="themed">
     <template>
       <vaadin-login-form theme="green"></vaadin-login-form>
@@ -205,7 +193,7 @@
       });
 
       it('should prevent submit call when login is disabled', () => {
-        const {loginForm} = login.$;
+        const loginForm = login.querySelector('[part="vaadin-login-native-form"]');
         const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
         const {password} = fillUsernameAndPassword();
 
@@ -328,38 +316,6 @@
         expect(errorPart.hidden).to.be.true;
         expect(errorPart.offsetWidth).to.equal(0);
         expect(errorPart.offsetHeight).to.equal(0);
-      });
-    });
-
-    describe('custom input fields', function() {
-      let login;
-
-      beforeEach(done => {
-        login = fixture('custom-form');
-        Polymer.RenderStatus.afterNextRender(login, () => done());
-      });
-
-      it('should utilize custom form', done => {
-        // Query input fields just like password managers would do
-        // and verify that the login component has taken them into use.
-        expect(login.querySelector('#username')).to.equal(document.querySelector('#username'));
-        expect(login.querySelector('#password')).to.equal(document.querySelector('#password'));
-
-        // Verify that removing the custom input fields makes the
-        // login component revert to it's built-in input fields.
-        [login.querySelector('#username'), login.querySelector('#password')].forEach(e =>
-          e.parentNode.removeChild(e));
-
-        Polymer.RenderStatus.afterNextRender(login, () => {
-          // Due to an issue in ShadyDOM the input field node observers are not called
-          // on remove so test the revert only in browsers with native shadow DOM.
-          // https://github.com/webcomponents/shadydom/issues/261
-          if (window.ShadyCSS.nativeShadow) {
-            expect(login.$.username).to.equal(login.querySelector('vaadin-text-field'));
-            expect(login.$.password).to.equal(login.querySelector('vaadin-password-field'));
-          }
-          done();
-        });
       });
     });
 

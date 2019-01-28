@@ -42,10 +42,11 @@
       function testFormSubmitValues(preventDefault, expectation, done) {
         fillUsernameAndPassword();
 
-        login.$.loginForm.setAttribute('method', 'GET');
-        login.$.loginForm.setAttribute('target', iframe.getAttribute('name'));
+        const loginForm = login.querySelector('[part="vaadin-login-native-form"]');
+        loginForm.setAttribute('method', 'GET');
+        loginForm.setAttribute('target', iframe.getAttribute('name'));
 
-        const submitSpy = sinon.spy(login.$.loginForm, 'submit');
+        const submitSpy = sinon.spy(loginForm, 'submit');
         preventDefault && login.addEventListener('login', e => e.preventDefault());
 
         // Skip form submission in IE11 due to permission restrictions

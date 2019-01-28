@@ -5,7 +5,7 @@
 <dom-module id="vaadin-login-form">
   <template>
     <style>
-      #loginForm * {
+      [part="vaadin-login-native-form"] * {
         width: 100%;
       }
     </style>
@@ -20,7 +20,7 @@
       on-login="_retargetEvent"
       on-forgot-password="_retargetEvent">
 
-      <form id="loginForm" method="POST" action$="[[action]]" slot="form">
+      <form part="vaadin-login-native-form" method="POST" action$="[[action]]" slot="form">
         <vaadin-text-field name="username" label="[[i18n.form.username]]"
             id="username" required on-keydown="_handleInputKeydown"
             autocapitalize="none" autocorrect="off" spellcheck="false">
@@ -82,6 +82,11 @@
           };
         }
 
+        connectedCallback() {
+          super.connectedCallback();
+          this._handleInputKeydown = this._handleInputKeydown.bind(this);
+        }
+
         _attachDom(dom) {
           this.appendChild(dom);
         }
@@ -97,6 +102,53 @@
             this.disabled = false;
           }
         }
+
+        submit() {
+          if (this.disabled || !(this.__isValid(this.$.username) && this.__isValid(this.$.password))) {
+            return;
+          }
+
+          this.error = false;
+          this.disabled = true;
+
+          const loginEventDetails = {
+            bubbles: true,
+            cancelable: true,
+            detail: {
+              username: this.$.username.value,
+              password: this.$.password.value
+            }
+          };
+
+          const firedEvent = this.dispatchEvent(new CustomEvent('login', loginEventDetails));
+          if (this.action && firedEvent) {
+            this.querySelector('[part="vaadin-login-native-form"]').submit();
+          }
+        }
+
+        __isValid(input) {
+          return (input.validate && input.validate()) || (input.checkValidity && input.checkValidity());
+        }
+
+        _isEnterKey(e) {
+          return e.key === 'Enter' || e.keyCode === 13;
+        }
+
+        _handleInputKeydown(e) {
+          if (this._isEnterKey(e)) {
+            const {currentTarget: inputActive} = e;
+            const nextInput = inputActive.id === 'username'
+              ? this.$.password : this.$.username;
+            if (this.__isValid(inputActive)) {
+              if (this.__isValid(nextInput)) {
+                this.submit();
+              } else {
+                nextInput.focus();
+              }
+            }
+          }
+        }
+
       }
 
       customElements.define(LoginFormElement.is, LoginFormElement);
