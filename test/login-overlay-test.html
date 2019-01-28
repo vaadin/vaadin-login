@@ -108,7 +108,7 @@
       it('should not close on click outside', () => {
         const loginOverlayOpened = fixture('opened');
 
-        MockInteractions.tap(loginOverlay.$.wrapper.$.backdrop);
+        MockInteractions.tap(loginOverlay.$.vaadinLoginOverlayWrapper.$.backdrop);
 
         expect(loginOverlayOpened.opened).to.be.true;
       });
@@ -160,8 +160,8 @@
 
       beforeEach(function() {
         login = fixture('set-title');
-        headerElement = login.$.wrapper.shadowRoot.querySelector('[part="brand"] h1');
-        descriptionElement = login.$.wrapper.shadowRoot.querySelector('[part="brand"] p');
+        headerElement = login.$.vaadinLoginOverlayWrapper.shadowRoot.querySelector('[part="brand"] h1');
+        descriptionElement = login.$.vaadinLoginOverlayWrapper.shadowRoot.querySelector('[part="brand"] p');
       });
 
       it('should display title and description set via attributes or properties', function() {
@@ -195,7 +195,7 @@
 
         it('should teleport title', function() {
           const overlay = fixture('title-as-component');
-          const overlayWrapper = overlay.$.wrapper;
+          const overlayWrapper = overlay.$.vaadinLoginOverlayWrapper;
           let titleElements = overlayWrapper.querySelectorAll('[slot=title]');
           expect(titleElements.length).to.be.equal(1);
           expect(titleElements[0].textContent).to.be.equal('Teleported title');

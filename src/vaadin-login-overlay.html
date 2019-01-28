@@ -17,7 +17,7 @@ This program is available under Apache License Version 2.0, available at https:/
   <template>
 
     <vaadin-login-overlay-wrapper
-      id="wrapper"
+      id="vaadinLoginOverlayWrapper"
       opened="{{opened}}"
       focus-trap
       with-backdrop
@@ -119,16 +119,16 @@ This program is available under Apache License Version 2.0, available at https:/
         connectedCallback() {
           super.connectedCallback();
 
-          this.$.wrapper.addEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
-          this.$.wrapper.addEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
+          this.$.vaadinLoginOverlayWrapper.addEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
+          this.$.vaadinLoginOverlayWrapper.addEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
         }
 
         disconnectedCallback() {
           super.disconnectedCallback();
 
-          this.$.wrapper.removeEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
-          this.$.wrapper.removeEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
-          this.$.wrapper.opened = false;
+          this.$.vaadinLoginOverlayWrapper.removeEventListener('vaadin-overlay-outside-click', this._preventClosingLogin);
+          this.$.vaadinLoginOverlayWrapper.removeEventListener('vaadin-overlay-escape-press', this._preventClosingLogin);
+          this.$.vaadinLoginOverlayWrapper.opened = false;
         }
 
         __i18nChanged(i18n) {
@@ -160,13 +160,13 @@ This program is available under Apache License Version 2.0, available at https:/
             // Overlay sets pointerEvents on body to `none`, which breaks LastPass popup
             // Reverting it back to the previous state
             // https://github.com/vaadin/vaadin-overlay/blob/041cde4481b6262eac68d3a699f700216d897373/src/vaadin-overlay.html#L660
-            document.body.style.pointerEvents = this.$.wrapper._previousDocumentPointerEvents;
+            document.body.style.pointerEvents = this.$.vaadinLoginOverlayWrapper._previousDocumentPointerEvents;
           }
         }
 
         _teleport(elements) {
           const teleported = Array.from(elements).map(e => {
-            return this.$.wrapper.appendChild(e);
+            return this.$.vaadinLoginOverlayWrapper.appendChild(e);
           });
           // Function to undo the teleport
           return () => {
