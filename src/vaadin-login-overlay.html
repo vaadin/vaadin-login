@@ -27,7 +27,7 @@ This program is available under Apache License Version 2.0, available at https:/
 
       <vaadin-login-form
         theme="with-overlay"
-        id="login"
+        id="vaadinLoginForm"
         action="{{action}}"
         disabled="{{disabled}}"
         error="{{error}}"
@@ -147,8 +147,8 @@ This program is available under Apache License Version 2.0, available at https:/
         _onOpenedChange() {
           if (!this.opened) {
 
-            this.$.login.$.username.value = '';
-            this.$.login.$.password.value = '';
+            this.$.vaadinLoginForm.$.username.value = '';
+            this.$.vaadinLoginForm.$.password.value = '';
             this.disabled = false;
 
             if (this._undoTeleport) {

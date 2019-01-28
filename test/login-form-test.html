@@ -73,7 +73,7 @@
 
       it('should submit form values from overlay element', done => {
         [login, iframe] = fixture('overlay');
-        login = login.$.login;
+        login = login.$.vaadinLoginForm;
         testFormSubmitValues(false, true, done);
       });
 

@@ -117,7 +117,7 @@
         const loginOverlayOpened = fixture('opened');
 
         const loginEventSpy = sinon.spy(loginOverlayOpened, '_retargetEvent');
-        const {username} = fillUsernameAndPassword(loginOverlayOpened.$.login);
+        const {username} = fillUsernameAndPassword(loginOverlayOpened.$.vaadinLoginForm);
 
         MockInteractions.pressEnter(username);
         expect(loginEventSpy.called).to.be.true;
@@ -132,7 +132,7 @@
 
         loginOverlayOpened.addEventListener('login', loginEventSpy);
 
-        const {username} = fillUsernameAndPassword(loginOverlayOpened.$.login);
+        const {username} = fillUsernameAndPassword(loginOverlayOpened.$.vaadinLoginForm);
 
         MockInteractions.pressEnter(username);
         expect(loginEventSpy.called).to.be.true;
@@ -145,7 +145,7 @@
         const loginOverlayOpened = fixture('opened');
 
         const loginEventSpy = sinon.spy(loginOverlayOpened, '_retargetEvent');
-        const {username} = fillUsernameAndPassword(loginOverlayOpened.$.login);
+        const {username} = fillUsernameAndPassword(loginOverlayOpened.$.vaadinLoginForm);
 
         MockInteractions.pressEnter(username);
         expect(loginEventSpy.called).to.be.true;
