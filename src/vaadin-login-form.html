@@ -22,12 +22,12 @@
 
       <form part="vaadin-login-native-form" method="POST" action$="[[action]]" slot="form">
         <vaadin-text-field name="username" label="[[i18n.form.username]]"
-            id="username" required on-keydown="_handleInputKeydown"
+            id="vaadinLoginUsername" required on-keydown="_handleInputKeydown"
             autocapitalize="none" autocorrect="off" spellcheck="false">
           <input type="text" slot="input">
         </vaadin-text-field>
 
-        <vaadin-password-field name="password" label="[[i18n.form.password]]" id="password" required on-keydown="_handleInputKeydown"
+        <vaadin-password-field name="password" label="[[i18n.form.password]]" id="vaadinLoginPassword" required on-keydown="_handleInputKeydown"
             spellcheck="false">
           <input type="password" slot="input">
         </vaadin-password-field>
@@ -104,7 +104,7 @@
         }
 
         submit() {
-          if (this.disabled || !(this.__isValid(this.$.username) && this.__isValid(this.$.password))) {
+          if (this.disabled || !(this.__isValid(this.$.vaadinLoginUsername) && this.__isValid(this.$.vaadinLoginPassword))) {
             return;
           }
 
@@ -115,8 +115,8 @@
             bubbles: true,
             cancelable: true,
             detail: {
-              username: this.$.username.value,
-              password: this.$.password.value
+              username: this.$.vaadinLoginUsername.value,
+              password: this.$.vaadinLoginPassword.value
             }
           };
 
@@ -137,8 +137,8 @@
         _handleInputKeydown(e) {
           if (this._isEnterKey(e)) {
             const {currentTarget: inputActive} = e;
-            const nextInput = inputActive.id === 'username'
-              ? this.$.password : this.$.username;
+            const nextInput = inputActive.id === 'vaadinLoginUsername'
+              ? this.$.vaadinLoginPassword : this.$.vaadinLoginUsername;
             if (this.__isValid(inputActive)) {
               if (this.__isValid(nextInput)) {
                 this.submit();

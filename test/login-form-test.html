@@ -29,14 +29,14 @@
       let login, iframe;
 
       function fillUsernameAndPassword() {
-        const {username, password} = login.$;
+        const {vaadinLoginUsername, vaadinLoginPassword} = login.$;
         const usernameValue = 'myusername';
         const passwordValue = 'mypassword';
 
-        username.value = usernameValue;
-        password.value = passwordValue;
+        vaadinLoginUsername.value = usernameValue;
+        vaadinLoginPassword.value = passwordValue;
 
-        return {username, password};
+        return {vaadinLoginUsername, vaadinLoginPassword};
       }
 
       function testFormSubmitValues(preventDefault, expectation, done) {
