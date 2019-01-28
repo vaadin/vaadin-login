@@ -116,7 +116,7 @@
       it('should fire `login` event', () => {
         const loginOverlayOpened = fixture('opened');
 
-        const loginEventSpy = sinon.spy(loginOverlayOpened, '_handleEvent');
+        const loginEventSpy = sinon.spy(loginOverlayOpened, '_retargetEvent');
         const {username} = fillUsernameAndPassword(loginOverlayOpened.$.login);
 
         MockInteractions.pressEnter(username);
@@ -144,7 +144,7 @@
       it('should be accessible username and password from document level', () => {
         const loginOverlayOpened = fixture('opened');
 
-        const loginEventSpy = sinon.spy(loginOverlayOpened, '_handleEvent');
+        const loginEventSpy = sinon.spy(loginOverlayOpened, '_retargetEvent');
         const {username} = fillUsernameAndPassword(loginOverlayOpened.$.login);
 
         MockInteractions.pressEnter(username);

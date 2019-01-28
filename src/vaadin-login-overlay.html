@@ -33,8 +33,8 @@ This program is available under Apache License Version 2.0, available at https:/
         error="{{error}}"
         no-forgot-password="{{noForgotPassword}}"
         i18n="{{i18n}}"
-        on-login="_handleEvent"
-        on-forgot-password="_handleEvent">
+        on-login="_retargetEvent"
+        on-forgot-password="_retargetEvent">
 
       </vaadin-login-form>
 
@@ -54,7 +54,8 @@ This program is available under Apache License Version 2.0, available at https:/
        *
        * ### Styling
        *
-       * To style the element check: `<vaadin-login-overlay-wrapper>`, `<vaadin-login-form-wrapper>`, `<vaadin-login-form>`
+       * To style the element check: [`<vaadin-login-overlay-wrapper>`](#/elements/vaadin-login-overlay-wrapper),
+       * [`<vaadin-login-form-wrapper>`](#/elements/vaadin-login-form-wrapper), [`<vaadin-login-form>`](#/elements/vaadin-login-form)
        * and `<vaadin-overlay>` elements
        *
        * @memberof Vaadin
