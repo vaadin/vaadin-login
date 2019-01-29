@@ -141,6 +141,21 @@
         expect(type).to.be.equal('login');
       });
 
+      it('should be able to prevent default to `login` event', () => {
+        const loginOverlayOpened = fixture('opened');
+
+        const nativeForm = loginOverlayOpened.$["vaadinLoginForm"].querySelector('[part=vaadin-login-native-form]');
+        const submitSpy = sinon.spy(nativeForm, 'submit');
+        loginOverlayOpened.action = 'login';
+
+        loginOverlayOpened.addEventListener('login', e => e.preventDefault());
+
+        const {vaadinLoginUsername} = fillUsernameAndPassword(loginOverlayOpened.$.vaadinLoginForm);
+
+        MockInteractions.pressEnter(vaadinLoginUsername);
+        expect(submitSpy.called).to.be.false;
+      });
+
       it('should be accessible username and password from document level', () => {
         const loginOverlayOpened = fixture('opened');
 
