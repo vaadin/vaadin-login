@@ -15,8 +15,9 @@
 |
 [API documentation ↗](https://vaadin.com/components/vaadin-login/html-api)
 
+[Vaadin Login](https://vaadin.com/components/vaadin-login) consists of two components:
 
-[&lt;vaadin-login-overlay&gt;](https://vaadin.com/components/vaadin-login) is a Web Component providing a painless login experience, part of the [Vaadin components](https://vaadin.com/components).
+&lt;vaadin-login-overlay&gt; is a Web Component providing a painless login experience, part of the [Vaadin components](https://vaadin.com/components). Component shows the &lt;vaadin-login-form&gt; inside of an overlay.
 
 ```html
 <vaadin-login-overlay opened></vaadin-login-overlay>
@@ -24,6 +25,11 @@
 
 [<img src="https://raw.githubusercontent.com/vaadin/vaadin-login/master/screenshot.png" width="700" alt="Screenshot of vaadin-login-overlay">](https://vaadin.com/components/vaadin-login)
 
+&lt;vaadin-login-form&gt; is a Web Component providing a form to require users to log in into an application.
+
+```html
+<vaadin-login-form></vaadin-login-form>
+```
 
 ## Installation
 
@@ -73,14 +79,17 @@ To use the Material theme, import the correspondent file from the `theme/materia
 - The component with the Lumo theme:
 
   `theme/lumo/vaadin-login-overlay.html`
+  `theme/lumo/vaadin-login-form.html`
 
 - The component with the Material theme:
 
   `theme/material/vaadin-login-overlay.html`
+  `theme/material/vaadin-login-form.html`
 
 - Aliases for lumo themed components:
 
   `vaadin-login-overlay.html`
+  `vaadin-login-form.html`
 
 
 ## Running demos and tests in browser
