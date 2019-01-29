@@ -144,7 +144,7 @@
       it('should be able to prevent default to `login` event', () => {
         const loginOverlayOpened = fixture('opened');
 
-        const nativeForm = loginOverlayOpened.$["vaadinLoginForm"].querySelector('[part=vaadin-login-native-form]');
+        const nativeForm = loginOverlayOpened.$['vaadinLoginForm'].querySelector('[part=vaadin-login-native-form]');
         const submitSpy = sinon.spy(nativeForm, 'submit');
         loginOverlayOpened.action = 'login';
 
