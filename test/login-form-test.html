@@ -91,6 +91,11 @@
           expect(selected).to.be.true;
         };
 
+        // Not supported on iOS
+        if (/iPhone OS \s+/.test(navigator.userAgent)) {
+          this.skip();
+        }
+
         [login, iframe] = fixture('default');
         const {vaadinLoginUsername, vaadinLoginPassword} = fillUsernameAndPassword();
         testTab(vaadinLoginUsername);
