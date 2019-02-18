@@ -91,9 +91,10 @@
           expect(selected).to.be.true;
         };
 
-        // Not supported on iOS
-        if (/iPhone OS \s+/.test(navigator.userAgent)) {
+        // Not supported on iPhone
+        if (/iPhone/.test(navigator.userAgent)) {
           this.skip();
+          return;
         }
 
         [login, iframe] = fixture('default');
