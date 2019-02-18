@@ -92,15 +92,12 @@
         };
 
         // Not supported on iPhone
-        if (/iPhone/.test(navigator.userAgent)) {
-          this.skip();
-          return;
+        if (!/iPhone/.test(navigator.userAgent)) {
+          [login, iframe] = fixture('default');
+          const {vaadinLoginUsername, vaadinLoginPassword} = fillUsernameAndPassword();
+          testTab(vaadinLoginUsername);
+          testTab(vaadinLoginPassword);
         }
-
-        [login, iframe] = fixture('default');
-        const {vaadinLoginUsername, vaadinLoginPassword} = fillUsernameAndPassword();
-        testTab(vaadinLoginUsername);
-        testTab(vaadinLoginPassword);
         done();
       });
     });
