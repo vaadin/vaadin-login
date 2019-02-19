@@ -151,8 +151,11 @@
 
         _handleInputKeyup(e) {
           const isTab = e.key === 'Tab' || e.keyCode === 9;
-          if (isTab && e.currentTarget && e.currentTarget.select) {
-            e.currentTarget.select();
+          const input = e.currentTarget;
+          if (isTab && input && input.select) {
+            input.select();
+            // iOS 9 workaround: https://stackoverflow.com/a/7436574
+            setTimeout(() => input.setSelectionRange(0, 9999));
           }
         }
 
