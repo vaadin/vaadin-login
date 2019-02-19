@@ -67,6 +67,16 @@
         }
       }
 
+      function testTab(done, element) {
+        const input = element.querySelector('input');
+        MockInteractions.keyUpOn(input, 9, [], 'Tab');
+        setTimeout(() => {
+          const selected = input.selectionEnd - input.selectionStart == input.value.length;
+          expect(selected).to.be.true;
+          done();
+        }, 1);
+      }
+
       it('should submit form values from login element', done => {
         [login, iframe] = fixture('default');
         testFormSubmitValues(false, true, done);
@@ -83,21 +93,14 @@
         testFormSubmitValues(true, false, done);
       });
 
-      it('should select the field on tab navigation', done => {
-        const testTab = element => {
-          const input = element.querySelector('input');
-          MockInteractions.keyUpOn(input, 9, [], 'Tab');
-          const selected = input.selectionEnd - input.selectionStart == input.value.length;
-          expect(selected).to.be.true;
-        };
-        setTimeout(() => {
-          // Checking asynchronously because of iPhone workaround.
-          [login, iframe] = fixture('default');
-          const {vaadinLoginUsername, vaadinLoginPassword} = fillUsernameAndPassword();
-          testTab(vaadinLoginUsername);
-          testTab(vaadinLoginPassword);
-          done();
-        }, 500);
+      it('should select username field on tab navigation', done => {
+        const vaadinLoginUsername = fillUsernameAndPassword()[0];
+        testTab(done, vaadinLoginUsername);
+      });
+
+      it('should select password field on tab navigation', done => {
+        const vaadinLoginPassword = fillUsernameAndPassword()[1];
+        testTab(done, vaadinLoginPassword);
       });
     });
   </script>
