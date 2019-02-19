@@ -94,12 +94,14 @@
       });
 
       it('should select username field on tab navigation', done => {
-        const vaadinLoginUsername = fillUsernameAndPassword()[0];
+        [login, iframe] = fixture('default');
+        const {vaadinLoginUsername} = fillUsernameAndPassword();
         testTab(done, vaadinLoginUsername);
       });
 
       it('should select password field on tab navigation', done => {
-        const vaadinLoginPassword = fillUsernameAndPassword()[1];
+        [login, iframe] = fixture('default');
+        const {vaadinLoginPassword} = fillUsernameAndPassword();
         testTab(done, vaadinLoginPassword);
       });
     });
