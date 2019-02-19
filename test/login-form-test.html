@@ -90,12 +90,14 @@
           const selected = input.selectionEnd - input.selectionStart == input.value.length;
           expect(selected).to.be.true;
         };
-
-        [login, iframe] = fixture('default');
-        const {vaadinLoginUsername, vaadinLoginPassword} = fillUsernameAndPassword();
-        testTab(vaadinLoginUsername);
-        testTab(vaadinLoginPassword);
-        done();
+        setTimeout(() => {
+          // Checking asynchronously because of iPhone workaround.
+          [login, iframe] = fixture('default');
+          const {vaadinLoginUsername, vaadinLoginPassword} = fillUsernameAndPassword();
+          testTab(vaadinLoginUsername);
+          testTab(vaadinLoginPassword);
+          done();
+        });
       });
     });
   </script>
