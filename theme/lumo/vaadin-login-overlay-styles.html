@@ -154,17 +154,13 @@
       and (device-height: 812px)
       and (-webkit-device-pixel-ratio: 3) {
         [part="card"] {
-          padding-top: env(safe-area-inset-top);
           padding-right: env(safe-area-inset-right);
           padding-left: env(safe-area-inset-left);
-          padding-bottom: env(safe-area-inset-bottom);
         }
 
         [part="brand"] {
-          margin-left: calc(constant(safe-area-inset-bottom) * -1);
-          margin-left: calc(env(safe-area-inset-bottom) * -1);
-          padding-left: calc(var(--lumo-space-l) + constant(safe-area-inset-bottom));
-          padding-left: calc(var(--lumo-space-l) + env(safe-area-inset-bottom));
+          margin-left: calc(env(safe-area-inset-left) * -1);
+          padding-left: calc(var(--lumo-space-l) + env(safe-area-inset-left));
         }
       }
     </style>
