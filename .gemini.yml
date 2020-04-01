@@ -10,12 +10,28 @@ system:
 
 browsers:
   chrome:
+    windowSize: 1600x1000
     desiredCapabilities:
       browserName: "chrome"
       version: "66.0"
       platform: "Windows 10"
 
+  firefox-medium:
+    windowSize: 1000x600
+    desiredCapabilities:
+      browserName: "firefox"
+      version: "47.0"
+      platform: "Windows 10"
+
+  firefox-portrait:
+    windowSize: 500x800
+    desiredCapabilities:
+      browserName: "firefox"
+      version: "47.0"
+      platform: "Windows 10"
+
   firefox:
+    windowSize: 1600x1000
     desiredCapabilities:
       browserName: "firefox"
       version: "47.0"

@@ -15,11 +15,15 @@ gemini.suite('vaadin-login-overlay', function(rootSuite) {
     .after(goToAboutBlank);
 
   ['lumo', 'material'].forEach(theme => {
-    gemini.suite(`default-tests-${theme}`, function(suite) {
-      suite
-        .setUrl(`/default.html?theme=${theme}`)
+    ['ltr', 'rtl'].forEach(direction => {
+
+      gemini.suite(`default-tests-${theme}-${direction}`, function(suite) {
+        suite
+        // .before((actions) => actions.setWindowSize(1200, 1000))
+        .setUrl(`default.html?theme=${theme}&dir=${direction}`)
         .setCaptureElements('body')
         .capture(`vaadin-login-overlay`);
+      });
     });
   });
 

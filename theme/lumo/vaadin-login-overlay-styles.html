@@ -169,6 +169,31 @@
           padding-left: calc(var(--lumo-space-l) + env(safe-area-inset-left));
         }
       }
+
+      @media only screen
+      and (max-width: 500px) {
+        :host([dir="rtl"]) [part="brand"] {
+          padding: var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-xl);
+        }
+      }
+
+      @media only screen
+      and (device-width: 375px)
+      and (device-height: 812px)
+      and (-webkit-device-pixel-ratio: 3) {
+        :host([dir="rtl"]) [part="card"] {
+          padding-left: constant(safe-area-inset-right);
+          padding-left: env(safe-area-inset-right);
+          padding-right: constant(safe-area-inset-left);
+          padding-right: env(safe-area-inset-left);
+        }
+        :host([dir="rtl"]) [part="brand"] {
+          margin-right: calc(constant(safe-area-inset-left) * -1);
+          margin-right: calc(env(safe-area-inset-left) * -1);
+          padding-right: calc(var(--lumo-space-l) + constant(safe-area-inset-left));
+          padding-right: calc(var(--lumo-space-l) + env(safe-area-inset-left));
+        }
+      }
     </style>
   </template>
 </dom-module>
