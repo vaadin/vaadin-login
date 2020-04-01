@@ -19,10 +19,9 @@ gemini.suite('vaadin-login-overlay', function(rootSuite) {
 
       gemini.suite(`default-tests-${theme}-${direction}`, function(suite) {
         suite
-        // .before((actions) => actions.setWindowSize(1200, 1000))
-        .setUrl(`default.html?theme=${theme}&dir=${direction}`)
-        .setCaptureElements('body')
-        .capture(`vaadin-login-overlay`);
+          .setUrl(`default.html?theme=${theme}&dir=${direction}`)
+          .setCaptureElements('body')
+          .capture(`vaadin-login-overlay`);
       });
     });
   });
