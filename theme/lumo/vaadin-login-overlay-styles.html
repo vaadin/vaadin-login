@@ -31,14 +31,6 @@
         height: 100%;
       }
 
-      @media only screen
-      and (max-width: 500px) {
-        [part="overlay"],
-        [part="content"] {
-          height: 100%;
-        }
-      }
-
       [part="card"] {
         width: calc(var(--lumo-size-m) * 10);
         background: var(--lumo-base-color) linear-gradient(var(--lumo-tint-5pct), var(--lumo-tint-5pct));
@@ -74,6 +66,11 @@
       /* Small screen */
       @media only screen
       and (max-width: 500px) {
+        [part="overlay"],
+        [part="content"] {
+          height: 100%;
+        }
+
         [part="content"] {
           min-height: 100%;
           background: var(--lumo-base-color);
@@ -86,6 +83,11 @@
           border-radius: 0;
           box-shadow: none;
           margin: 0;
+        }
+
+        /* RTL styles */
+        :host([dir="rtl"]) [part="brand"] {
+          padding: var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-xl);
         }
       }
 
@@ -168,19 +170,8 @@
           padding-left: calc(var(--lumo-space-l) + constant(safe-area-inset-left));
           padding-left: calc(var(--lumo-space-l) + env(safe-area-inset-left));
         }
-      }
 
-      @media only screen
-      and (max-width: 500px) {
-        :host([dir="rtl"]) [part="brand"] {
-          padding: var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-l) var(--lumo-space-xl);
-        }
-      }
-
-      @media only screen
-      and (device-width: 375px)
-      and (device-height: 812px)
-      and (-webkit-device-pixel-ratio: 3) {
+        /* RTL styles */
         :host([dir="rtl"]) [part="card"] {
           padding-left: constant(safe-area-inset-right);
           padding-left: env(safe-area-inset-right);

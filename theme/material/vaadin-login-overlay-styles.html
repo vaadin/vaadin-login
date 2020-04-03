@@ -81,6 +81,11 @@
         margin-bottom: 0;
       }
 
+      /* RTL styles */
+      :host([dir="rtl"]) [part="brand"] {
+        padding: 2.8rem 3.5rem 1.5rem 2.5rem;
+      }
+
       /* Small screen */
       @media only screen
       and (max-width: 1023px) {
@@ -99,6 +104,11 @@
         [part="form"] {
           margin-top: -80px;
           margin-bottom: 20px;
+        }
+
+        /* RTL styles */
+        :host([dir="rtl"]) [part="brand"] {
+          padding: 0 2rem 5.5rem 2.5rem;
         }
       }
 
@@ -221,6 +231,15 @@
         [part="form"] ::slotted(*) {
           height: 100%;
         }
+
+        /* RTL styles */
+        :host([dir="rtl"]) [part="brand"] {
+          padding: 1.5rem 1.5rem 1.5rem 2.5rem;
+        }
+
+        :host([dir="rtl"]) [part="form"] {
+          margin: 80px -20px 40px 30px;
+        }
       }
 
       /* Landscape really big screen */
@@ -252,6 +271,20 @@
         :host(:not([dir="rtl"])) [part="form"] ::slotted(*) {
           right: 80px;
         }
+
+        /* RTL styles */
+        :host([dir="rtl"]) [part="brand"] {
+          padding-right: 4rem;
+          padding-left: 1rem;
+        }
+
+        :host([dir="rtl"]) [part="form"] {
+          margin-left: 22px;
+        }
+
+        :host([dir="rtl"]) [part="form"]::slotted(*) {
+          left: 80px;
+        }
       }
 
       /* Handle iPhone X notch */
@@ -269,49 +302,8 @@
           margin-left: calc(env(safe-area-inset-bottom) * -1);
           padding-left: calc(1.5rem + constant(safe-area-inset-bottom));
         }
-      }
 
-      /* RTL styles */
-      :host([dir="rtl"]) [part="brand"] {
-        padding: 2.8rem 3.5rem 1.5rem 2.5rem;
-      }
-
-      @media only screen and (max-width: 1023px) {
-        :host([dir="rtl"]) [part="brand"] {
-          padding: 0 2rem 5.5rem 2.5rem;
-        }
-      }
-
-      @media only screen and (min-width: 1024px) {
-        :host([dir="rtl"]) [part="brand"] {
-          padding: 1.5rem 1.5rem 1.5rem 2.5rem;
-        }
-
-        :host([dir="rtl"]) [part="form"] {
-          margin: 80px -20px 40px 30px;
-        }
-      }
-
-      @media only screen
-      and (min-width: 1440px) {
-        :host([dir="rtl"]) [part="brand"] {
-          padding-right: 4rem;
-          padding-left: 1rem;
-        }
-
-        :host([dir="rtl"]) [part="form"] {
-          margin-left: 22px;
-        }
-
-        :host([dir="rtl"]) [part="form"]::slotted(*) {
-          left: 80px;
-        }
-      }
-
-      @media only screen
-      and (device-width: 375px)
-      and (device-height: 812px)
-      and (-webkit-device-pixel-ratio: 3) {
+        /* RTL styles */
         :host([dir="rtl"]) [part="brand"] {
           margin-right: calc(constant(safe-area-inset-bottom) * -1);
           margin-right: calc(env(safe-area-inset-bottom) * -1);
