@@ -10,4 +10,9 @@ export interface LoginI18n {
     title: string;
     message: string;
   };
+  header?: {
+    title?: string;
+    description?: string;
+  };
+  additionalInformation?: string;
 }
