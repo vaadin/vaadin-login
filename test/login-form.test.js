@@ -1,81 +1,28 @@
-<!doctype html>
+import { expect } from '@esm-bundle/chai';
+import sinon from 'sinon';
+import { fixtureSync } from '@open-wc/testing-helpers';
+import { focus, pressEnter, tap } from '@polymer/iron-test-helpers/mock-interactions.js';
+import { registerStyles, css } from '@vaadin/vaadin-themable-mixin/register-styles.js';
+import { fillUsernameAndPassword } from './helpers.js';
+import '../vaadin-login-form.js';
 
-<head>
-  <meta charset="UTF-8">
-  <title>vaadin-login tests</title>
-  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-  <script src="../../../wct-browser-legacy/browser.js"></script>
-  <script type="module" src="../src/vaadin-login-form.js"></script>
-  <script type="module" src="../vaadin-login-overlay.js"></script>
-  <script type="module" src="../../../@polymer/iron-test-helpers/mock-interactions.js"></script>
-  
-  <dom-module id="parts-styles" theme-for="vaadin-login-form-wrapper">
-    <template>
-      <style>
-        :host([theme="green"]) [part="form-title"],
-        :host([theme="green"]) [part="error-message-title"],
-        :host([theme="green"]) [part="error-message-description"] {
-          color: rgb(0, 128, 0);
-        }
-      </style>
-    </template>
-  </dom-module>
-</head>
+registerStyles(
+  'vaadin-login-form-wrapper',
+  css`
+    :host([theme='green']) [part='form-title'],
+    :host([theme='green']) [part='error-message-title'],
+    :host([theme='green']) [part='error-message-description'] {
+      color: rgb(0, 128, 0);
+    }
+  `
+);
 
-<body>
-  <test-fixture id="default">
-    <template>
-      <vaadin-login-form></vaadin-login-form>
-    </template>
-  </test-fixture>
-
-  <test-fixture id="hidden-button">
-      <template>
-        <vaadin-login-form no-forgot-password></vaadin-login-form>
-      </template>
-  </test-fixture>
-
-  <test-fixture id="displayed-error">
-    <template>
-      <vaadin-login-form error></vaadin-login-form>
-    </template>
-  </test-fixture>
-
-  <test-fixture id="themed">
-    <template>
-      <vaadin-login-form theme="green"></vaadin-login-form>
-    </template>
-  </test-fixture>
-
-  <script type="module">
-import '../src/vaadin-login-form.js';
-import '../vaadin-login-overlay.js';
-import '@polymer/iron-test-helpers/mock-interactions.js';
-describe('Login test', () => {
+describe('login form', () => {
   var login, formWrapper;
 
   beforeEach(() => {
-    login = fixture('default');
+    login = fixtureSync('<vaadin-login-form></vaadin-login-form>');
     formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
-  });
-
-  function fillUsernameAndPassword() {
-    const {vaadinLoginUsername, vaadinLoginPassword} = login.$;
-    const usernameValue = 'username';
-    const passwordValue = 'password';
-
-    vaadinLoginUsername.value = usernameValue;
-    vaadinLoginPassword.value = passwordValue;
-
-    return {vaadinLoginUsername, vaadinLoginPassword};
-  }
-
-  it('should pass', () => {
-    expect(login.localName).to.be.equal('vaadin-login-form');
-  });
-
-  it('should not expose class name globally', () => {
-    expect(window.VaadinLogin).not.to.be.ok;
   });
 
   it('should have a valid version number', () => {
@@ -107,13 +54,13 @@ describe('Login test', () => {
     expect(login.i18n.additionalInformation).to.be.undefined;
   });
 
-  it('should show forgot password button', function() {
+  it('should show forgot password button', () => {
     expect(formWrapper.$.forgotPasswordButton.hidden).to.be.false;
   });
 
-  it('should emit forgot password event', function() {
+  it('should emit forgot password event', () => {
     var eventWasCaught = false;
-    login.addEventListener('forgot-password', function() {
+    login.addEventListener('forgot-password', () => {
       eventWasCaught = true;
     });
 
@@ -126,120 +73,109 @@ describe('Login test', () => {
     expect(additionalInformation.textContent).to.be.equal('');
     expect(formWrapper.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
 
-    const i18n = Object.assign({}, login.i18n, {additionalInformation: 'Mais informações', form: {forgotPassword: 'Esqueci a senha'}});
+    const i18n = Object.assign({}, login.i18n, {
+      additionalInformation: 'Mais informações',
+      form: { forgotPassword: 'Esqueci a senha' }
+    });
     login.i18n = i18n;
     expect(additionalInformation.textContent).to.be.equal(login.i18n.additionalInformation);
     expect(formWrapper.$.forgotPasswordButton.textContent).to.be.equal(login.i18n.form.forgotPassword);
   });
 
   it('should mark only username as invalid if user hits ENTER when field is empty', () => {
-    const {vaadinLoginUsername, vaadinLoginPassword} = login.$;
+    const { vaadinLoginUsername, vaadinLoginPassword } = login.$;
 
     expect(vaadinLoginUsername.invalid).to.be.false;
     expect(vaadinLoginPassword.invalid).to.be.false;
 
-    MockInteractions.pressEnter(vaadinLoginUsername);
+    pressEnter(vaadinLoginUsername);
     expect(vaadinLoginUsername.invalid).to.be.true;
     expect(vaadinLoginPassword.invalid).to.be.false;
   });
 
   it('should change focus to password if username is filled and user hits ENTER (password is empty)', () => {
-    const {vaadinLoginUsername, vaadinLoginPassword} = login.$;
-
+    const { vaadinLoginUsername, vaadinLoginPassword } = login.$;
     vaadinLoginUsername.value = 'username';
 
-    MockInteractions.pressEnter(vaadinLoginUsername);
-
+    pressEnter(vaadinLoginUsername);
     expect(vaadinLoginPassword.hasAttribute('focused')).to.be.true;
   });
 
   it('should mark password as invalid if user hits ENTER when field is empty', () => {
-    const {vaadinLoginUsername, vaadinLoginPassword} = login.$;
+    const { vaadinLoginUsername, vaadinLoginPassword } = login.$;
 
     expect(vaadinLoginUsername.invalid).to.be.false;
     expect(vaadinLoginPassword.invalid).to.be.false;
 
-    MockInteractions.pressEnter(vaadinLoginPassword);
+    pressEnter(vaadinLoginPassword);
 
     expect(vaadinLoginUsername.invalid).to.be.false;
     expect(vaadinLoginPassword.invalid).to.be.true;
   });
 
   it('should change focus to username if password is filled and user hits ENTER (username is empty)', () => {
-    const {vaadinLoginUsername, vaadinLoginPassword} = login.$;
+    const { vaadinLoginUsername, vaadinLoginPassword } = login.$;
 
-    MockInteractions.focus(vaadinLoginPassword);
+    focus(vaadinLoginPassword);
     vaadinLoginPassword.value = 'password';
-    MockInteractions.pressEnter(vaadinLoginPassword);
-
+    pressEnter(vaadinLoginPassword);
     expect(vaadinLoginUsername.hasAttribute('focused')).to.be.true;
   });
 
   it('should trigger submit if both username and password are filled', () => {
-    const {vaadinLoginPassword} = fillUsernameAndPassword();
-
+    const { vaadinLoginPassword } = fillUsernameAndPassword(login);
     const submitSpy = sinon.spy(login, 'submit');
-
-    MockInteractions.pressEnter(vaadinLoginPassword);
-
+    pressEnter(vaadinLoginPassword);
     expect(submitSpy.called).to.be.true;
   });
 
-  it('should disable button after submiting form', () => {
+  it('should disable button after submitting form', () => {
     const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
-    const {vaadinLoginPassword} = fillUsernameAndPassword();
-
-    MockInteractions.pressEnter(vaadinLoginPassword);
-
+    const { vaadinLoginPassword } = fillUsernameAndPassword(login);
+    pressEnter(vaadinLoginPassword);
     expect(submit.disabled).to.be.true;
   });
 
   it('should prevent submit call when login is disabled', () => {
     const loginForm = login.querySelector('[part="vaadin-login-native-form"]');
     const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
-    const {vaadinLoginPassword} = fillUsernameAndPassword();
+    const { vaadinLoginPassword } = fillUsernameAndPassword(login);
 
     const submitSpy = sinon.spy(loginForm, 'submit');
 
     login.setAttribute('disabled', 'disabled');
-
-    MockInteractions.pressEnter(vaadinLoginPassword);
+    pressEnter(vaadinLoginPassword);
     expect(submitSpy.called).to.be.false;
 
-    MockInteractions.tap(submit);
+    tap(submit);
     expect(submitSpy.called).to.be.false;
   });
 
   it('should not disable button on button click if form is invalid', () => {
     const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
-
     expect(submit.disabled).to.not.be.true;
-    MockInteractions.tap(submit);
+    tap(submit);
     expect(submit.disabled).to.not.be.true;
   });
 
   it('should disable button on button click if form is valid', () => {
     const submit = login.querySelector('vaadin-button[part="vaadin-login-submit"]');
-
-    fillUsernameAndPassword();
-
-    MockInteractions.tap(submit);
-
+    fillUsernameAndPassword(login);
+    tap(submit);
     expect(submit.disabled).to.be.true;
   });
 
   it('should trigger `login` event if no action is defined', () => {
-    const {vaadinLoginUsername, vaadinLoginPassword} = fillUsernameAndPassword();
-
+    const { vaadinLoginUsername, vaadinLoginPassword } = fillUsernameAndPassword(login);
     const loginEventSpy = sinon.spy();
 
     login.addEventListener('login', loginEventSpy);
-    MockInteractions.pressEnter(vaadinLoginPassword);
+    pressEnter(vaadinLoginPassword);
 
-    expect(loginEventSpy.args[0][0]).to.have.deep.property('detail.username', vaadinLoginUsername.value);
-    expect(loginEventSpy.args[0][0]).to.have.deep.property('detail.password', vaadinLoginPassword.value);
+    const event = loginEventSpy.args[0][0];
 
-    login.removeEventListener('login', loginEventSpy);
+    expect(event.detail.username).to.equal(vaadinLoginUsername.value);
+    expect(event.detail.password).to.equal(vaadinLoginPassword.value);
   });
 
   it('error should be hidden by default', () => {
@@ -280,38 +216,37 @@ describe('Login test', () => {
     expect(login.error).to.be.false;
     expect(login.disabled).to.be.true;
   });
-
 });
 
-describe('hidden button test', function() {
-  var login, formWrapper;
+describe('no forgot password', () => {
+  let login;
 
-  beforeEach(function() {
-    login = fixture('hidden-button');
-    formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
+  beforeEach(() => {
+    login = fixtureSync('<vaadin-login-form no-forgot-password></vaadin-login-form>');
   });
 
-  it('should hide forgot password button', function() {
+  it('should hide forgot password button', () => {
+    const formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
     expect(formWrapper.$.forgotPasswordButton.hidden).to.be.true;
   });
 });
 
-describe('error message test', function() {
-  var login, formWrapper;
+describe('error message', () => {
+  let login, formWrapper;
 
-  beforeEach(function() {
-    login = fixture('displayed-error');
+  beforeEach(() => {
+    login = fixtureSync('<vaadin-login-form error></vaadin-login-form>');
     formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
   });
 
-  it('should show error message if the error attribute is set', function() {
+  it('should show error message if the error attribute is set', () => {
     const errorPart = formWrapper.shadowRoot.querySelectorAll('div[part="error-message"]')[0];
     expect(errorPart.hidden).to.be.false;
     expect(errorPart.offsetWidth).not.to.equal(0);
     expect(errorPart.offsetHeight).not.to.equal(0);
   });
 
-  it('should be possible to unset the error', function() {
+  it('should be possible to unset the error', () => {
     expect(login.error).to.be.true;
     login.error = false;
     const errorPart = formWrapper.shadowRoot.querySelectorAll('div[part="error-message"]')[0];
@@ -321,18 +256,24 @@ describe('error message test', function() {
   });
 });
 
-describe('style parts', () => {
+describe('stylable parts', () => {
+  let login, formWrapper;
+
+  beforeEach(() => {
+    login = fixtureSync('<vaadin-login-form theme="green"></vaadin-login-form>');
+    formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
+  });
+
   it('should be possible to style parts', () => {
-    const expectedColor = 'rgb(0, 128, 0)';
-    const login = fixture('themed');
-    const formWrapper = login.querySelector('[part="vaadin-login-native-form-wrapper"]');
+    const color = 'rgb(0, 128, 0)';
+
     const formTitle = formWrapper.shadowRoot.querySelector('[part="form-title"]');
-    expect(getComputedStyle(formTitle).color).to.equal(expectedColor);
+    expect(getComputedStyle(formTitle).color).to.equal(color);
+
     const errorTitle = formWrapper.shadowRoot.querySelector('[part="error-message-title"]');
-    expect(getComputedStyle(errorTitle).color).to.equal(expectedColor);
+    expect(getComputedStyle(errorTitle).color).to.equal(color);
+
     const errorMessage = formWrapper.shadowRoot.querySelector('[part="error-message-description"]');
-    expect(getComputedStyle(errorMessage).color).to.equal(expectedColor);
+    expect(getComputedStyle(errorMessage).color).to.equal(color);
   });
 });
-</script>
-</body>
