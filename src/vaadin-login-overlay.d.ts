@@ -4,6 +4,8 @@ import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.
 
 import { LoginMixin } from './vaadin-login-mixin.js';
 
+import { LoginEventMap } from './interfaces'
+
 /**
  * `<vaadin-login-overlay>` is a wrapper of the `<vaadin-login-form>` which opens a login form in an overlay and
  * having an additional `brand` part for application title and description. Using `<vaadin-login-overlay>` allows
@@ -34,6 +36,18 @@ declare class LoginOverlayElement extends ElementMixin(ThemableMixin(LoginMixin(
    * Defines the application title
    */
   title: string;
+
+  addEventListener<K extends keyof LoginEventMap>(
+    type: K,
+    listener: (this: LoginOverlayElement, ev: LoginEventMap[K]) => void,
+    options?: boolean | AddEventListenerOptions
+  ): void;
+
+  removeEventListener<K extends keyof LoginEventMap>(
+    type: K,
+    listener: (this: LoginOverlayElement, ev: LoginEventMap[K]) => void,
+    options?: boolean | EventListenerOptions
+  ): void;
 }
 
 declare global {

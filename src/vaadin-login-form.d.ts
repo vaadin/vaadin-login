@@ -1,8 +1,10 @@
-import { LoginMixin } from './vaadin-login-mixin.js';
-
 import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
+
+import { LoginMixin } from './vaadin-login-mixin.js';
+
+import { LoginEventMap } from './interfaces';
 
 /**
  * `<vaadin-login-form>` is a Web Component providing an easy way to require users
@@ -22,6 +24,18 @@ import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mix
  */
 declare class LoginFormElement extends ElementMixin(ThemableMixin(LoginMixin(HTMLElement))) {
   submit(): void;
+
+  addEventListener<K extends keyof LoginEventMap>(
+    type: K,
+    listener: (this: LoginFormElement, ev: LoginEventMap[K]) => void,
+    options?: boolean | AddEventListenerOptions
+  ): void;
+
+  removeEventListener<K extends keyof LoginEventMap>(
+    type: K,
+    listener: (this: LoginFormElement, ev: LoginEventMap[K]) => void,
+    options?: boolean | EventListenerOptions
+  ): void;
 }
 
 declare global {
