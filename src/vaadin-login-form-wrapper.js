@@ -79,7 +79,7 @@ class LoginFormWrapperElement extends LoginMixin(ElementMixin(ThemableMixin(Poly
           <p part="error-message-description">[[i18n.errorMessage.message]]</p>
         </div>
 
-        <slot name="form"> </slot>
+        <slot name="form"></slot>
 
         <vaadin-button
           id="forgotPasswordButton"

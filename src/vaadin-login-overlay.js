@@ -40,8 +40,8 @@ class LoginOverlayElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerE
       <vaadin-login-overlay-wrapper
         id="vaadinLoginOverlayWrapper"
         opened="{{opened}}"
-        focus-trap=""
-        with-backdrop=""
+        focus-trap
+        with-backdrop
         title="[[title]]"
         description="[[description]]"
         theme$="[[theme]]"
@@ -56,8 +56,7 @@ class LoginOverlayElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerE
           i18n="{{i18n}}"
           on-login="_retargetEvent"
           on-forgot-password="_retargetEvent"
-        >
-        </vaadin-login-form>
+        ></vaadin-login-form>
       </vaadin-login-overlay-wrapper>
     `;
   }
