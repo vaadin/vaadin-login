@@ -1,9 +1,9 @@
 /**
-@license
-Vaadin Login
-Copyright (C) 2018 Vaadin Ltd
-This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
-*/
+ * @license
+ * Vaadin Login
+ * Copyright (C) 2020 Vaadin Ltd
+ * This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
+ */
 import { OverlayElement } from '@vaadin/vaadin-overlay/src/vaadin-overlay.js';
 import { DomModule } from '@polymer/polymer/lib/elements/dom-module.js';
 
