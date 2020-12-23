@@ -1,4 +1,6 @@
-<dom-module id="material-login-form" theme-for="vaadin-login-form">
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
+const $_documentContainer = html`<dom-module id="material-login-form" theme-for="vaadin-login-form">
   <template>
     <style>
       vaadin-button[part="vaadin-login-submit"] {
@@ -17,4 +19,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

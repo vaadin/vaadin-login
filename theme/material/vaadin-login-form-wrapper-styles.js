@@ -1,4 +1,6 @@
-<dom-module id="material-login-form-wrapper" theme-for="vaadin-login-form-wrapper">
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
+const $_documentContainer = html`<dom-module id="material-login-form-wrapper" theme-for="vaadin-login-form-wrapper">
   <template>
     <style include="material-typography">
       :host {
@@ -84,4 +86,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

@@ -1,9 +1,10 @@
-<link rel="import" href="../../../vaadin-material-styles/typography.html">
-<link rel="import" href="../../../vaadin-material-styles/color.html">
-<link rel="import" href="../../../vaadin-overlay/theme/material/vaadin-overlay.html">
-<link rel="import" href="vaadin-login-form-styles.html">
+import '@vaadin/vaadin-material-styles/typography.js';
+import '@vaadin/vaadin-material-styles/color.js';
+import '@vaadin/vaadin-overlay/theme/material/vaadin-overlay.js';
+import './vaadin-login-form-styles.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-<dom-module id="vaadin-login-overlay-wrapper-material-styles" theme-for="vaadin-login-overlay-wrapper">
+const $_documentContainer = html`<dom-module id="vaadin-login-overlay-wrapper-material-styles" theme-for="vaadin-login-overlay-wrapper">
   <template>
     <style include="material-overlay material-typography">
       :host {
@@ -312,9 +313,7 @@
       }
     </style>
   </template>
-</dom-module>
-
-<dom-module id="material-login-overlay" theme-for="vaadin-login-form-wrapper">
+</dom-module><dom-module id="material-login-overlay" theme-for="vaadin-login-form-wrapper">
   <template>
     <style include="material-typography">
       :host([theme~="with-overlay"]) {
@@ -366,4 +365,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
+
+document.head.appendChild($_documentContainer.content);

@@ -1,11 +1,11 @@
-<link rel="import" href="../../../vaadin-lumo-styles/color.html">
-<link rel="import" href="../../../vaadin-lumo-styles/spacing.html">
-<link rel="import" href="../../../vaadin-lumo-styles/typography.html">
-<link rel="import" href="../../../vaadin-overlay/vaadin-overlay.html">
-<link rel="import" href="vaadin-login-form-wrapper-styles.html">
+import '@vaadin/vaadin-lumo-styles/color.js';
+import '@vaadin/vaadin-lumo-styles/spacing.js';
+import '@vaadin/vaadin-lumo-styles/typography.js';
+import '@vaadin/vaadin-overlay/vaadin-overlay.js';
+import './vaadin-login-form-wrapper-styles.js';
+import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-
-<dom-module id="vaadin-login-overlay-wrapper-lumo-styles" theme-for="vaadin-login-overlay-wrapper">
+const $_documentContainer = html`<dom-module id="vaadin-login-overlay-wrapper-lumo-styles" theme-for="vaadin-login-overlay-wrapper">
   <template>
     <style include="lumo-color lumo-typography">
       :host {
@@ -188,9 +188,7 @@
       }
     </style>
   </template>
-</dom-module>
-
-<dom-module id="lumo-login-overlay" theme-for="vaadin-login-form-wrapper">
+</dom-module><dom-module id="lumo-login-overlay" theme-for="vaadin-login-form-wrapper">
   <template>
     <style include="lumo-color lumo-typography">
       :host([theme~="with-overlay"]) {
@@ -214,6 +212,6 @@
       }
     </style>
   </template>
-</dom-module>
+</dom-module>`;
 
-
+document.head.appendChild($_documentContainer.content);
