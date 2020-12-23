@@ -36,26 +36,53 @@ import './vaadin-login-form-wrapper.js';
 class LoginFormElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerElement))) {
   static get template() {
     return html`
-    <style>
-      [part="vaadin-login-native-form"] * {
-        width: 100%;
-      }
-    </style>
-    <vaadin-login-form-wrapper theme\$="[[theme]]" part="vaadin-login-native-form-wrapper" action="{{action}}" disabled="{{disabled}}" error="{{error}}" no-forgot-password="{{noForgotPassword}}" i18n="{{i18n}}" on-login="_retargetEvent" on-forgot-password="_retargetEvent">
+      <style>
+        [part='vaadin-login-native-form'] * {
+          width: 100%;
+        }
+      </style>
+      <vaadin-login-form-wrapper
+        theme$="[[theme]]"
+        part="vaadin-login-native-form-wrapper"
+        action="{{action}}"
+        disabled="{{disabled}}"
+        error="{{error}}"
+        no-forgot-password="{{noForgotPassword}}"
+        i18n="{{i18n}}"
+        on-login="_retargetEvent"
+        on-forgot-password="_retargetEvent"
+      >
+        <form part="vaadin-login-native-form" method="POST" action$="[[action]]" slot="form">
+          <vaadin-text-field
+            name="username"
+            label="[[i18n.form.username]]"
+            id="vaadinLoginUsername"
+            required=""
+            on-keydown="_handleInputKeydown"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+          >
+            <input type="text" slot="input" on-keyup="_handleInputKeyup" />
+          </vaadin-text-field>
 
-      <form part="vaadin-login-native-form" method="POST" action\$="[[action]]" slot="form">
-        <vaadin-text-field name="username" label="[[i18n.form.username]]" id="vaadinLoginUsername" required="" on-keydown="_handleInputKeydown" autocapitalize="none" autocorrect="off" spellcheck="false">
-          <input type="text" slot="input" on-keyup="_handleInputKeyup">
-        </vaadin-text-field>
+          <vaadin-password-field
+            name="password"
+            label="[[i18n.form.password]]"
+            id="vaadinLoginPassword"
+            required=""
+            on-keydown="_handleInputKeydown"
+            spellcheck="false"
+          >
+            <input type="password" slot="input" on-keyup="_handleInputKeyup" />
+          </vaadin-password-field>
 
-        <vaadin-password-field name="password" label="[[i18n.form.password]]" id="vaadinLoginPassword" required="" on-keydown="_handleInputKeydown" spellcheck="false">
-          <input type="password" slot="input" on-keyup="_handleInputKeyup">
-        </vaadin-password-field>
-
-        <vaadin-button part="vaadin-login-submit" theme="primary contained" on-click="submit" disabled\$="[[disabled]]">[[i18n.form.submit]]</vaadin-button>
-      </form>
-    </vaadin-login-form-wrapper>
-`;
+          <vaadin-button part="vaadin-login-submit" theme="primary contained" on-click="submit" disabled$="[[disabled]]"
+            >[[i18n.form.submit]]</vaadin-button
+          >
+        </form>
+      </vaadin-login-form-wrapper>
+    `;
   }
 
   static get is() {
@@ -82,9 +109,7 @@ class LoginFormElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerElem
   }
 
   static get observers() {
-    return [
-      '_errorChanged(error)'
-    ];
+    return ['_errorChanged(error)'];
   }
 
   /** @private */
@@ -130,9 +155,9 @@ class LoginFormElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerElem
   /** @private */
   _handleInputKeydown(e) {
     if (this._isEnterKey(e)) {
-      const {currentTarget: inputActive} = e;
-      const nextInput = inputActive.id === 'vaadinLoginUsername'
-        ? this.$.vaadinLoginPassword : this.$.vaadinLoginUsername;
+      const { currentTarget: inputActive } = e;
+      const nextInput =
+        inputActive.id === 'vaadinLoginUsername' ? this.$.vaadinLoginPassword : this.$.vaadinLoginUsername;
       if (this.__isValid(inputActive)) {
         if (this.__isValid(nextInput)) {
           this.submit();

@@ -7,4 +7,4 @@ export function fillUsernameAndPassword(login) {
   vaadinLoginPassword.value = passwordValue;
 
   return { vaadinLoginUsername, vaadinLoginPassword };
-};
+}

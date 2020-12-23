@@ -8,69 +8,69 @@
 /**
  * @polymerMixin
  */
-export const LoginMixin = superClass => class LoginMixin extends superClass {
+export const LoginMixin = (superClass) =>
+  class LoginMixin extends superClass {
+    /**
+     * Fired when user clicks on the "Forgot password" button.
+     *
+     * @event forgot-password
+     */
 
-  /**
-   * Fired when user clicks on the "Forgot password" button.
-   *
-   * @event forgot-password
-   */
+    /**
+     * Fired when an user submits the login.
+     * The event contains `username` and `password` values in the `detail` property.
+     *
+     * @event login
+     */
 
-  /**
-   * Fired when an user submits the login.
-   * The event contains `username` and `password` values in the `detail` property.
-   *
-   * @event login
-   */
+    static get properties() {
+      return {
+        /**
+         * If set, a synchronous POST call will be fired to the path defined.
+         * The `login` event is also dispatched, so `event.preventDefault()` can be called to prevent the POST call.
+         * @type {string | null}
+         */
+        action: {
+          type: String,
+          value: null,
+          notify: true
+        },
 
-  static get properties() {
-    return {
-      /**
-       * If set, a synchronous POST call will be fired to the path defined.
-       * The `login` event is also dispatched, so `event.preventDefault()` can be called to prevent the POST call.
-       * @type {string | null}
-      */
-      action: {
-        type: String,
-        value: null,
-        notify: true
-      },
+        /**
+         * If set, disable the "Log in" button and prevent user from submitting login form.
+         * It is re-enabled automatically, when error is set to true, allowing form resubmission
+         * after user makes changes.
+         * @type {boolean}
+         */
+        disabled: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
 
-      /**
-       * If set, disable the "Log in" button and prevent user from submitting login form.
-       * It is re-enabled automatically, when error is set to true, allowing form resubmission
-       * after user makes changes.
-       * @type {boolean}
-       */
-      disabled: {
-        type: Boolean,
-        value: false,
-        notify: true
-      },
+        /**
+         * If set, the error message is shown. The message is hidden by default.
+         * When set, it changes the disabled state of the submit button.
+         * @type {boolean}
+         */
+        error: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+          notify: true
+        },
 
-      /**
-       * If set, the error message is shown. The message is hidden by default.
-       * When set, it changes the disabled state of the submit button.
-       * @type {boolean}
-       */
-      error: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-        notify: true
-      },
+        /**
+         * Whether to hide the forgot password button. The button is visible by default.
+         * @type {boolean}
+         */
+        noForgotPassword: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
 
-      /**
-       * Whether to hide the forgot password button. The button is visible by default.
-       * @type {boolean}
-       */
-      noForgotPassword: {
-        type: Boolean,
-        value: false,
-        notify: true
-      },
-
-      /**
+        /**
        * The object used to localize this component.
        * For changing the default localization, change the entire
        * _i18n_ object or just the property you want to modify.
@@ -100,54 +100,49 @@ export const LoginMixin = superClass => class LoginMixin extends superClass {
        * @type {!LoginI18n}
        * @default {English/US}
        */
-      i18n: {
-        type: Object,
-        value: function() {
-          return {
-            form: {
-              title: 'Log in',
-              username: 'Username',
-              password: 'Password',
-              submit: 'Log in',
-              forgotPassword: 'Forgot password'
-            },
-            errorMessage: {
-              title: 'Incorrect username or password',
-              message: 'Check that you have entered the correct username and password and try again.'
-            }
-          };
+        i18n: {
+          type: Object,
+          value: function () {
+            return {
+              form: {
+                title: 'Log in',
+                username: 'Username',
+                password: 'Password',
+                submit: 'Log in',
+                forgotPassword: 'Forgot password'
+              },
+              errorMessage: {
+                title: 'Incorrect username or password',
+                message: 'Check that you have entered the correct username and password and try again.'
+              }
+            };
+          },
+          notify: true
         },
-        notify: true
-      },
 
-      /**
-       * If set, prevents auto enabling the component when error property is set to true.
-       * @private
-       */
-      _preventAutoEnable: {
-        type: Boolean,
-        value: false
-      }
-    };
-  }
-
-  /**
-   * @param {!Event} e
-   * @protected
-   */
-  _retargetEvent(e) {
-    e.stopPropagation();
-    const {
-      detail,
-      composed,
-      cancelable,
-      bubbles
-    } = e;
-
-    const firedEvent = this.dispatchEvent(new CustomEvent(e.type, {bubbles, cancelable, composed, detail}));
-    // Check if `eventTarget.preventDefault()` was called to prevent default in the original event
-    if (!firedEvent) {
-      e.preventDefault();
+        /**
+         * If set, prevents auto enabling the component when error property is set to true.
+         * @private
+         */
+        _preventAutoEnable: {
+          type: Boolean,
+          value: false
+        }
+      };
     }
-  }
-};
+
+    /**
+     * @param {!Event} e
+     * @protected
+     */
+    _retargetEvent(e) {
+      e.stopPropagation();
+      const { detail, composed, cancelable, bubbles } = e;
+
+      const firedEvent = this.dispatchEvent(new CustomEvent(e.type, { bubbles, cancelable, composed, detail }));
+      // Check if `eventTarget.preventDefault()` was called to prevent default in the original event
+      if (!firedEvent) {
+        e.preventDefault();
+      }
+    }
+  };

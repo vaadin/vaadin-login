@@ -47,48 +47,53 @@ import { LoginMixin } from './vaadin-login-mixin.js';
 class LoginFormWrapperElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerElement))) {
   static get template() {
     return html`
-    <style>
-      :host {
-        overflow: hidden;
-        display: inline-block;
-      }
+      <style>
+        :host {
+          overflow: hidden;
+          display: inline-block;
+        }
 
-      :host([hidden]) {
-        display: none !important;
-      }
+        :host([hidden]) {
+          display: none !important;
+        }
 
-      [part="form"] {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        box-sizing: border-box;
-      }
+        [part='form'] {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+        }
 
-      [part="form-title"] {
-        margin: 0;
-      }
+        [part='form-title'] {
+          margin: 0;
+        }
 
-      [part="error-message"] {
-        position: relative;
-      }
-    </style>
+        [part='error-message'] {
+          position: relative;
+        }
+      </style>
       <section part="form">
         <h2 part="form-title">[[i18n.form.title]]</h2>
-        <div part="error-message" hidden\$="[[!error]]">
+        <div part="error-message" hidden$="[[!error]]">
           <h5 part="error-message-title">[[i18n.errorMessage.title]]</h5>
           <p part="error-message-description">[[i18n.errorMessage.message]]</p>
         </div>
 
-        <slot name="form">
-        </slot>
+        <slot name="form"> </slot>
 
-        <vaadin-button id="forgotPasswordButton" theme="tertiary small forgot-password" on-click="_forgotPassword" hidden\$="[[noForgotPassword]]">[[i18n.form.forgotPassword]]</vaadin-button>
+        <vaadin-button
+          id="forgotPasswordButton"
+          theme="tertiary small forgot-password"
+          on-click="_forgotPassword"
+          hidden$="[[noForgotPassword]]"
+          >[[i18n.form.forgotPassword]]</vaadin-button
+        >
 
         <div part="footer">
           <p>[[i18n.additionalInformation]]</p>
         </div>
       </section>
-`;
+    `;
   }
 
   static get is() {

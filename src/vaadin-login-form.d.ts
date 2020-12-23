@@ -1,8 +1,8 @@
-import {LoginMixin} from './vaadin-login-mixin.js';
+import { LoginMixin } from './vaadin-login-mixin.js';
 
-import {ElementMixin} from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
+import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
-import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
+import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
 /**
  * `<vaadin-login-form>` is a Web Component providing an easy way to require users
@@ -20,19 +20,14 @@ import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin
  * The component doesn't have a shadowRoot, so the html form and input fields can be styled in an upper layer. To style
  * `vaadin-login-form-wrapper` check its documentation.
  */
-declare class LoginFormElement extends
-  ElementMixin(
-  ThemableMixin(
-  LoginMixin(
-  HTMLElement))) {
+declare class LoginFormElement extends ElementMixin(ThemableMixin(LoginMixin(HTMLElement))) {
   submit(): void;
 }
 
 declare global {
-
   interface HTMLElementTagNameMap {
-    "vaadin-login-form": LoginFormElement;
+    'vaadin-login-form': LoginFormElement;
   }
 }
 
-export {LoginFormElement};
+export { LoginFormElement };

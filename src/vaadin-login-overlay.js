@@ -34,14 +34,29 @@ import './vaadin-login-overlay-wrapper.js';
 class LoginOverlayElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerElement))) {
   static get template() {
     return html`
-    <vaadin-login-overlay-wrapper id="vaadinLoginOverlayWrapper" opened="{{opened}}" focus-trap="" with-backdrop="" title="[[title]]" description="[[description]]" theme\$="[[theme]]">
-
-      <vaadin-login-form theme="with-overlay" id="vaadinLoginForm" action="{{action}}" disabled="{{disabled}}" error="{{error}}" no-forgot-password="{{noForgotPassword}}" i18n="{{i18n}}" on-login="_retargetEvent" on-forgot-password="_retargetEvent">
-
-      </vaadin-login-form>
-
-    </vaadin-login-overlay-wrapper>
-`;
+      <vaadin-login-overlay-wrapper
+        id="vaadinLoginOverlayWrapper"
+        opened="{{opened}}"
+        focus-trap=""
+        with-backdrop=""
+        title="[[title]]"
+        description="[[description]]"
+        theme$="[[theme]]"
+      >
+        <vaadin-login-form
+          theme="with-overlay"
+          id="vaadinLoginForm"
+          action="{{action}}"
+          disabled="{{disabled}}"
+          error="{{error}}"
+          no-forgot-password="{{noForgotPassword}}"
+          i18n="{{i18n}}"
+          on-login="_retargetEvent"
+          on-forgot-password="_retargetEvent"
+        >
+        </vaadin-login-form>
+      </vaadin-login-overlay-wrapper>
+    `;
   }
 
   static get is() {
@@ -82,9 +97,7 @@ class LoginOverlayElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerE
   }
 
   static get observers() {
-    return [
-      '__i18nChanged(i18n.header.*)'
-    ];
+    return ['__i18nChanged(i18n.header.*)'];
   }
 
   /** @protected */
@@ -129,7 +142,6 @@ class LoginOverlayElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerE
   /** @private */
   _onOpenedChange() {
     if (!this.opened) {
-
       this.$.vaadinLoginForm.$.vaadinLoginUsername.value = '';
       this.$.vaadinLoginForm.$.vaadinLoginPassword.value = '';
       this.disabled = false;
@@ -149,7 +161,7 @@ class LoginOverlayElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerE
 
   /** @private */
   _teleport(elements) {
-    const teleported = Array.from(elements).map(e => {
+    const teleported = Array.from(elements).map((e) => {
       return this.$.vaadinLoginOverlayWrapper.appendChild(e);
     });
     // Function to undo the teleport

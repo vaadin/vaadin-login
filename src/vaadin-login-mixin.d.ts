@@ -1,20 +1,19 @@
-export {LoginMixin};
+export { LoginMixin };
 
 declare function LoginMixin<T extends new (...args: any[]) => {}>(base: T): T & LoginMixinConstructor;
 
 interface LoginMixinConstructor {
-  new(...args: any[]): LoginMixin;
+  new (...args: any[]): LoginMixin;
 }
 
-export {LoginMixinConstructor};
+export { LoginMixinConstructor };
 
 interface LoginMixin {
-
   /**
    * If set, a synchronous POST call will be fired to the path defined.
    * The `login` event is also dispatched, so `event.preventDefault()` can be called to prevent the POST call.
    */
-  action: string|null;
+  action: string | null;
 
   /**
    * If set, disable the "Log in" button and prevent user from submitting login form.
@@ -67,4 +66,4 @@ interface LoginMixin {
   _retargetEvent(e: Event): void;
 }
 
-import {LoginI18n} from '../@types/interfaces';
+import { LoginI18n } from '../@types/interfaces';

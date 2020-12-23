@@ -86,7 +86,7 @@ let memoizedTemplate;
  *
  * @extends HTMLElement
  * @private
-*/
+ */
 class LoginOverlayWrapperElement extends OverlayElement {
   static get is() {
     return 'vaadin-login-overlay-wrapper';
@@ -100,6 +100,7 @@ class LoginOverlayWrapperElement extends OverlayElement {
       title: {
         type: String
       },
+
       /**
        * Application description. Displayed under the title.
        */
