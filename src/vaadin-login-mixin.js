@@ -21,7 +21,6 @@ export const LoginMixin = superClass => class LoginMixin extends superClass {
    * The event contains `username` and `password` values in the `detail` property.
    *
    * @event login
-   *
    */
 
   static get properties() {

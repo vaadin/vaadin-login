@@ -63,6 +63,7 @@ interface LoginMixin {
    *         }
    */
   i18n: LoginI18n;
+
   _retargetEvent(e: Event): void;
 }
 
