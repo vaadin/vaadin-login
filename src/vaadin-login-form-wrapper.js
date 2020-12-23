@@ -41,10 +41,10 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
  * ----------|---------------------------------------------------|
  * `form`    | Html form placeholder. See the usage in `<vaadin-login-form>`.
  *
- * @extends PolymerElement
+ * @extends HTMLElement
  * @mixes ElementMixin
  * @mixes ThemableMixin
- * @mixes Login.LoginMixin
+ * @mixes LoginMixin
  */
 class LoginFormWrapperElement extends LoginMixin(ElementMixin(ThemableMixin(PolymerElement))) {
   static get template() {

@@ -22,7 +22,7 @@ import { PolymerElement } from '@polymer/polymer/polymer-element.js';
  * The component doesn't have a shadowRoot, so the html form and input fields can be styled in an upper layer. To style
  * `vaadin-login-form-wrapper` check its documentation.
  *
- * @extends PolymerElement
+ * @extends HTMLElement
  * @mixes ElementMixin
  * @mixes ThemableMixin
  * @mixes LoginMixin

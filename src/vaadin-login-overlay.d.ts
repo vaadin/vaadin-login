@@ -1,12 +1,8 @@
-import {PolymerElement} from '@polymer/polymer/polymer-element.js';
-
 import {ThemableMixin} from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 
 import {ElementMixin} from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 
 import {LoginMixin} from './vaadin-login-mixin.js';
-
-import {html} from '@polymer/polymer/lib/utils/html-tag.js';
 
 /**
  * `<vaadin-login-overlay>` is a wrapper of the `<vaadin-login-form>` which opens a login form in an overlay and
@@ -27,7 +23,7 @@ declare class LoginOverlayElement extends
   ElementMixin(
   ThemableMixin(
   LoginMixin(
-  PolymerElement))) {
+  HTMLElement))) {
 
   /**
    * Defines the application description
@@ -43,9 +39,6 @@ declare class LoginOverlayElement extends
    * Defines the application title
    */
   title: string;
-  ready(): void;
-  connectedCallback(): void;
-  disconnectedCallback(): void;
 }
 
 declare global {

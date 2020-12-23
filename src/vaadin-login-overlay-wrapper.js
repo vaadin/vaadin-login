@@ -53,7 +53,7 @@ $_documentContainer.innerHTML = `<dom-module id="vaadin-login-overlay-wrapper-te
     </section>
   </template>
 
-  
+
 </dom-module>`;
 
 document.head.appendChild($_documentContainer.content);
@@ -85,7 +85,7 @@ let memoizedTemplate;
  * `title`      | Placeholder for customizing the title
  *
  * See the usage example in `<vaadin-login-overlay>`.
- * @extends PolymerElement
+ * @extends HTMLElement
  * @private
 */
 class LoginOverlayWrapperElement extends OverlayElement {

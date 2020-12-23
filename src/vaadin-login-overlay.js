@@ -27,7 +27,7 @@ import { html } from '@polymer/polymer/lib/utils/html-tag.js';
  * [`<vaadin-login-form-wrapper>`](#/elements/vaadin-login-form-wrapper), [`<vaadin-login-form>`](#/elements/vaadin-login-form)
  * and `<vaadin-overlay>` elements
  *
- * @extends PolymerElement
+ * @extends HTMLElement
  * @mixes ElementMixin
  * @mixes ThemableMixin
  * @mixes LoginMixin
