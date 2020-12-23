@@ -4,10 +4,9 @@ Vaadin Login
 Copyright (C) 2018 Vaadin Ltd
 This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
 */
-import '@polymer/polymer/polymer-element.js';
-
 import { OverlayElement } from '@vaadin/vaadin-overlay/src/vaadin-overlay.js';
 import { DomModule } from '@polymer/polymer/lib/elements/dom-module.js';
+
 const $_documentContainer = document.createElement('template');
 
 $_documentContainer.innerHTML = `<dom-module id="vaadin-login-overlay-wrapper-template">

@@ -1,11 +1,11 @@
-import './vaadin-login-form-wrapper.js';
-import '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
-import '@vaadin/vaadin-text-field/src/vaadin-password-field.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { LoginMixin } from './vaadin-login-mixin.js';
 import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import '@vaadin/vaadin-text-field/src/vaadin-text-field.js';
+import '@vaadin/vaadin-text-field/src/vaadin-password-field.js';
+import './vaadin-login-form-wrapper.js';
+
 /**
  * `<vaadin-login-form>` is a Web Component providing an easy way to require users
  * to log in into an application. Note that component has no shadowRoot.

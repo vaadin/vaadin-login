@@ -4,14 +4,13 @@ Vaadin Login
 Copyright (C) 2018 Vaadin Ltd
 This program is available under Apache License Version 2.0, available at https://vaadin.com/license/
 */
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { ThemableMixin } from '@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js';
 import { ElementMixin } from '@vaadin/vaadin-element-mixin/vaadin-element-mixin.js';
-import './vaadin-login-form.js';
 import { LoginMixin } from './vaadin-login-mixin.js';
+import './vaadin-login-form.js';
 import './vaadin-login-overlay-wrapper.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+
 /**
  * `<vaadin-login-overlay>` is a wrapper of the `<vaadin-login-form>` which opens a login form in an overlay and
  * having an additional `brand` part for application title and description. Using `<vaadin-login-overlay>` allows
