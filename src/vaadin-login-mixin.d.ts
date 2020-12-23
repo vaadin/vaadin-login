@@ -1,12 +1,10 @@
-export { LoginMixin };
+import { LoginI18n } from './interfaces';
 
 declare function LoginMixin<T extends new (...args: any[]) => {}>(base: T): T & LoginMixinConstructor;
 
 interface LoginMixinConstructor {
   new (...args: any[]): LoginMixin;
 }
-
-export { LoginMixinConstructor };
 
 interface LoginMixin {
   /**
@@ -66,4 +64,4 @@ interface LoginMixin {
   _retargetEvent(e: Event): void;
 }
 
-import { LoginI18n } from '../@types/interfaces';
+export { LoginMixin, LoginMixinConstructor };

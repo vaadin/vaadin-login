@@ -1,2 +1,2 @@
 export * from './src/vaadin-login-overlay.js';
-export * from './@types/interfaces';
+export * from './src/interfaces';
