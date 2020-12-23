@@ -26,6 +26,9 @@ import './vaadin-login-overlay-wrapper.js';
  * [`<vaadin-login-form-wrapper>`](#/elements/vaadin-login-form-wrapper), [`<vaadin-login-form>`](#/elements/vaadin-login-form)
  * and `<vaadin-overlay>` elements
  *
+ * @fires {CustomEvent} forgot-password - Fired when user clicks on the "Forgot password" button.
+ * @fires {CustomEvent} login - Fired when a user submits the login.
+ *
  * @extends HTMLElement
  * @mixes ElementMixin
  * @mixes ThemableMixin

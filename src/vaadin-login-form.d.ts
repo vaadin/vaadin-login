@@ -21,6 +21,9 @@ import { LoginEventMap } from './interfaces';
  *
  * The component doesn't have a shadowRoot, so the html form and input fields can be styled in an upper layer. To style
  * `vaadin-login-form-wrapper` check its documentation.
+ *
+ * @fires {CustomEvent} forgot-password - Fired when user clicks on the "Forgot password" button.
+ * @fires {CustomEvent} login - Fired when a user submits the login.
  */
 declare class LoginFormElement extends ElementMixin(ThemableMixin(LoginMixin(HTMLElement))) {
   submit(): void;
