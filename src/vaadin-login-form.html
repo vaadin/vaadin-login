@@ -55,12 +55,10 @@
        * The component doesn't have a shadowRoot, so the html form and input fields can be styled in an upper layer. To style
        * `vaadin-login-form-wrapper` check its documentation.
        *
-       * See examples of setting the content into slots in the live demos.
        * @memberof Vaadin
        * @mixes Vaadin.ElementMixin
        * @mixes Vaadin.ThemableMixin
        * @mixes Vaadin.Login.LoginMixin
-       * @demo demo/index.html
        */
       class LoginFormElement extends Vaadin.Login.LoginMixin(Vaadin.ElementMixin(Vaadin.ThemableMixin(Polymer.Element))) {
         static get is() {
