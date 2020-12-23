@@ -35,9 +35,6 @@
     "@vaadin/vaadin-button": "^2.4.0",
     "@vaadin/vaadin-overlay": "^3.5.0"
   },
-  "scripts": {
-    "generate-typings": "gen-typescript-declarations --outDir . --verify"
-  },
   "devDependencies": {
     "@polymer/iron-component-page": "^4.0.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
