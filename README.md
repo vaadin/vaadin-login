@@ -15,6 +15,9 @@
 |
 [API documentation ↗](https://vaadin.com/components/vaadin-login/html-api)
 
+> ⚠️ Starting from Vaadin 20, the source code and issues for this component are migrated to the [`vaadin/web-components`](https://github.com/vaadin/web-components/tree/master/packages/vaadin-login) monorepository.
+> This repository contains the source code and releases of `<vaadin-login>` for the Vaadin versions 10 to 19.
+
 [Vaadin Login](https://vaadin.com/components/vaadin-login) consists of two components:
 
 &lt;vaadin-login-overlay&gt; is a Web Component providing a painless login experience, part of the [Vaadin components](https://vaadin.com/components). Component shows the &lt;vaadin-login-form&gt; inside of an overlay.
